@@ -1,0 +1,21 @@
+---
+- hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: 'add static route to host'
+      command: 
+        cmd: "{{ route_add_command[inventory_hostname] }}"
+      become: true
+      vars:
+        route_add_command:
+          host01: 'route add -net 192.168.2.0 netmask 255.255.255.0 gw 192.168.1.254 eth1'
+          host02: 'route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.2.254 eth1'
+      when: inventory_hostname in groups['centos7']
+
+    - name: set vyos
+      vyos_config:
+        src: "{{ inventory_hostname }}_config.txt"
+        save: yes
+      when: inventory_hostname in groups['vyos']
+
