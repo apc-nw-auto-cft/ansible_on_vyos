@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# check if "ansible_onv_vyos" exists
+
+if [ ! -d  ~/ansible_on_vyos ]
+then
+  echo "the directory of ansible_on_vyos dose not exists"
+  exit 1
+fi
+
 # uninstall old docker and install new docker
 printf "password: "
 read password
