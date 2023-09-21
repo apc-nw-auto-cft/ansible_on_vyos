@@ -14,7 +14,10 @@
       when: inventory_hostname in groups['centos7']
 
     - name: set vyos
-      vyos_config:
+      #vyos.vyosコレクションを別途インストールする必要がある（ansible-galaxy collection install vyos.vyos）。
+      #ansible-pylibsshかparamikoをインストールする必要がある（python3 -m pip install ansible-pylibssh）。
+      #どちらも仮想環境内でインストールが必要。
+      vyos.vyos.vyos_config:
         src: "{{ inventory_hostname }}_config.txt"
         save: yes
       when: inventory_hostname in groups['vyos']
