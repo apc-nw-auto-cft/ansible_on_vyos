@@ -40,7 +40,7 @@
             name: docker
             state: started
             enabled: true
-        
+
         - name: "add user to docker group"
           user:
             name: "{{ ansible_env.USER }}"
