@@ -57,4 +57,4 @@ fi
 poetry config virtualenvs.in-project true
 
 # install python pkgs by poetry
-poetry install -C ~/ansible_on_vyos/
+poetry install --no-root -C ~/ansible_on_vyos/
