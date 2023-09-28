@@ -49,20 +49,6 @@
 
     #virtualenvによる仮想環境の作成は不要。
 
-    - name: "list dotfiles"
-      find:
-        paths: "{{ playbook_dir }}/dotfiles"
-        hidden: true
-      register: file_list
-
-    - name: "make link"
-      file:
-        src: "{{ item.path }}"
-        path: "{{ ansible_env.HOME }}/{{ item.path | basename }}"
-        state: link
-        force: true
-      with_items: "{{ file_list.files }}"
-
     - name: "cp ansible.cfg to home"
       copy:
         src: "{{ playbook_dir }}/ansible.cfg"
