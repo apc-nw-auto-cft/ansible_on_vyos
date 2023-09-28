@@ -51,7 +51,7 @@ path_to_add="/home/ubuntu/.local/bin"
 #$path_to_addを展開するために""で囲み、$PATHは展開しないのでエスケープする。
 if ! [[ $PATH == *$path_to_add* ]]; then
   export PATH="$path_to_add:$PATH"
-  echo "export PATH=$path_to_add:\$PATH" >> init_settings/dotfiles/.bashrc;
+  echo "export PATH=$path_to_add:\$PATH" >> ~/.bashrc;
 fi
 
 poetry config virtualenvs.in-project true
