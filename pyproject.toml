@@ -7,10 +7,12 @@ readme = "README.md"
 packages = [{include = "ansible_on_vyos"}]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.9"
 ansible-core = "2.14.7"
 ansible-lint = "5.4.0"
 ansible-navigator = "^3.4.0"
+ansible-builder = "^3.0.0"
+docker-compose = "^1.29.2"
 
 
 [build-system]

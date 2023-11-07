@@ -8,22 +8,16 @@
       become: true
       block:
 
-        #yumの代わりにaptを使う。
-        - name: "apt update"
-          ansible.builtin.apt:
+        - name: "dnf update"
+          ansible.builtin.dnf:
             name: "*"
             state: present
 
         - name: "install apps"
-          ansible.builtin.apt:
+          ansible.builtin.dnf:
           #Docker公式リポジトリの情報を更新する。
             update_cache: true
             name:
-#              - epel-release
-#              - yum-utils
-#              - python3-devel
-              - python3-dev
-#              - python3-libs #python3-lib2to3はインストール済み。
               - python3-setuptools #インストール済み。
               - bash-completion #インストール済み。
               - tmux #インストール済み。
@@ -54,3 +48,5 @@
         src: "{{ playbook_dir }}/ansible.cfg"
         dest: "{{ ansible_env.HOME }}/.ansible.cfg"
         mode: 0755
+
+    - name: 

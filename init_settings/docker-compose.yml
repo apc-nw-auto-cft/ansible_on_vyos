@@ -41,11 +41,7 @@ services:
     hostname: host01
     container_name: host01
     build:
-      context: ./centos
-    command: /sbin/init
-    volumes:
-    - /lib/modules:/lib/modules
-    - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      context: ./ubuntu
     privileged: true
     networks:
       mgmt_nw:
@@ -57,11 +53,7 @@ services:
     hostname: host02
     container_name: host02
     build:
-      context: ./centos
-    command: /sbin/init
-    volumes:
-    - /lib/modules:/lib/modules
-    - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      context: ./ubuntu
     privileged: true
     networks:
       mgmt_nw:
