@@ -4,7 +4,8 @@ services:
     hostname: vyos
     container_name: vyos01
     build:
-      context: ./vyos
+      context: ./vyos/vyos01
+      dockerfile: ../Dockerfile
     command:
     - /sbin/init
     volumes:
@@ -22,7 +23,8 @@ services:
     hostname: vyos
     container_name: vyos02
     build:
-      context: ./vyos
+      context: ./vyos/vyos02
+      dockerfile: ../Dockerfile
     command: /sbin/init
     volumes:
     - /lib/modules:/lib/modules
