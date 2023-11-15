@@ -9,7 +9,6 @@ services:
     - /sbin/init
     volumes:
     - /lib/modules:/lib/modules
-    - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     networks:
       mgmt_nw:
@@ -27,7 +26,6 @@ services:
     command: /sbin/init
     volumes:
     - /lib/modules:/lib/modules
-    - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     networks:
       mgmt_nw:

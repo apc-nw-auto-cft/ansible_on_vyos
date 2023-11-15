@@ -88,6 +88,79 @@ docs = ["mkdocs-ansible (>=0.1.2)"]
 test = ["ansible-core", "coverage-enable-subprocess", "coverage[toml] (>=7.0.0b1)", "darglint", "flake8-docstrings", "libtmux", "pre-commit", "pytest-mock", "pytest-plus", "pytest-subtests", "pytest-xdist", "typing-extensions"]
 
 [[package]]
+name = "ansible-pylibssh"
+version = "1.1.0"
+description = "Python bindings for libssh client specific to Ansible use case"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "ansible-pylibssh-1.1.0.tar.gz", hash = "sha256:b29686bb1e9d62fb54b6939d53aa0ded2127f08801a1fd8da5048fbebf99a658"},
+    {file = "ansible_pylibssh-1.1.0-cp310-cp310-macosx_10_15_x86_64.whl", hash = "sha256:7adb5833b6f335403b82dea3fad4a7aa23a7d294f7e3bcf606fc9ad4eec1a71a"},
+    {file = "ansible_pylibssh-1.1.0-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:0f1446b2ef4d7272a2e635828a7c0e8edb0089ff267bc2ae6999e8a418514235"},
+    {file = "ansible_pylibssh-1.1.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:5c95b39a6763eba567ab5aa574075f4a82efec1e28674017a18e4541d4a8163e"},
+    {file = "ansible_pylibssh-1.1.0-cp310-cp310-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:262d85e0850d86e5e46ac514eb2015694697d7b9015ff553e5f6f06b87c8a33c"},
+    {file = "ansible_pylibssh-1.1.0-cp310-cp310-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:9c545c92b79782a45232ce15f1d1f0fcdb21dc80b5bf8162fb387cd87b54b995"},
+    {file = "ansible_pylibssh-1.1.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:58afc7c4bd11781079a8d2ae3102b00a82a467a358f11adb119e0b5ceaa6bf96"},
+    {file = "ansible_pylibssh-1.1.0-cp310-cp310-manylinux_2_24_aarch64.whl", hash = "sha256:927b2690ab476c1ad1c313705dc490c9db3945aaddd7b200b03cf474eff1c4ae"},
+    {file = "ansible_pylibssh-1.1.0-cp310-cp310-manylinux_2_24_ppc64le.whl", hash = "sha256:4a2da4274a262ac05c5ee25da90df52d643181f87c1e7a616be5f860f466b3f0"},
+    {file = "ansible_pylibssh-1.1.0-cp310-cp310-manylinux_2_24_s390x.whl", hash = "sha256:cd08cc1a7439a29f17a00a676af67fac3a2253fd9ddd21d37b4dc7a0c28f3f0a"},
+    {file = "ansible_pylibssh-1.1.0-cp310-cp310-manylinux_2_24_x86_64.whl", hash = "sha256:6a76d65bd704d78697122764dbbf7c4862a8daebb21257b3a016755036b7cb5f"},
+    {file = "ansible_pylibssh-1.1.0-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:c041a148b6d04c34bdc70a8fdff989ce03f43e351252e7d004d2d877a0b31938"},
+    {file = "ansible_pylibssh-1.1.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:addc2873c1dbc6a276e0d751defae021544a4f68185385e90e2cc3979f58de68"},
+    {file = "ansible_pylibssh-1.1.0-cp311-cp311-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:e3a23440438eac607eabde2b730ae510b0e6a8ed77a7760fe7332b6abbc20fdc"},
+    {file = "ansible_pylibssh-1.1.0-cp311-cp311-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:e00fed76de126a8fd0216e491d775c72062363e0067f56ea68c2b40e77aac499"},
+    {file = "ansible_pylibssh-1.1.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:00c2714ab114c1eef2a4f4421f22a6a0effa6b0340ffd95a89df6ac2b36cdf72"},
+    {file = "ansible_pylibssh-1.1.0-cp311-cp311-manylinux_2_24_aarch64.whl", hash = "sha256:14d714b2ed0dd57b1bb423c0ac858419cefeb998c2767db53639d9977cf0b90c"},
+    {file = "ansible_pylibssh-1.1.0-cp311-cp311-manylinux_2_24_ppc64le.whl", hash = "sha256:b24abfd5e1c0819450584fda8278eeac92924a9c8e72db69096ca156bb2b5973"},
+    {file = "ansible_pylibssh-1.1.0-cp311-cp311-manylinux_2_24_s390x.whl", hash = "sha256:7849ad11e6d67720c6924ff9e19efec60b9b70af420deb70951af57d4369fe63"},
+    {file = "ansible_pylibssh-1.1.0-cp311-cp311-manylinux_2_24_x86_64.whl", hash = "sha256:26a3cb1b70b043e67fb67a821cda0e59c6e99c2d2603f0d974805f727fab79b9"},
+    {file = "ansible_pylibssh-1.1.0-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:12264a30e98d7e14828702f45e98a3c3e74cb63d4c05fc5c98615def127e75f5"},
+    {file = "ansible_pylibssh-1.1.0-cp36-cp36m-manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:292173c44dbbc3510fe6d4cd451869cda9086e69fa1d597a8d548a6bee650ed0"},
+    {file = "ansible_pylibssh-1.1.0-cp36-cp36m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:c6c27f29ad6f51920d6e898c62c467b3e926e9c6c912bb0991c3af89925ed394"},
+    {file = "ansible_pylibssh-1.1.0-cp36-cp36m-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:60cdc3cef92695bb0619daa8ee82ae45cc4ba67d246da1569b4cfb6acc59b7f1"},
+    {file = "ansible_pylibssh-1.1.0-cp36-cp36m-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:6bfcb662b259376c47caf4179d63c09e21a4509553517bfad7d889a520d22c99"},
+    {file = "ansible_pylibssh-1.1.0-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6d417aad44490679914af322839a5203455012ff4d0833e7b0e4b428cff7fee9"},
+    {file = "ansible_pylibssh-1.1.0-cp36-cp36m-manylinux_2_24_aarch64.whl", hash = "sha256:9a08a5e39581be453d1ed67d9460e077a041d84508a919c470b2e50c49b09cbb"},
+    {file = "ansible_pylibssh-1.1.0-cp36-cp36m-manylinux_2_24_ppc64le.whl", hash = "sha256:3b29170326bb58a34c57aacbd6a1a1a9c256e7da135dcf1f9be834c7ba31dd0a"},
+    {file = "ansible_pylibssh-1.1.0-cp36-cp36m-manylinux_2_24_s390x.whl", hash = "sha256:424e1799c5147e12b80a1b48349dad39063d3b5bd3a84fc66ac47044bc35f50e"},
+    {file = "ansible_pylibssh-1.1.0-cp36-cp36m-manylinux_2_24_x86_64.whl", hash = "sha256:043df1d3ea5d226813e562e9cda14bb6399a5c581746e00b0959437eeca6956e"},
+    {file = "ansible_pylibssh-1.1.0-cp36-cp36m-manylinux_2_5_x86_64.manylinux1_x86_64.whl", hash = "sha256:620e1cddd44b8eca604a325eff0dfe602c9dbebb060067e94a6d8f4940da8ead"},
+    {file = "ansible_pylibssh-1.1.0-cp37-cp37m-macosx_10_15_x86_64.whl", hash = "sha256:bf5307fa8f18ca8dce0f1022d613a8c7702780929912815f843e81b84f24411e"},
+    {file = "ansible_pylibssh-1.1.0-cp37-cp37m-manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:95b24bd98c1a1c54be6ab80c1b00a2919886d54f4057195f88668647d44ddab4"},
+    {file = "ansible_pylibssh-1.1.0-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:2c1fd6a3a1b71ebd8dda5359aa3d398b4c3876f71189d6d1983fa4024742ff51"},
+    {file = "ansible_pylibssh-1.1.0-cp37-cp37m-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:8d105b24caffc1931de6eb4a31897c5b694d7b4a0c6c67e75a505b6379465116"},
+    {file = "ansible_pylibssh-1.1.0-cp37-cp37m-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:473baf8d973915e0cfb4c5a16e984b11905a2be58c02b0cee7dfff777f33dd78"},
+    {file = "ansible_pylibssh-1.1.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6711625966e8408f61ca37966458e97900fdca1bbef6168ee043ab02d2c028fb"},
+    {file = "ansible_pylibssh-1.1.0-cp37-cp37m-manylinux_2_24_aarch64.whl", hash = "sha256:27bfb5e6a4e0459fa72c1b6b6c2c91d9aab0596dd681722fd4024862e47f4e0d"},
+    {file = "ansible_pylibssh-1.1.0-cp37-cp37m-manylinux_2_24_ppc64le.whl", hash = "sha256:a73242acc712c381f60762270ab8c9a115a69ec10e54bfb10570ac3048d19ee1"},
+    {file = "ansible_pylibssh-1.1.0-cp37-cp37m-manylinux_2_24_s390x.whl", hash = "sha256:4a702e112941493f3f4716543eb713d3458b34e0da720343eb8f62589965dc09"},
+    {file = "ansible_pylibssh-1.1.0-cp37-cp37m-manylinux_2_24_x86_64.whl", hash = "sha256:ffc47b6f4434bc2625a7c28f0289132bcd3a8b1cfed331d31fba7ed1cb961f1b"},
+    {file = "ansible_pylibssh-1.1.0-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.whl", hash = "sha256:125cef73e8c16cc2a4f43c5a13bd72604b35f2a5ba864d6ddd0218901cfc4fd4"},
+    {file = "ansible_pylibssh-1.1.0-cp38-cp38-macosx_10_15_x86_64.whl", hash = "sha256:ded9e94918e6cd976b2e1d023a44c71f97d0a4514a5850bfb0c8d99fd0c4c180"},
+    {file = "ansible_pylibssh-1.1.0-cp38-cp38-manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:548bbc37bae0e30bb341b004452e68f7a620d3f55891519d51269ac484eef9eb"},
+    {file = "ansible_pylibssh-1.1.0-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:b950ba9ba2301212b0cdd1c646d60ebcd38f0e9436c4d59d8ee8b858a95a5638"},
+    {file = "ansible_pylibssh-1.1.0-cp38-cp38-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:30860873f0d320b3bc02b4c30155733f2e551b01d63019bba6e1991dc89302c0"},
+    {file = "ansible_pylibssh-1.1.0-cp38-cp38-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:a0b4f409dbc70232128a2e32f7d742a5f5fc87c08cd5bbb33366d2c4e4a3001a"},
+    {file = "ansible_pylibssh-1.1.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d9ac79212b8f75b0b179dfa626a759d6990842b35f5942c667859970caf4ff07"},
+    {file = "ansible_pylibssh-1.1.0-cp38-cp38-manylinux_2_24_aarch64.whl", hash = "sha256:2d61c26a7b807d9c2989fd245e44796f5981eb6c00a5e0f48630bfaca03be1c3"},
+    {file = "ansible_pylibssh-1.1.0-cp38-cp38-manylinux_2_24_ppc64le.whl", hash = "sha256:e34251b5f0bbe30b4b1e7446d0b027d17f1ad02990eb59e8ae2c630bf008180e"},
+    {file = "ansible_pylibssh-1.1.0-cp38-cp38-manylinux_2_24_s390x.whl", hash = "sha256:b4efcd158bcf7b1bb49410db58eebd5716fcb9f80a31b23cbfae5025f2714aa0"},
+    {file = "ansible_pylibssh-1.1.0-cp38-cp38-manylinux_2_24_x86_64.whl", hash = "sha256:2b8f641a7bd12d75fec580c86cf073411120955d86371767396c7f06bd02de88"},
+    {file = "ansible_pylibssh-1.1.0-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.whl", hash = "sha256:3ae3d19cc376e54da013bcad68774352748ee121a80e3696138bb57d17bdc7a8"},
+    {file = "ansible_pylibssh-1.1.0-cp39-cp39-macosx_10_15_x86_64.whl", hash = "sha256:66bf327568724c0440ab0f31edad2713c88ead8cf56890de73214ea13cda6408"},
+    {file = "ansible_pylibssh-1.1.0-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:8b72a9fb0243d6be252f359fa3ae6775fff2958944b9146d0b53301ff1a192a1"},
+    {file = "ansible_pylibssh-1.1.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:064f041535e7f9a33228423bfaa70230c61d96041cdeca9c2dfba23572060810"},
+    {file = "ansible_pylibssh-1.1.0-cp39-cp39-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:b8f24cafca9a87f19156c2d0cbdf25d27042e4166061885d97c52cbc74a213bd"},
+    {file = "ansible_pylibssh-1.1.0-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:5478fc5c70fea1dcb8173afc87fbff2c469ac681c688a95205c2b587e0f7eab6"},
+    {file = "ansible_pylibssh-1.1.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:959d07e76c07bd17fca1323ee507e15094646d230d68fcfb4bfe5e6270818c0c"},
+    {file = "ansible_pylibssh-1.1.0-cp39-cp39-manylinux_2_24_aarch64.whl", hash = "sha256:a48de9ec7cd9c298f95417115042daa49ac21f9e7d964230096daec0dab99d2e"},
+    {file = "ansible_pylibssh-1.1.0-cp39-cp39-manylinux_2_24_ppc64le.whl", hash = "sha256:76ffdfc72fe538214bd6ebd9a968a234c78383892ea88652295679e85740edc7"},
+    {file = "ansible_pylibssh-1.1.0-cp39-cp39-manylinux_2_24_s390x.whl", hash = "sha256:ec2c5416b096be397f44d19eb102a6eaaa87edbc15428e8144c090fc30f3e1e7"},
+    {file = "ansible_pylibssh-1.1.0-cp39-cp39-manylinux_2_24_x86_64.whl", hash = "sha256:20fd4d16f1a24018de8c331496be6e81ad7a8959d7f9e5be0fd249aee1c311f9"},
+    {file = "ansible_pylibssh-1.1.0-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl", hash = "sha256:000c70958689c940e134a26a1a34c0a30184417c580f17214fdffc196deb809f"},
+]
+
+[[package]]
 name = "ansible-runner"
 version = "2.3.3"
 description = "\"Consistent Ansible Python API and CLI with container and process isolation runtime capabilities\""
@@ -1271,4 +1344,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "20f15a135c81b685a9cbcd82b6a05ebda6556d38d3f93ffbeae7f6fd774f6f7c"
+content-hash = "df94e465a2cc761e5c223fe1a73f37e90da8f22e7ccb7e0e6f2b4cc1aaebe3cd"

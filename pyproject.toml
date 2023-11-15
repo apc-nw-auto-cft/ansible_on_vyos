@@ -13,6 +13,7 @@ ansible-lint = "5.4.0"
 ansible-navigator = "^3.4.0"
 ansible-builder = "^3.0.0"
 docker-compose = "^1.29.2"
+ansible-pylibssh = "^1.1.0"
 
 
 [build-system]
