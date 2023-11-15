@@ -6,7 +6,6 @@ RUN apt update -y && apt install -y \
  && apt clean all \
  && rm -rf /var/cache/apt/*
 
-RUN rm -f /etc/ssh/sshd_config
-COPY sshd_config /etc/ssh/
+Run sed -i -e 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 EXPOSE 22
 RUN echo "root:test_password" | chpasswd

@@ -6,10 +6,9 @@ services:
     build:
       context: ./vyos/vyos01
       dockerfile: ../Dockerfile
-    command:
-    - /sbin/init
+    command: /sbin/init
     volumes:
-    - /lib/modules:/lib/modules
+      - /lib/modules:/lib/modules
     privileged: true
     networks:
       mgmt_nw:
@@ -27,7 +26,7 @@ services:
       dockerfile: ../Dockerfile
     command: /sbin/init
     volumes:
-    - /lib/modules:/lib/modules
+      - /lib/modules:/lib/modules
     privileged: true
     networks:
       mgmt_nw:
@@ -42,8 +41,11 @@ services:
     container_name: host01
     build:
       context: ./ubuntu
+      dockerfile: Dockerfile
     privileged: true
-    command: "/sbin/init"
+    command: >
+      sh -c "route add -net 192.168.2.0/24 gw 192.168.1.254 &&
+             exec /sbin/init"
     networks:
       mgmt_nw:
         ipv4_address: 10.0.0.4
@@ -55,8 +57,11 @@ services:
     container_name: host02
     build:
       context: ./ubuntu
+      dockerfile: Dockerfile
     privileged: true
-    command: "/sbin/init"
+    command: >
+      sh -c "route add -net 192.168.1.0/24 gw 192.168.2.254 &&
+             exec /sbin/init"
     networks:
       mgmt_nw:
         ipv4_address: 10.0.0.5
