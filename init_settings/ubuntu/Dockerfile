@@ -1,12 +1,12 @@
-From ubuntu:22.04
-Run apt update -y && apt install -y \ 
+FROM ubuntu:22.04
+RUN apt update -y && apt install -y \ 
     net-tools \
     openssh-server \
     traceroute \
  && apt clean all \
  && rm -rf /var/cache/apt/*
 
-Run sed -i -e 's/#PermitRootLogin yes/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN rm -f /etc/ssh/sshd_config
+COPY sshd_config /etc/ssh/
 EXPOSE 22
 RUN echo "root:test_password" | chpasswd
-CMD service ssh start && /bin/bash
