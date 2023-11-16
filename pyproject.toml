@@ -4,13 +4,12 @@ version = "0.1.0"
 description = ""
 authors = ["Your Name <you@example.com>"]
 readme = "README.md"
-packages = [{include = "ansible_on_vyos"}]
 
 [tool.poetry.dependencies]
-python = "^3.10"
-ansible-core = "2.14.7"
+python = "^3.9"
 ansible-lint = "5.4.0"
-ansible-navigator = "^3.4.0"
+ansible-navigator = "^3.4"
+docker-compose = "^1.29.2"
 
 
 [build-system]

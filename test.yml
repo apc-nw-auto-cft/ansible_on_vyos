@@ -1,0 +1,14 @@
+---
+- name: test
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: "Debug route"
+      ansible.builtin.command:
+        cmd: "route"
+      register: res
+
+    - name: "Debug res"
+      ansible.builtin.debug:
+        msg: "{{ res }}"
