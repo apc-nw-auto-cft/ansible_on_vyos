@@ -6,7 +6,7 @@
   tasks:
     - name: "Debug route"
       ansible.builtin.command:
-        cmd: "route"
+        cmd: "ping -c 1 10.0.0.2"
       register: res
 
     - name: "Debug res"
