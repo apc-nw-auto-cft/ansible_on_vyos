@@ -4,12 +4,11 @@ services:
     hostname: vyos
     container_name: vyos01
     build:
-      context: ./vyos
-    command:
-    - /sbin/init
+      context: ./vyos/vyos01
+      dockerfile: ../Dockerfile
+    command: /sbin/init
     volumes:
-    - /lib/modules:/lib/modules
-    - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /lib/modules:/lib/modules
     privileged: true
     networks:
       mgmt_nw:
@@ -23,11 +22,11 @@ services:
     hostname: vyos
     container_name: vyos02
     build:
-      context: ./vyos
+      context: ./vyos/vyos02
+      dockerfile: ../Dockerfile
     command: /sbin/init
     volumes:
-    - /lib/modules:/lib/modules
-    - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /lib/modules:/lib/modules
     privileged: true
     networks:
       mgmt_nw:
@@ -41,12 +40,12 @@ services:
     hostname: host01
     container_name: host01
     build:
-      context: ./centos
-    command: /sbin/init
-    volumes:
-    - /lib/modules:/lib/modules
-    - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      context: ./ubuntu
+      dockerfile: Dockerfile
     privileged: true
+    command: >
+      sh -c "route add -net 192.168.2.0/24 gw 192.168.1.254 &&
+             exec /sbin/init"
     networks:
       mgmt_nw:
         ipv4_address: 10.0.0.4
@@ -57,12 +56,12 @@ services:
     hostname: host02
     container_name: host02
     build:
-      context: ./centos
-    command: /sbin/init
-    volumes:
-    - /lib/modules:/lib/modules
-    - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      context: ./ubuntu
+      dockerfile: Dockerfile
     privileged: true
+    command: >
+      sh -c "route add -net 192.168.1.0/24 gw 192.168.2.254 &&
+             exec /sbin/init"
     networks:
       mgmt_nw:
         ipv4_address: 10.0.0.5
