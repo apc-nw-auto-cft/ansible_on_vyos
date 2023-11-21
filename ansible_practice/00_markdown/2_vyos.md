@@ -22,8 +22,6 @@ vyosの初期構築として、以下を実施(初期構築時に実施済み)
 ```
 cd ansible_on_vyos/
 docker-compose -f init_settings/docker-compose.yml up -d
-cd init_settings/
-ansible-playbook -i inventory.ini container_setting.yml
 ```
 
 EC2インスタンスを起動すると、dockerコンテナ(vyos・host)は停止状態(stop)となっているため、
@@ -308,7 +306,7 @@ paginate: true
 1. vyos02のinterfaceのdescription設定
     1. vyos02のeth1のinterfaceに"to_service_nw01"、eth2のinterfaceに"to_service_nw02"というdescriptionを設定し、active configに反映されたことを確認する。
     ```
-    (ansible-on-vyos-py3.7) [ec2-user@ip-172-31-42-108 ansible_on_vyos]$ docker exec -it vyos02 su - vyos
+    $ docker exec -it vyos02 su - vyos
      vyos@vyos02:~$ show configuration
      <skip>
      interfaces {
@@ -373,7 +371,7 @@ paginate: true
     ```
     2. 上記設定の削除
     ```
-    (ansible-on-vyos-py3.7) [ec2-user@ip-172-31-42-108 ansible_on_vyos]$ docker exec -it vyos02 su - vyos
+    $ docker exec -it vyos02 su - vyos
      vyos@vyos02:~$ show configuration
      <skip>
      interfaces {
