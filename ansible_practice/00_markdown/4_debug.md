@@ -27,7 +27,7 @@
 | :----- | :----- |
 | msg  | 記載した文字列を表示する。<br>"{{ 変数名 }}" とすると、変数の中身を表示する。<br>省略するとデフォルトの"Hello world!"が出力される。 |
 | var  | 変数の中身を表示する。 |
-- debugモジュールのAnsible documentは[こちら](https://docs.ansible.com/ansible/2.9/modules/debug_module.html)
+- debugモジュールのAnsible documentは[こちら](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/debug_module.html)
 
 <br>
 <br>
@@ -50,7 +50,7 @@ vars:
 
 tasks:
   - name: debug msg
-    debug:
+    ansible.builtin.debug:
       msg: "みなさん {{ var1 }} ですよ。"
 ```
 
@@ -80,7 +80,7 @@ vars:
 
 tasks:
   - name: debug messages
-    debug:
+    ansible.builtin.debug:
       var: var1
 ```
 
@@ -112,7 +112,7 @@ vars:
 
 tasks:
   - name: debug messages
-    debug:
+    ansible.builtin.debug:
 ```
 
 - 上記のように記述すれば、以下のようにデフォルトメッセージ「Hello world!」が表示されます。
@@ -144,7 +144,7 @@ vyos01                     : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: get vyos_command
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands:
           - show interfaces
           - show ip route
@@ -235,7 +235,7 @@ vyos01                     : ok=2    changed=0    unreachable=0    failed=0    s
 ```yaml
 ~~省略~~
     - name: debug vyos_show_command
-      debug:
+      ansible.builtin.debug:
         var: vyos01_show_command.stdout
 ```
 
@@ -264,7 +264,7 @@ vyos01                     : ok=2    changed=0    unreachable=0    failed=0    s
 ```yaml
 ~~省略~~
     - name: debug vyos_show_command
-      debug:
+      ansible.builtin.debug:
         var: vyos01_show_command.stdout[0]
 ```
 
@@ -290,7 +290,7 @@ vyos01                     : ok=2    changed=0    unreachable=0    failed=0    s
 ```yaml
 ~~省略~~
     - name: debug vyos_show_command
-      debug:
+      ansible.builtin.debug:
         var: vyos01_show_command.stdout_lines
 ```
 
@@ -342,7 +342,7 @@ vyos01                     : ok=2    changed=0    unreachable=0    failed=0    s
 ```yaml
 ~~省略~~
     - name: debug vyos_show_command
-      debug:
+      ansible.builtin.debug:
         var: vyos01_show_command.stdout_lines[0]
 ```
 
@@ -410,11 +410,11 @@ vyos01                     : ok=2    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: debug msg
-      debug:
+      ansible.builtin.debug:
         msg: Hello Ansible!
 
     - name: debug var_message
-      debug:
+      ansible.builtin.debug:
         var: var_message
 ```
 
@@ -475,7 +475,7 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 
   tasks:
    - name: debug
-     debug:
+     ansible.builtin.debug:
 ```
 
 - 実行結果
@@ -574,7 +574,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: debug
-      debug:
+      ansible.builtin.debug:
         msg: "APC"
 ```
 
@@ -614,29 +614,29 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: before show interfaces
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands:
           - show interfaces
       register: before_show_interfaces
 
     - name: debug before show interfaces
-      debug:
+      ansible.builtin.debug:
         var: before_show_interfaces.stdout_lines[0]
 
     - name: set description
-      vyos_config:
+      vyos.vyos.vyos_config:
         lines:
           - set interfaces ethernet eth1 description debug_exam
         save: true
 
     - name: after show interfaces
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands:
           - show interfaces
       register: after_show_interfaces
 
     - name: debug after show interfaces
-      debug:
+      ansible.builtin.debug:
         var: after_show_interfaces.stdout_lines[0]
 ```
 

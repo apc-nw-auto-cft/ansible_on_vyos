@@ -8,9 +8,9 @@
 
   tasks:
     - name: debug msg
-      debug:
+      ansible.builtin.debug:
         msg: Hello Ansible!
 
     - name: debug var_message
-      debug:
+      ansible.builtin.debug:
         var: var_message
