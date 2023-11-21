@@ -100,7 +100,7 @@
 ### 2.仮想環境に入る 
 ```yaml
 [ec2-user@ip-172-31-38-192 03_vyos]$ poetry shell
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-38-192 03_vyos]$
 ```
 
 
@@ -110,7 +110,7 @@
 
 #### vyos01
 ```yaml
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ docker exec -it vyos01 su - vyos
+$ docker exec -it vyos01 su - vyos
 vyos@vyos01:~$ show interfaces 
 Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
 Interface        IP Address                        S/L  Description
@@ -124,12 +124,12 @@ lo               127.0.0.1/8                       u/u
 vyos@vyos01:~$ 
 vyos@vyos01:~$ exit
 logout
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ 
+$ 
 ```
 
 #### vyos02
 ```yaml
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ docker exec -it vyos02 su - vyos
+$ docker exec -it vyos02 su - vyos
 vyos@vyos02:~$ show interfaces 
 Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
 Interface        IP Address                        S/L  Description
@@ -141,7 +141,7 @@ lo               127.0.0.1/8                       u/u
 vyos@vyos02:~$ 
 vyos@vyos02:~$ exit
 logout
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ 
+$ 
 ```
 
 
@@ -165,7 +165,7 @@ ansible_password=vyos
 ### 5.playbookの内容を確認
 
 ```yaml
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ cat vyos_module_sample.yml 
+$ cat vyos_module_sample.yml 
 ---
 - name: sample
   hosts: vyos
@@ -191,7 +191,7 @@ ansible_password=vyos
 - TASK [setting interfaces description] でdescriptionを設定している。changed: [vyos01] changed: [vyos02]であることを確認
 
 ```yaml
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ ansible-playbook -i inventory.ini vyos_module_sample.yml 
+$ ansible-playbook -i inventory.ini vyos_module_sample.yml 
 
 PLAY [sample] **********************************************************************************************
 
@@ -213,7 +213,7 @@ PLAY RECAP *********************************************************************
 vyos01                     : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 vyos02                     : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ 
+$ 
 ```
 
 
@@ -223,7 +223,7 @@ vyos02                     : ok=2    changed=1    unreachable=0    failed=0    s
 
 #### vyos01
 ```yaml
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ docker exec -it vyos01 su - vyos
+$ docker exec -it vyos01 su - vyos
 vyos@vyos01:~$ show interfaces
 Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
 Interface        IP Address                        S/L  Description
@@ -237,12 +237,12 @@ lo               127.0.0.1/8                       u/u
 vyos@vyos01:~$  
 vyos@vyos01:~$ exit
 logout
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ 
+$ 
 ```
 
 #### vyos02
 ```yaml
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ docker exec -it vyos02 su - vyos
+$ docker exec -it vyos02 su - vyos
 vyos@vyos02:~$ show interfaces 
 Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
 Interface        IP Address                        S/L  Description
@@ -254,7 +254,7 @@ lo               127.0.0.1/8                       u/u
 vyos@vyos02:~$ 
 vyos@vyos02:~$ exit
 logout
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ 
+$ 
 ```
 
 
@@ -264,7 +264,7 @@ logout
   ok: [vyos01] ok: [vyos02]であることを確認。= べき等性
 
 ```yaml
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ ansible-playbook -i inventory.ini vyos_module_sample.yml 
+$ ansible-playbook -i inventory.ini vyos_module_sample.yml 
 
 PLAY [sample] **********************************************************************************************
 
@@ -286,7 +286,7 @@ PLAY RECAP *********************************************************************
 vyos01                     : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 vyos02                     : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ 
+$ 
 ```
 
 <br>
@@ -471,7 +471,7 @@ vyos02                     : ok=2    changed=0    unreachable=0    failed=0    s
 
 - playbookの実行結果
 ```yaml
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ ansible-playbook -i inventory.ini vyos_module_exam_3.yml 
+$ ansible-playbook -i inventory.ini vyos_module_exam_3.yml 
 
 PLAY [exam3] ***********************************************************************************************
 
@@ -489,7 +489,7 @@ PLAY RECAP *********************************************************************
 vyos01                     : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 vyos02                     : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ 
+$ 
 ```
 
 <br>
@@ -525,7 +525,7 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 
 - playbookの実行結果
 ```yaml
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ ansible-playbook -i inventory.ini vyos_module_exam_4.yml 
+$ ansible-playbook -i inventory.ini vyos_module_exam_4.yml 
 
 PLAY [exam4] **************************************************************************************************
 
@@ -541,14 +541,14 @@ changed: [vyos01]
 PLAY RECAP ****************************************************************************************************
 vyos01                     : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ 
+$ 
 ```
 
 #### (補足)事前と事後確認
 
   - 事前確認(vyos01)
 ```yaml
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ docker exec -it vyos01 su - vyos
+$ docker exec -it vyos01 su - vyos
 vyos@vyos01:~$ show interfaces 
 Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
 Interface        IP Address                        S/L  Description
@@ -562,12 +562,12 @@ lo               127.0.0.1/8                       u/u
 vyos@vyos01:~$ 
 vyos@vyos01:~$ exit
 logout
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ 
+$ 
 ```
 
   - 事前確認(vyos02)
 ```yaml
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ docker exec -it vyos02 su - vyos
+$ docker exec -it vyos02 su - vyos
 vyos@vyos02:~$ show interfaces 
 Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
 Interface        IP Address                        S/L  Description
@@ -578,13 +578,13 @@ eth2             192.168.2.253/24                  u/u  vyos_config-test2
 lo               127.0.0.1/8                       u/u  
 vyos@vyos02:~$ exit
 logout
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ 
+$ 
 ```
 
 
   - 事後確認(vyos01)
 ```yaml
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ docker exec -it vyos01 su - vyos
+$ docker exec -it vyos01 su - vyos
 vyos@vyos01:~$ show interfaces 
 Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
 Interface        IP Address                        S/L  Description
@@ -598,12 +598,12 @@ lo               127.0.0.1/8                       u/u
 vyos@vyos01:~$ 
 vyos@vyos01:~$ exit
 logout
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ 
+$ 
 ```
 
   - 事後確認(vyos02)
 ```yaml
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ docker exec -it vyos02 su - vyos
+$ docker exec -it vyos02 su - vyos
 vyos@vyos02:~$ show interfaces 
 Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
 Interface        IP Address                        S/L  Description
@@ -614,5 +614,5 @@ eth2             192.168.2.253/24                  u/u  vyos_config-test2
 lo               127.0.0.1/8                       u/u  
 vyos@vyos02:~$ exit
 logout
-(ansible-on-vyos-py3.7) [ec2-user@ip-172-31-38-192 03_vyos]$ 
+$ 
 ```
