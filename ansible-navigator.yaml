@@ -47,14 +47,16 @@ ansible-navigator:
 
   # enable-prompts: False
 
-
   execution-environment:
     container-engine: docker
-    image: ghcr.io/apc-nw-auto-cft/ansible_on_vyos/ee:0.2
+    image: ghcr.io/apc-nw-auto-cft/ansible_on_vyos/ee:0.3
     pull:
       arguments:
         - "--tls-verify=false"
       policy: missing
+    container-options:
+      - "--net=mgmt_nw"
+    
 
   format: json
 

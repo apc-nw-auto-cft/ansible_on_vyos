@@ -1,3 +1,21 @@
+interfaces {
+    ethernet eth0 {
+        address 172.17.0.2/16
+        ipv6 {
+            address {
+                no-default-link-local
+            }
+        }
+    }
+    ethernet eth1 {
+        address 10.0.0.254/24
+        ipv6 {
+            address {
+                no-default-link-local
+            }
+        }
+    }
+}
 service {
     ssh {
     }

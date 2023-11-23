@@ -26,7 +26,11 @@ dependencies:
     - openssh-clients
     - iputils
     - iproute
+    - traceroute
  
 additional_build_steps:
   append_base:
     - RUN pip3 install --upgrade pip setuptools
+  prepend_final:
+    - RUN rm -f /etc/localtime
+    - RUN ln -s /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
