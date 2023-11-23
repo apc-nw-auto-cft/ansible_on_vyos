@@ -1,5 +1,16 @@
 version: '3'
 services:
+  vyos00:
+    hostname: vyos
+    container_name: vyos00
+    build:
+      context: ./vyos/vyos00
+      dockerfile: ../Dockerfile
+    command: /sbin/init
+    volumes:
+      - /lib/modules:/lib/modules
+    privileged: true
+
   vyos01:
     hostname: vyos
     container_name: vyos01
@@ -11,8 +22,6 @@ services:
       - /lib/modules:/lib/modules
     privileged: true
     networks:
-      # bridge:
-      #   ipv4_address: 172.17.0.254
       mgmt_nw:
         ipv4_address: 10.0.0.2
       service_nw01:
@@ -31,8 +40,6 @@ services:
       - /lib/modules:/lib/modules
     privileged: true
     networks:
-      # bridge:
-      #   ipv4_address: 172.17.0.253
       mgmt_nw:
         ipv4_address: 10.0.0.3
       service_nw01:
@@ -49,10 +56,9 @@ services:
     privileged: true
     command: >
       sh -c "route add -net 192.168.2.0/24 gw 192.168.1.254 &&
-             exec /sbin/init"
+            route add -net 172.17.0.0/16 gw 10.0.0.254 &&
+            exec /sbin/init"
     networks:
-      # bridge:
-      #   ipv4_address: 172.17.0.252
       mgmt_nw:
         ipv4_address: 10.0.0.4
       service_nw01:
@@ -67,10 +73,9 @@ services:
     privileged: true
     command: >
       sh -c "route add -net 192.168.1.0/24 gw 192.168.2.254 &&
-             exec /sbin/init"
+            route add -net 172.17.0.0/16 gw 10.0.0.254 &&
+            exec /sbin/init"
     networks:
-      # bridge:
-      #   ipv4_address: 172.17.0.251
       mgmt_nw:
         ipv4_address: 10.0.0.5
       service_nw02:

@@ -7,10 +7,10 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-ansible-lint = "5.4.0"
 ansible-navigator = "^3.4"
 docker-compose = "^1.29.2"
-
+pyyaml = "5.1"
+ansible-builder = "3.0.0"
 
 [build-system]
 requires = ["poetry-core"]
