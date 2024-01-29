@@ -5,4 +5,4 @@
 
   tasks:
     - name: debug
-      debug:
+      ansible.builtin.debug:
