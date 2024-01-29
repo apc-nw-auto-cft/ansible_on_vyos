@@ -5,7 +5,7 @@
 
   tasks:
     - name: check vyos info
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands: 
           - show version
           - show ip route
