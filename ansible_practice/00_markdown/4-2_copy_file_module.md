@@ -100,7 +100,7 @@
   
   tasks:
   - name: write message
-    copy:
+    ansible.builtin.copy:
       content: contentのテストです
       dest: /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file_modules/sample.txt
       mode: 0644
