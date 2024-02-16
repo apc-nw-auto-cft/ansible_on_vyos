@@ -23,7 +23,7 @@
 
 | モジュール名 | 説明 |
 | :-----: | :------------------------------------------------------------------------------------------------------------ |
-| copy | ファイル/ディレクトリをコピーする際に使用する | 
+| copy | ファイル/ディレクトリをコピーする際に使用する |
 
 #### copyモジュールのパラメータ
 
@@ -33,6 +33,7 @@
 | dest | コピー先を指定する。<br>コピー先にファイルが無ければ新規作成する。 |
 | mode | パーミッションを指定する。 |
 | content | コピー先ファイルに記述する内容を指定する。<br>変数の内容を書き込こむこともできる。 |
+
 - copyモジュールのAnsible documentは[こちら](https://docs.ansible.com/ansible/2.9/modules/copy_module.html)
 
 <br>
@@ -45,7 +46,7 @@
 
 | モジュール名 | 説明 |
 | :-----: | :------------------------------------------------------------------------------------------------------------ |
-| file | ファイル/ディレクトリを操作する際に使用する | 
+| file | ファイル/ディレクトリを操作する際に使用する |
 
 #### fileモジュールのパラメータ
 
@@ -72,6 +73,7 @@
 - 以下は、localhostのsample.txtというファイルを、copy_sample.txtというファイルにコピーし、権限を644に設定している。
 - コピー先にファイルが無ければ新規作成される。
 - 同名のファイルが存在する場合は上書きされる。
+
 ```yaml
 ---
 - name: sample_copy_1
@@ -80,7 +82,7 @@
   
   tasks:
   - name: copy file and change mode
-    copy:
+    ansible.builtin.copy:
       src: /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file_modules/sample.txt
       dest: /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file_modules/copy_sample.txt
       mode: 0644
@@ -89,6 +91,7 @@
 #### パラメータ「content」の使用例
 
 - sample.txtにcontentで指定した内容を上書き記載する
+
 ```yaml
 ---
 - name: sample_copy_1
@@ -143,21 +146,23 @@ tasks:
 ### copyモジュールの演習[ハンズオン]
 
 #### 目的
-  - localhostの「handson.txt」に変数「sample_handson」の内容を記述する。
+
+- localhostの「handson.txt」に変数「sample_handson」の内容を記述する。
 
 #### 1.ディレクトリ移動
-  - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
+
+- 使用するplaybook,inventoryファイルが存在するディレクトリに移動
+
 ```yaml
 [ec2-user@ip-172-31-42-108]$ cd /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file
 ```
 
+#### 2.仮想環境(venv)に入る
 
-#### 2.仮想環境(venv)に入る 
 ```yaml
 [ec2-user@ip-172-31-42-108]$ source /home/ec2-user/venv/bin/activate
 (venv)[ec2-user@ip-172-31-42-108]$
 ```
-
 
 #### 3.playbookの内容を確認
 
@@ -177,7 +182,6 @@ tasks:
         dest: /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file/copy_directory/handson.txt
 ```
 
-
 #### 4.playbookを実行
 
 ```yaml
@@ -196,8 +200,8 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 (venv) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ 
 ```
 
-
 #### 5.ファイル確認(事後確認)
+
 ```yaml
 [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ls -l handson.txt 
 -rw-rw-r-- 1 ec2-user ec2-user 50 Mar 23 01:26 handson.txt
@@ -207,7 +211,9 @@ total 4
 -rw-rw-r-- 1 ec2-user ec2-user 50 Mar 23 01:36 handson.txt
 total 0
 ```
+
 - handson.txtの内容
+
 ```yaml
 テスト文です
 ```
@@ -218,34 +224,34 @@ total 0
 
 ---
 
-
 ### fileモジュールの演習[ハンズオン]
 
 ### 目的
-  - localhostにディレクトリ「file_directory」を作成する
 
+- localhostにディレクトリ「file_directory」を作成する
 
 #### 1.ディレクトリ移動
-  - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
+
+- 使用するplaybook,inventoryファイルが存在するディレクトリに移動
+
 ```yaml
 [ec2-user@ip-172-31-42-108]$ cd /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file
 ```
 
+#### 2.仮想環境(venv)に入る
 
-#### 2.仮想環境(venv)に入る 
 ```yaml
 [ec2-user@ip-172-31-42-108]$ source /home/ec2-user/venv/bin/activate
 (venv)[ec2-user@ip-172-31-42-108]$
 ```
 
-
 #### 3.ディレクトリ確認(事前確認)
+
 ```yaml
 
 
 
 ```
-
 
 #### 4.playbookの内容を確認
 
@@ -261,7 +267,6 @@ total 0
         path: /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file/file_directory
         state: directory
 ```
-
 
 #### 5.playbookを実行
 
@@ -279,7 +284,6 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-
 #### 6.ディレクトリ確認(事後確認)
 
 ```yaml
@@ -292,7 +296,6 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 <br>
 
 ---
-
 
 ## copy/fileモジュールについてのまとめ
 
@@ -309,7 +312,7 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 
 ## 4 copy/fileモジュールの演習
 
-### Q1 以下のplaybookの空欄2つに当てはまるものは何でしょう。
+### Q1 以下のplaybookの空欄2つに当てはまるものは何でしょう
 
 ```yaml
 ---
@@ -342,6 +345,7 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 ---
 
 ### Q2 以下の条件のplaybookを作成して、実行してください
+
 - playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file_」配下
 - playbook名：「vyos_module_exam_2.yml」で作成
 - 実行対象ノード：localhost
@@ -356,6 +360,7 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 ---
 
 ### Q3 以下の条件のplaybookを作成して、実行してください
+
 - 使用インベントリファイル：「/home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file」配下のinventory.ini
 - playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file」配下
 - playbook名：「vyos_module_exam_3.yml」で作成
@@ -374,6 +379,7 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 ### A1 正解：「2.mode」「1.absent」
 
 - 以下、正しいplaybook
+
 ```yaml
 ---
 - name: exam1
@@ -394,6 +400,7 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 ```
 
 - 選択肢の解説
+
 1. absent 指定したファイルを削除するので、正しい
 2. mode パーミッションを設定するので、正しい
 3. permission 存在しない
@@ -408,6 +415,7 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 ### A2.以下、解答例
 
 - playbook
+
 ```yaml
 ---
 - hosts: localhost
@@ -427,6 +435,7 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 ```
 
 - playbookの実行結果
+
 ```yaml
 (venv) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ansible-playbook copy_file_module_exam_2.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
@@ -453,6 +462,7 @@ localhost                  : ok=2    changed=2    unreachable=0    failed=0    s
 ### A3.以下、解答例
 
 - playbook
+
 ```yaml
 ---
 - name: exam3
@@ -478,6 +488,7 @@ localhost                  : ok=2    changed=2    unreachable=0    failed=0    s
 ```
 
 - playbookの実行結果
+
 ```yaml
 (venv) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ansible-playbook -i inventory.ini copy_file_module_exam_3.yml 
 
@@ -502,6 +513,7 @@ vyos01                     : ok=3    changed=2    unreachable=0    failed=0    s
 ```
 
 - 作成した「vyos01_show_interfaces.log」の中身
+
 ```yaml
 Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
 Interface        IP Address                        S/L  Description
@@ -513,7 +525,3 @@ eth2             192.168.2.252/24                  u/u  vyos_config-test2
                  192.168.2.254/24                       
 lo               127.0.0.1/8                       u/u
 ```
-
-
-
-
