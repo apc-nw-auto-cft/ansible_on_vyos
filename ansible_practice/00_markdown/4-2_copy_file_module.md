@@ -34,7 +34,7 @@
 | mode | パーミッションを指定する。 |
 | content | コピー先ファイルに記述する内容を指定する。<br>変数の内容を書き込こむこともできる。 |
 
-- copyモジュールのAnsible documentは[こちら](https://docs.ansible.com/ansible/2.9/modules/copy_module.html)
+- copyモジュールのAnsible documentは[こちら](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html)
 
 <br>
 <br>
@@ -56,7 +56,7 @@
 | mode | ファイルのパーミッションを指定する。 |
 | state | state:absent 既存のファイルを削除する。<br>state:touch pathに指定のファイルを作成する。<br>state:directory pathに指定のディレクトリを作成する。  |
 
-- fileモジュールのAnsible documentは[こちら](https://docs.ansible.com/ansible/2.9/modules/file_module.html)
+- fileモジュールのAnsible documentは[こちら](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html)
 
 <br>
 <br>
