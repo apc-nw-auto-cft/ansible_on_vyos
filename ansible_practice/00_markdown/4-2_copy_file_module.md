@@ -249,9 +249,7 @@ total 0
 #### 3.ディレクトリ確認(事前確認)
 
 ```yaml
-
-
-
+？？？ここって何が入る？？？
 ```
 
 #### 4.playbookの内容を確認
@@ -288,8 +286,7 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 #### 6.ディレクトリ確認(事後確認)
 
 ```yaml
-
-
+？？？ここって何が入る？？？
 ```
 
 <br>
@@ -347,7 +344,7 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 
 ### Q2 以下の条件のplaybookを作成して、実行してください
 
-- playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file_」配下
+- playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file」配下
 - playbook名：「vyos_module_exam_2.yml」で作成
 - 実行対象ノード：localhost
 - 処理内容：
