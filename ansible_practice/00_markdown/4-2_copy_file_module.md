@@ -185,7 +185,7 @@ tasks:
 #### 4.playbookを実行
 
 ```yaml
-(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ansible-playbook copy_module_sample.yml 
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ansible-navigator run copy_module_sample.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
 not match 'all'
 
@@ -271,7 +271,7 @@ total 0
 #### 5.playbookを実行
 
 ```yaml
-(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ansible-playbook file_module_sample.yml 
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ansible-navigator run file_module_sample.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
 not match 'all'
 
@@ -437,7 +437,7 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 - playbookの実行結果
 
 ```yaml
-(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ansible-playbook copy_file_module_exam_2.yml 
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ansible-navigator run copy_file_module_exam_2.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
 not match 'all'
 
@@ -490,7 +490,7 @@ localhost                  : ok=2    changed=2    unreachable=0    failed=0    s
 - playbookの実行結果
 
 ```yaml
-(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ansible-playbook -i inventory.ini copy_file_module_exam_3.yml 
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ansible-navigator run copy_file_module_exam_3.yml 
 
 PLAY [exam3] **************************************************************************************************
 
