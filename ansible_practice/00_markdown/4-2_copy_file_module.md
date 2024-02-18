@@ -106,7 +106,7 @@
       mode: 0644
 ```
 
-```yaml
+```shell
 [ec2-user@ip-172-31-42-108]$ cat sample.txt
 contentのテストです
 ```
@@ -153,13 +153,13 @@ tasks:
 
 - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
 
-```yaml
+```shell
 [ec2-user@ip-172-31-42-108]$ cd /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file
 ```
 
 #### 2.仮想環境(poetry)に入る
 
-```yaml
+```shell
 [ec2-user@ip-172-31-42-108]$ poetry shell
 (ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108]$
 ```
@@ -184,7 +184,7 @@ tasks:
 
 #### 4.playbookを実行
 
-```yaml
+```shell
 (ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ansible-navigator run copy_module_sample.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
 not match 'all'
@@ -202,7 +202,7 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 
 #### 5.ファイル確認(事後確認)
 
-```yaml
+```shell
 [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ls -l handson.txt 
 -rw-rw-r-- 1 ec2-user ec2-user 50 Mar 23 01:26 handson.txt
 
@@ -214,7 +214,8 @@ total 0
 
 - handson.txtの内容
 
-```yaml
+```shell
+[ec2-user@ip-172-31-42-108]$ cat handson.txt
 テスト文です
 ```
 
@@ -234,13 +235,13 @@ total 0
 
 - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
 
-```yaml
+```shell
 [ec2-user@ip-172-31-42-108]$ cd /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file
 ```
 
 #### 2.仮想環境(poetry)に入る
 
-```yaml
+```shell
 [ec2-user@ip-172-31-42-108]$ poetry shell
 (ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108]$
 ```
@@ -270,7 +271,7 @@ total 0
 
 #### 5.playbookを実行
 
-```yaml
+```shell
 (ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ansible-navigator run file_module_sample.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
 not match 'all'
@@ -436,7 +437,7 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 
 - playbookの実行結果
 
-```yaml
+```shell
 (ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ansible-navigator run copy_file_module_exam_2.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
 not match 'all'
@@ -489,7 +490,7 @@ localhost                  : ok=2    changed=2    unreachable=0    failed=0    s
 
 - playbookの実行結果
 
-```yaml
+```shell
 (ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ansible-navigator run copy_file_module_exam_3.yml 
 
 PLAY [exam3] **************************************************************************************************
@@ -514,7 +515,7 @@ vyos01                     : ok=3    changed=2    unreachable=0    failed=0    s
 
 - 作成した「vyos01_show_interfaces.log」の中身
 
-```yaml
+```
 Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
 Interface        IP Address                        S/L  Description
 ---------        ----------                        ---  -----------
