@@ -41,7 +41,7 @@ $ python3
 >>> x = 3 + x   <-B. 「x」という変数は新たに「3 + x」として定義される
 >>> print(x)　　<-C. 　BではA時点で定義された「x=2」が右辺の「x」に代入されるため、Cの「x」の出力結果は「3 + 2 = 5」となる
 5
->>>
+>>> 
 ```
 
 <br>
@@ -131,7 +131,7 @@ $ python3
 
 | 変数名 | 説明 |
 | :----- | :---------------------- |
-| `ansible_facts` | `gather_facts: false` の場合はターゲットホストのファクト情報が格納されない。`gather_facts: false` であっても、未定義ではなく、値は空になる。 |
+| `ansible_facts` | `gather_facts: false` の場合はターゲットホストのファクト情報が格納されない。<br>`gather_facts: false` であっても、未定義ではなく、値は空になる。 |
 
 ### 接続変数
 
@@ -156,7 +156,7 @@ vyos02 ansible_host=10.0.0.3
 ansible_network_os=vyos
 ansible_connection=network_cli
 ansible_user=vyos
-ansible_password=vyos               
+ansible_password=vyos
 ```
 
 ---
