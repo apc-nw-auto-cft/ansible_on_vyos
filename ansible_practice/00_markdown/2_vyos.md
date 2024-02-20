@@ -152,7 +152,7 @@ vyos@vyos01:~$ configure
 vyos@vyos01#
 ```
 
-working configをtreeで表示
+working configをtreeで表示  
 (working configとは設定途中のconfigのこと。投入した設定がなければ、active configと同内容である。)
 
 ```
@@ -192,7 +192,7 @@ vyos@vyos01# show interfaces
 <skip>
 ```
 
-同じ"show interfaces"でも、operation modeではinterfaceの状態が出力され、
+同じ"show interfaces"でも、operation modeではinterfaceの状態が出力され、  
 一方、configure modeではinterfaces配下のconfigが出力される。
 
 ---
@@ -204,7 +204,7 @@ paginate: true
 
 # vyosで設定
 
-active(=running)とworking(=candidate)のconfig比較にはcompareを使用する。
+active(=running)とworking(=candidate)のconfig比較にはcompareを使用する。  
 設定投入前には両者に差分がないことを確認
 
 ```
@@ -226,7 +226,7 @@ vyos@vyos01# compare
 +description to_service_nw01
 ```
 
-追加設定には+マークが付く。
+追加設定には+マークが付く。  
 無事投入されていること、想定外の設定がないことを確認できる。
 
 ---
@@ -315,15 +315,15 @@ vyos@vyos01:~$ configure
 vyos@vyos01# delete interfaces ethernet eth1 description
 ```
 
-compareする
+compareする  
+削除設定には-マークが付く。  
+無事投入されていること、想定外の設定がないことを確認。
 
 ```
 vyos@vyos01# compare
 [edit interfaces ethernet eth1]
 -description to_service_nw01
 ```
-
-削除設定には-マークが付く。無事投入されていること、想定外の設定がないことを確認。
 
 commitしてsaveする
 
@@ -343,13 +343,15 @@ paginate: true
 # 演習
 
 1. vyos02のinterfaceのdescription設定
-    1. vyos02のeth1のinterfaceに"to_service_nw01"、eth2のinterfaceに"to_service_nw02"というdescriptionを設定し、active configに反映されたことを確認する。
+    1. vyos02のeth1のinterfaceに"to_service_nw01"、eth2のinterfaceに"to_service_nw02"という  
+   descriptionを設定し、active configに反映されたことを確認する。
     2. 1で設定した内容を削除する
 
 # 解答例
 
 1. vyos02のinterfaceのdescription設定
-    1. vyos02のeth1のinterfaceに"to_service_nw01"、eth2のinterfaceに"to_service_nw02"というdescriptionを設定し、active configに反映されたことを確認する。
+    1. vyos02のeth1のinterfaceに"to_service_nw01"、eth2のinterfaceに"to_service_nw02"という  
+    descriptionを設定し、active configに反映されたことを確認する。
 
     ```
     $ docker exec -it vyos02 su - vyos
