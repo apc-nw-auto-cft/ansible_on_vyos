@@ -166,7 +166,7 @@ vyos01                     : ok=1    changed=0    unreachable=0    failed=0    s
 - 実行すると、以下のような実行結果が出力される。
 
 ```yaml
-(venv) [ec2-user@ip-172-31-42-108 04_debug]$ ansible-playbook -i inventory.ini debug_test.yml 
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04_debug]$ ansible-playbook -i inventory.ini debug_test.yml 
 
 PLAY [sample] *************************************************************************************************
 
@@ -224,7 +224,7 @@ ok: [vyos01] => {
 PLAY RECAP ****************************************************************************************************
 vyos01                     : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 04_debug]$ 
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04_debug]$ 
 ```
 
 ### 「register」内に保存されている情報
@@ -264,7 +264,7 @@ ok: [vyos01] => {
 PLAY RECAP ****************************************************************************************************
 vyos01                     : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 04_debug]$ 
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04_debug]$ 
 ```
 
 #### 変数名.stdout[0]
@@ -292,7 +292,7 @@ ok: [vyos01] => {
 PLAY RECAP ****************************************************************************************************
 vyos01                     : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 04_debug]$ 
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04_debug]$ 
 ```
 
 #### 変数名.stdout_lines
@@ -345,7 +345,7 @@ ok: [vyos01] => {
 PLAY RECAP ****************************************************************************************************
 vyos01                     : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 04_debug]$ 
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04_debug]$ 
 
 ```
 
@@ -384,7 +384,7 @@ ok: [vyos01] => {
 PLAY RECAP ****************************************************************************************************
 vyos01                     : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 04_debug]$ 
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04_debug]$ 
 ```
 
 <br>
@@ -408,11 +408,11 @@ vyos01                     : ok=2    changed=0    unreachable=0    failed=0    s
 [ec2-user@ip-172-31-42-108]$ cd /home/ec2-user/yokogushi_contents_team/ansible_practice/04_debug
 ```
 
-### 2.仮想環境(venv)に入る
+### 2.仮想環境(poetry)に入る
 
 ```yaml
-[ec2-user@ip-172-31-42-108]$ source /home/ec2-user/venv/bin/activate
-(venv)[ec2-user@ip-172-31-42-108]$
+[ec2-user@ip-172-31-42-108]$ poetry shell
+(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108]$
 ```
 
 ### 3.playbookの内容を確認
@@ -442,7 +442,7 @@ vyos01                     : ok=2    changed=0    unreachable=0    failed=0    s
   (自分の機器が対象となるため。)
 
 ```yaml
-(venv) [ec2-user@ip-172-31-42-108 04_debug]$ ansible-playbook debug_module_sample.yml 
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04_debug]$ ansible-playbook debug_module_sample.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
 not match 'all'
 
@@ -461,7 +461,7 @@ ok: [localhost] => {
 PLAY RECAP ****************************************************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 04_debug]$ 
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04_debug]$ 
 ```
 
 ## debugモジュールについてのまとめ
@@ -500,7 +500,7 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 - 実行結果
 
 ```yaml
-(venv) [ec2-user@ip-172-31-42-108 04_debug]$ ansible-playbook debug_module_exam_1.yml 
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04_debug]$ ansible-playbook debug_module_exam_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
 not match 'all'
 
@@ -514,7 +514,7 @@ ok: [localhost] => {
 PLAY RECAP ****************************************************************************************************
 localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 04_debug]$ 
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04_debug]$ 
 ```
 
 1. Hello World!
@@ -563,7 +563,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 - 以下、正しい実行結果
 
 ```yaml
-(venv) [ec2-user@ip-172-31-42-108 04_debug]$ ansible-playbook debug_module_exam_1.yml 
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04_debug]$ ansible-playbook debug_module_exam_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
 not match 'all'
 
@@ -577,7 +577,7 @@ ok: [localhost] => {
 PLAY RECAP ****************************************************************************************************
 localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 04_debug]$
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04_debug]$
 ```
 
 <br>
@@ -605,7 +605,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 - playbookの実行結果
 
 ```yaml
-(venv) [ec2-user@ip-172-31-42-108 answer]$ ansible-playbook debug_module_exam_2.yml 
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 answer]$ ansible-playbook debug_module_exam_2.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
 not match 'all'
 
@@ -619,7 +619,7 @@ ok: [localhost] => {
 PLAY RECAP ****************************************************************************************************
 localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 answer]$ 
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 answer]$ 
 ```
 
 <br>
@@ -669,7 +669,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 - playbookの実行結果
 
 ```yaml
-(venv) [ec2-user@ip-172-31-42-108 04_debug]$ ansible-playbook -i inventory.ini debug_module_exam_3.yml 
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04_debug]$ ansible-playbook -i inventory.ini debug_module_exam_3.yml 
 
 PLAY [exam3] **************************************************************************************************
 
@@ -714,5 +714,5 @@ ok: [vyos02] => {
 PLAY RECAP ****************************************************************************************************
 vyos02                     : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 04_debug]$ 
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04_debug]$ 
 ```
