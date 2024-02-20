@@ -23,7 +23,7 @@
 
 - 数学でよく見る以下の式も変数の一種である。
 
-```yaml
+```python
 x = 2      <-「x」という変数は数字の「2」として定義されている
 
 y = 3      <-「y」という変数は数字の「3」として定義されている
@@ -147,7 +147,7 @@ $ python3
 | `ansible_password` | SSH接続するときのパスワード情報。 |
 | `become` | root権限昇格の有無。 |
 
-```yaml
+```ini
 [vyos]
 vyos01 ansible_host=10.0.0.2
 vyos02 ansible_host=10.0.0.3
@@ -187,7 +187,7 @@ ansible_password=vyos
 
 - 前ページのplaybook実行例を以下に記載。
 
-```yaml
+```shell
 PLAY [variable_sample] ************************************************************************************************************
 
 TASK [get show version] ************************************************************************************************************
@@ -240,20 +240,20 @@ vyos01                     : ok=2    changed=0    unreachable=0    failed=0    s
 
 - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
 
-```yaml
+```shell
 [ec2-user@ip-172-31-42-108]$ cd /home/ec2-user/yokogushi_contents_team/ansible_practice/05_variable
 ```
 
 ### 2.仮想環境(poetry)に入る
 
-```yaml
+```shell
 [ec2-user@ip-172-31-42-108]$ poetry shell
 (ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108]$
 ```
 
 ### 3.インベントリファイルの内容を確認
 
-```yaml
+```ini
 [vyos]
 vyos01 ansible_host=10.0.0.2
 vyos02 ansible_host=10.0.0.3
@@ -289,7 +289,7 @@ ansible_password=vyos
 
 ### 5.playbookを実行
 
-```yaml
+```shell
 (ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ ansible-navigator run variable_sample_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
@@ -332,7 +332,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
 ### 5.playbookを実行
 
-```yaml
+```shell
 (ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ ansible-navigator run variable_sample_2.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
@@ -375,7 +375,7 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 
 - - 「ansible_play_name」に格納されたplaybookの名前(nameで定義した内容)が出力されていることを確認
 
-```yaml
+```shell
 (ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ ansible-navigator run variable_sample_3.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
@@ -419,7 +419,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 - 「ansible_facts」の中身全てを出力すると量が多すぎる
 - 「ansible_facts」に格納されているディクショナリの中の値(value)を取り出すことができる
 
-```yaml
+```shell
 (ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ ansible-navigator run -i inventory.ini variable_sample_4.yml 
 
 PLAY [sample4] ********************************************************************************************
@@ -645,7 +645,7 @@ vyos01                     : ok=3    changed=0    unreachable=0    failed=0    s
 
 - 実行結果
 
-```yaml
+```shell
 (ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 ansible_practice]$ ansible-navigator run 05_variable/variable_exam_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
@@ -699,7 +699,7 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 
 - 実行結果
 
-```yaml
+```shell
 (ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 ansible_practice]$ ansible-navigator run 05_variable/variable_exam_2.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
@@ -750,7 +750,7 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 
 - 以下、正しい実行結果
 
-```yaml
+```shell
 (ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ ansible-navigator run variable_exam_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
@@ -786,7 +786,7 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 
 - 以下、正しい実行結果
 
-```yaml
+```shell
 (ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ ansible-navigator run variable_exam_2.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
@@ -838,7 +838,7 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 
 - playbookの実行結果
 
-```
+```shell
 (ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ ansible-navigator run variable_exam_3.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
