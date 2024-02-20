@@ -140,7 +140,8 @@ vyos01                     : ok=1    changed=0    unreachable=0    failed=0    s
 
 - register は実行結果を格納することができる
 - debugモジュールとregisterを使用して、格納した実行結果を出力することができる
-- 以下は、vyos01に対して「show interfaces」「shoe ip route」を実行し、playbook実行結果にvyos01の「show interfaces」「show ip route」
+- 以下は、vyos01に対して「show interfaces」「shoe ip route」を実行し、  
+  playbook実行結果にvyos01の「show interfaces」「show ip route」
   の内容を出力しているplaybookである。
 
 ```yaml
@@ -550,7 +551,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 - 処理内容：
   - 「show interfaces」を実行し、実行結果を出力
   - vyos02のeth1のdescriptionを「debug_exam」に設定
-  - description設定後再度、「show interfaces」を実行し、実行結果を出力
+  - description設定後、再度「show interfaces」を実行し結果を出力
 
 <br>
 <br>
