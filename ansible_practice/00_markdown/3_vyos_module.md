@@ -203,7 +203,7 @@ $ cat vyos_module_sample.yml
 - TASK [setting interfaces description] でdescriptionを設定している。changed: [vyos01] changed: [vyos02]であることを確認
 
 ```yaml
-$ ansible-playbook -i inventory.ini vyos_module_sample.yml 
+$ ansible-navigator run -i inventory.ini vyos_module_sample.yml 
 
 PLAY [sample] **********************************************************************************************
 
@@ -278,7 +278,7 @@ $
   ok: [vyos01] ok: [vyos02]であることを確認。= べき等性
 
 ```yaml
-$ ansible-playbook -i inventory.ini vyos_module_sample.yml 
+$ ansible-navigator run -i inventory.ini vyos_module_sample.yml 
 
 PLAY [sample] **********************************************************************************************
 
@@ -495,7 +495,7 @@ $
 - playbookの実行結果
 
 ```yaml
-$ ansible-playbook -i inventory.ini vyos_module_exam_3.yml 
+$ ansible-navigator run -i inventory.ini vyos_module_exam_3.yml 
 
 PLAY [exam3] ***********************************************************************************************
 
@@ -550,7 +550,7 @@ $
 - playbookの実行結果
 
 ```yaml
-$ ansible-playbook -i inventory.ini vyos_module_exam_4.yml 
+$ ansible-navigator run -i inventory.ini vyos_module_exam_4.yml 
 
 PLAY [exam4] **************************************************************************************************
 
