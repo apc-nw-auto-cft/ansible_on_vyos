@@ -71,7 +71,7 @@ $ python3
 ---
 - name: vars_sample
   hosts: vyos01
-  gather_facts: no
+  gather_facts: false
   
   vars:
     sample: "Hello!!"
@@ -92,7 +92,7 @@ $ python3
 ---
 - name: set_fact_sample
   hosts: vyos01
-  gather_facts: no
+  gather_facts: false
   
   tasks:
     - name: test
@@ -107,7 +107,7 @@ $ python3
 | 変数の種類 | 説明 |
 | :----- | :---------------------- |
 | マジック変数  | ユーザが直接設定することのできない変数。<br>Ansibleがシステム内の状態を反映してこの変数を常に上書きしている。 |
-| ファクト変数  | 現在実行中のホストに関連する情報(inventory_hostname)を含む変数。<br>playbook内で`gather_facts: no`を指定した場合は使用不可。 |
+| ファクト変数  | 現在実行中のホストに関連する情報(inventory_hostname)を含む変数。<br>playbook内で`gather_facts: false`を指定した場合は使用不可。 |
 | 接続変数 | ターゲットホストへのアクション実行方法を具体的に設定する時に使用。 |
 
 <br>
@@ -131,7 +131,7 @@ $ python3
 
 | 変数名 | 説明 |
 | :----- | :---------------------- |
-| `ansible_facts` | `gather_facts: no` の場合はターゲットホストのファクト情報が格納されない。`gather_facts: no` であっても、未定義ではなく、値は空になる。 |
+| `ansible_facts` | `gather_facts: false` の場合はターゲットホストのファクト情報が格納されない。`gather_facts: false` であっても、未定義ではなく、値は空になる。 |
 
 ### 接続変数
 
@@ -397,7 +397,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
 ### 4.playbookの内容を確認
 
-- 「gather_facts: no」を省略した場合は「ansible_facts」にファクト情報が格納される。
+- 「gather_facts: false」を省略した場合は「ansible_facts」にファクト情報が格納される。
 
 ```yaml
 ---
