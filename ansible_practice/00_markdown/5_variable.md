@@ -112,7 +112,7 @@ $ python3
 
 <br>
 
-変数についてのAnsibleの公式ドキュメントは[こちら](https://docs.ansible.com/ansible/2.9_ja/reference_appendices/special_variables.html)
+変数についてのAnsibleの公式ドキュメントは[こちら](https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html)
 
 ### マジック変数
 
