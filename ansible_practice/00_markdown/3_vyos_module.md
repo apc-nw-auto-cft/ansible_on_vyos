@@ -103,13 +103,13 @@
 
 - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
 
-```yaml
+```shell
 [ec2-user@ip-172-31-42-108]$ cd /home/ec2-user/ansible_on_vyos/ansible_practice/03_vyos
 ```
 
-### 2.仮想環境に入る
+### 2.仮想環境(poetry)に入る
 
-```yaml
+```shell
 [ec2-user@ip-172-31-38-192 03_vyos]$ poetry shell
 (ansible-on-vyos-py3.9) [ec2-user@ip-172-31-38-192 03_vyos]$
 ```
@@ -121,7 +121,7 @@
 
 #### vyos01
 
-```yaml
+```shell
 $ docker exec -it vyos01 su - vyos
 vyos@vyos01:~$ show interfaces 
 Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
@@ -141,7 +141,7 @@ $
 
 #### vyos02
 
-```yaml
+```shell
 $ docker exec -it vyos02 su - vyos
 vyos@vyos02:~$ show interfaces 
 Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
@@ -161,7 +161,7 @@ $
 
 - vyos01,vyos02の接続に必要な情報が存在することを確認する。
 
-```yaml
+```ini
 [ec2-user@ip-172-31-38-192]$ cat inventory.ini
 [vyos]
 vyos01 ansible_host=10.0.0.2
@@ -202,7 +202,7 @@ $ cat vyos_module_sample.yml
   ※今回のトレーニングは[WARNING]は無視でよいです。
 - TASK [setting interfaces description] でdescriptionを設定している。changed: [vyos01] changed: [vyos02]であることを確認
 
-```yaml
+```shell
 $ ansible-navigator run -i inventory.ini vyos_module_sample.yml 
 
 PLAY [sample] **********************************************************************************************
@@ -235,7 +235,7 @@ $
 
 #### vyos01
 
-```yaml
+```shell
 $ docker exec -it vyos01 su - vyos
 vyos@vyos01:~$ show interfaces
 Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
@@ -255,7 +255,7 @@ $
 
 #### vyos02
 
-```yaml
+```shell
 $ docker exec -it vyos02 su - vyos
 vyos@vyos02:~$ show interfaces 
 Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
@@ -277,7 +277,7 @@ $
 - TASK [setting interfaces description] でdescriptionを設定しているが、手順6ですでに設定しているので、今回は実施されない。<br>
   ok: [vyos01] ok: [vyos02]であることを確認。= べき等性
 
-```yaml
+```shell
 $ ansible-navigator run -i inventory.ini vyos_module_sample.yml 
 
 PLAY [sample] **********************************************************************************************
@@ -494,7 +494,7 @@ $
 
 - playbookの実行結果
 
-```yaml
+```shell
 $ ansible-navigator run -i inventory.ini vyos_module_exam_3.yml 
 
 PLAY [exam3] ***********************************************************************************************
@@ -549,7 +549,7 @@ $
 
 - playbookの実行結果
 
-```yaml
+```shell
 $ ansible-navigator run -i inventory.ini vyos_module_exam_4.yml 
 
 PLAY [exam4] **************************************************************************************************
@@ -573,7 +573,7 @@ $
 
 - 事前確認(vyos01)
 
-```yaml
+```shell
 $ docker exec -it vyos01 su - vyos
 vyos@vyos01:~$ show interfaces 
 Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
@@ -593,7 +593,7 @@ $
 
 - 事前確認(vyos02)
 
-```yaml
+```shell
 $ docker exec -it vyos02 su - vyos
 vyos@vyos02:~$ show interfaces 
 Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
@@ -610,7 +610,7 @@ $
 
 - 事後確認(vyos01)
 
-```yaml
+```shell
 $ docker exec -it vyos01 su - vyos
 vyos@vyos01:~$ show interfaces 
 Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
@@ -630,7 +630,7 @@ $
 
 - 事後確認(vyos02)
 
-```yaml
+```shell
 $ docker exec -it vyos02 su - vyos
 vyos@vyos02:~$ show interfaces 
 Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
