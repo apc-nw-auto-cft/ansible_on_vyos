@@ -48,18 +48,18 @@
 - name: sample
   hosts: vyos01
 
-vars:
-  var1: This is Test Message
+  vars:
+    var1: This is Test Message
 
-tasks:
-  - name: debug msg
-    ansible.builtin.debug:
-      msg: "みなさん {{ var1 }} ですよ。"
+  tasks:
+    - name: debug msg
+      ansible.builtin.debug:
+        msg: "みなさん {{ var1 }} ですよ。"
 ```
 
 - 上記のように記述すれば、以下のような実行例として出力ができる。
 
-```yaml
+```
 PLAY [sample] *****************************************************************************
 
 TASK [debug messages] *****************************************************************************
@@ -80,19 +80,19 @@ vyos01                     : ok=1    changed=0    unreachable=0    failed=0    s
 - name: sample
   hosts: vyos01
 
-vars:
-  var1: This is Test Message
+  vars:
+    var1: This is Test Message
 
-tasks:
-  - name: debug messages
-    ansible.builtin.debug:
-      var: var1
+  tasks:
+    - name: debug messages
+      ansible.builtin.debug:
+        var: var1
 ```
 
 - 上記のように記述すれば、以下のような実行例として出力ができる。
 - var1の中身はみれるが、パラメータ「msg」のようにvar1の前後に適当な文字列をつけることはできない。
 
-```yaml
+```
 PLAY [sample] ***************************************************************************
 
 TASK [debug messages] ***************************************************************************
@@ -114,17 +114,17 @@ vyos01                     : ok=1    changed=0    unreachable=0    failed=0    s
 - name: sample
   hosts: vyos01
 
-vars:    
-  var1: This is Test Message
+  vars:
+    var1: This is Test Message
 
-tasks:
-  - name: debug messages
-    ansible.builtin.debug:
+  tasks:
+    - name: debug messages
+      ansible.builtin.debug:
 ```
 
 - 上記のように記述すれば、以下のようにデフォルトメッセージ「Hello world!」が表示されます。
 
-```yaml
+```
 PLAY [sample] ***************************************************************************
 
 TASK [debug messages] ***************************************************************************
@@ -165,7 +165,7 @@ vyos01                     : ok=1    changed=0    unreachable=0    failed=0    s
 
 - 実行すると、以下のような実行結果が出力される。
 
-```yaml
+```
 (ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04_debug]$ ansible-navigator run -i inventory.ini debug_test.yml 
 
 PLAY [sample] *************************************************************************************************
@@ -251,7 +251,7 @@ vyos01                     : ok=2    changed=0    unreachable=0    failed=0    s
 - 実行すると、以下のような実行結果が出力される。
 - 「改行されない」ので、一行にすべて出力される。
 
-```yaml
+```
 ~~省略~~
 TASK [debug vyos_show_command] ********************************************************************************
 ok: [vyos01] => {
@@ -282,7 +282,7 @@ vyos01                     : ok=2    changed=0    unreachable=0    failed=0    s
 - 「改行されない」ので、一行にすべて出力される。
 - .stdout の時と違い、[0]となっているので、stdoutの[]内の1つめの要素(show interfaces)が出力される。
 
-```yaml
+```
 ~~省略~~
 TASK [debug vyos_show_command] ********************************************************************************
 ok: [vyos01] => {
@@ -309,7 +309,7 @@ vyos01                     : ok=2    changed=0    unreachable=0    failed=0    s
 - 実行すると、以下のような実行結果が出力される。
 - 「改行される」ので、実際にvyosにログインして実行したときのような結果が出力される
 
-```yaml
+```
 ~~省略~~
 TASK [debug vyos_show_command] ********************************************************************************
 ok: [vyos01] => {
@@ -364,7 +364,7 @@ vyos01                     : ok=2    changed=0    unreachable=0    failed=0    s
 - 「改行される」ので、実際にvyosにログインして実行したときのような結果が出力される
 - .stdout_lines の時と違い、[0]となっているので、stdoutの[]内の1つめの要素(show interfaces)が出力される。
 
-```yaml
+```
 ~~省略~~
 TASK [debug vyos_show_command] ********************************************************************************
 ok: [vyos01] => {
@@ -404,13 +404,13 @@ vyos01                     : ok=2    changed=0    unreachable=0    failed=0    s
 
 - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
 
-```yaml
+```shell
 [ec2-user@ip-172-31-42-108]$ cd /home/ec2-user/yokogushi_contents_team/ansible_practice/04_debug
 ```
 
 ### 2.仮想環境(poetry)に入る
 
-```yaml
+```shell
 [ec2-user@ip-172-31-42-108]$ poetry shell
 (ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108]$
 ```
@@ -441,7 +441,7 @@ vyos01                     : ok=2    changed=0    unreachable=0    failed=0    s
 - localhostにplaybookを実行する場合は、inventoryファイルを指定しなくていい。
   (自分の機器が対象となるため。)
 
-```yaml
+```shell
 (ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04_debug]$ ansible-navigator run debug_module_sample.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
 not match 'all'
@@ -499,7 +499,7 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 
 - 実行結果
 
-```yaml
+```shell
 (ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04_debug]$ ansible-navigator run debug_module_exam_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
 not match 'all'
@@ -562,7 +562,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
 - 以下、正しい実行結果
 
-```yaml
+```shell
 (ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04_debug]$ ansible-navigator run debug_module_exam_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
 not match 'all'
@@ -604,7 +604,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
 - playbookの実行結果
 
-```yaml
+```shell
 (ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 answer]$ ansible-navigator run debug_module_exam_2.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
 not match 'all'
@@ -668,7 +668,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
 - playbookの実行結果
 
-```yaml
+```shell
 (ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04_debug]$ ansible-navigator run -i inventory.ini debug_module_exam_3.yml 
 
 PLAY [exam3] **************************************************************************************************
