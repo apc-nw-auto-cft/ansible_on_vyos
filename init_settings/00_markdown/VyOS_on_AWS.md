@@ -4,39 +4,47 @@
 **created 2021/06/22**  
 **last modified 2023/12/11**
 
-- [1. EC2インスタンスの作成（初回構築時のみ）](#1-ec2インスタンスの作成初回構築時のみ)
-  - [1.1. AWSにログイン](#11-awsにログイン)
-  - [1.2. EC2画面に移動](#12-ec2画面に移動)
-  - [1.3. 起動するインスタンスの情報を入力](#13-起動するインスタンスの情報を入力)
-  - [1.4. 起動したインスタンス情報の確認](#14-起動したインスタンス情報の確認)
-  - [1.5. 起動したインスタンスにSSH(TeraTerm推奨)](#15-起動したインスタンスにsshteraterm推奨)
-- [2. トレーニング環境の構築（初回構築時のみ）](#2-トレーニング環境の構築初回構築時のみ)
-  - [2.1. gitをインストール](#21-gitをインストール)
-  - [2.2. githubから資材を配置しているリポジトリをclone](#22-githubから資材を配置しているリポジトリをclone)
-  - [2.3. シェルスクリプトを実行して、dockerとpoetryをインストール](#23-シェルスクリプトを実行してdockerとpoetryをインストール)
-  - [2.4. 再度SSHでログインをし直す（TeraTermだと、altキー+D ）](#24-再度sshでログインをし直すteratermだとaltキーd-)
-  - [2.5. sudo なしでdockerコマンドを打てることを確認(errorにならなければOK)](#25-sudo-なしでdockerコマンドを打てることを確認errorにならなければok)
-  - [2.6. poetryでpython packageをinstall](#26-poetryでpython-packageをinstall)
-  - [2.7. poetry環境ログイン](#27-poetry環境ログイン)
-  - [2.8. ansible-navigaterのイメージをpull](#28-ansible-navigaterのイメージをpull)
-  - [2.9. dockerコンテナの作成、起動](#29-dockerコンテナの作成起動)
-  - [2.10. test用のplaybookを実行](#210-test用のplaybookを実行)
-- [3. トレーニング時に毎回行うこと](#3-トレーニング時に毎回行うこと)
-  - [3.1. 構築したEC2インスタンスを起動](#31-構築したec2インスタンスを起動)
-  - [3.2. 起動したインスタンスにSSH(VSCode推奨)](#32-起動したインスタンスにsshvscode推奨)
+- [1. 前提条件](#1-前提条件)
+- [2. EC2インスタンスの作成（初回構築時のみ）](#2-ec2インスタンスの作成初回構築時のみ)
+  - [2.1. AWSにログイン](#21-awsにログイン)
+  - [2.2. EC2画面に移動](#22-ec2画面に移動)
+  - [2.3. 起動するインスタンスの情報を入力](#23-起動するインスタンスの情報を入力)
+  - [2.4. 起動したインスタンス情報の確認](#24-起動したインスタンス情報の確認)
+  - [2.5. 起動したインスタンスにSSH(TeraTerm推奨)](#25-起動したインスタンスにsshteraterm推奨)
+- [3. トレーニング環境の構築（初回構築時のみ）](#3-トレーニング環境の構築初回構築時のみ)
+  - [3.1. gitをインストール](#31-gitをインストール)
+  - [3.2. githubから資材を配置しているリポジトリをclone](#32-githubから資材を配置しているリポジトリをclone)
+  - [3.3. シェルスクリプトを実行して、dockerとpoetryをインストール](#33-シェルスクリプトを実行してdockerとpoetryをインストール)
+  - [3.4. 再度SSHでログインをし直す（TeraTermだと、altキー+D ）](#34-再度sshでログインをし直すteratermだとaltキーd-)
+  - [3.5. sudo なしでdockerコマンドを打てることを確認(errorにならなければOK)](#35-sudo-なしでdockerコマンドを打てることを確認errorにならなければok)
+  - [3.6. poetryでpython packageをinstall](#36-poetryでpython-packageをinstall)
+  - [3.7. poetry環境ログイン](#37-poetry環境ログイン)
+  - [3.8. ansible-navigaterのイメージをpull](#38-ansible-navigaterのイメージをpull)
+  - [3.9. dockerコンテナの作成、起動](#39-dockerコンテナの作成起動)
+  - [3.10. test用のplaybookを実行](#310-test用のplaybookを実行)
+- [4. トレーニング時に毎回行うこと](#4-トレーニング時に毎回行うこと)
+  - [4.1. 構築したEC2インスタンスを起動](#41-構築したec2インスタンスを起動)
+  - [4.2. 起動したインスタンスにSSH(VSCode推奨)](#42-起動したインスタンスにsshvscode推奨)
 
-## 1. EC2インスタンスの作成（初回構築時のみ）
+## 1. 前提条件
 
-### 1.1. AWSにログイン
+- [Google Chrome](https://www.google.com/intl/ja_jp/chrome/dr/download/?brand=SLLM&ds_kid=43700078506124150&gad_source=1&gclid=Cj0KCQiAxOauBhCaARIsAEbUSQRk28ozdTRkvBmWD9Q6zIj_V6F_dLB-xNAdA7ZI8ceK0t2wRo26QI0aAhQeEALw_wcB&gclsrc=aw.ds)(以降Chrome)がインストールされていること
+- Microsoft [Visual Studio Code](https://code.visualstudio.com/download)(以降VScode)がインストールされていること
+- rsa-sha2対応のリモートログオンクライアントがインストールされていること
+  - [Tera Term](https://forest.watch.impress.co.jp/library/software/utf8teraterm/)の場合は[v4.107以降](<https://forest.watch.impress.co.jp/docs/news/1539268.html>)
+
+## 2. EC2インスタンスの作成（初回構築時のみ）
+
+### 2.1. AWSにログイン
 
 - Chromeを開き、右上のGoogleアプリアイコン→「AWS for APC」を押下
 
-### 1.2. EC2画面に移動
+### 2.2. EC2画面に移動
 
 - 上部の検索窓で、EC2 を検索しサービス配下の 「EC2」 を押下
 - 左メニュー 「インスタンス」 を押下し、 右上の「インスタンスの起動」を押下
 
-### 1.3. 起動するインスタンスの情報を入力
+### 2.3. 起動するインスタンスの情報を入力
 
 名前：APCのユーザ名(メールアドレスの@前)を入力  
 
@@ -60,48 +68,48 @@
 
 インスタンスが正常に起動（緑色のバー）になることを確認  
 
-### 1.4. 起動したインスタンス情報の確認
+### 2.4. 起動したインスタンス情報の確認
 
 - 出力したインスタンスID（ i- から始まるID）を押下
 - パブリックIPv4アドレスをコピー
 
-### 1.5. 起動したインスタンスにSSH(TeraTerm推奨)
+### 2.5. 起動したインスタンスにSSH(TeraTerm推奨)
 
 ホスト：1.4.でコピーしたパブリックIPv4アドレス  
 ユーザ名：ec2-user  
 パスワード：空欄  
 1.3.3.でダウンロードした鍵のパスを指定  
 
-## 2. トレーニング環境の構築（初回構築時のみ）
+## 3. トレーニング環境の構築（初回構築時のみ）
 
-### 2.1. gitをインストール
+### 3.1. gitをインストール
 
 ```shell
 sudo dnf install -y git
 ```
 
-### 2.2. githubから資材を配置しているリポジトリをclone
+### 3.2. githubから資材を配置しているリポジトリをclone
 
 ```shell
 git clone <https://github.com/apc-nw-auto-cft/ansible_on_vyos.git>
 ```
 
-### 2.3. シェルスクリプトを実行して、dockerとpoetryをインストール
+### 3.3. シェルスクリプトを実行して、dockerとpoetryをインストール
 
 ```shell
 cd ~/ansible_on_vyos
 sh ./init.sh
 ```
 
-### 2.4. 再度SSHでログインをし直す（TeraTermだと、altキー+D ）
+### 3.4. 再度SSHでログインをし直す（TeraTermだと、altキー+D ）
 
-### 2.5. sudo なしでdockerコマンドを打てることを確認(errorにならなければOK)
+### 3.5. sudo なしでdockerコマンドを打てることを確認(errorにならなければOK)
 
 ```shell
 docker ps
 ```
 
-### 2.6. poetryでpython packageをinstall
+### 3.6. poetryでpython packageをinstall
 
 ```shell
 cd ~/ansible_on_vyos
@@ -109,7 +117,7 @@ cd ~/ansible_on_vyos
 poetry install
 ```
 
-### 2.7. poetry環境ログイン
+### 3.7. poetry環境ログイン
 
 ```shell
 poetry shell
@@ -117,29 +125,29 @@ poetry shell
 # promptに(XXXX)が付いたことを確認
 ```
 
-### 2.8. ansible-navigaterのイメージをpull
+### 3.8. ansible-navigaterのイメージをpull
 
 ```shell
 docker pull ghcr.io/apc-nw-auto-cft/ansible_on_vyos/ee:0.2
 ```
 
-### 2.9. dockerコンテナの作成、起動
+### 3.9. dockerコンテナの作成、起動
 
 ```shell
 docker-compose -f docker-compose.yml up -d
 ```
 
-### 2.10. test用のplaybookを実行
+### 3.10. test用のplaybookを実行
 
 ```shell
 ansible-navigator run test.yml
 ```
 
-## 3. トレーニング時に毎回行うこと
+## 4. トレーニング時に毎回行うこと
 
-### 3.1. 構築したEC2インスタンスを起動
+### 4.1. 構築したEC2インスタンスを起動
 
-### 3.2. 起動したインスタンスにSSH(VSCode推奨)
+### 4.2. 起動したインスタンスにSSH(VSCode推奨)
 
 - VSCodeを起動
 - 左下にある「><」のような緑色のマークをクリック
