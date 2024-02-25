@@ -17,7 +17,6 @@
   - [3.3. シェルスクリプトを実行して、dockerとpoetryをインストール](#33-シェルスクリプトを実行してdockerとpoetryをインストール)
   - [3.4. 再度SSHでログインをし直す（TeraTermだと、altキー+D ）](#34-再度sshでログインをし直すteratermだとaltキーd-)
   - [3.5. sudo なしでdockerコマンドを打てることを確認(errorにならなければOK)](#35-sudo-なしでdockerコマンドを打てることを確認errorにならなければok)
-  - [3.6. poetryでpython packageをinstall](#36-poetryでpython-packageをinstall)
   - [3.7. poetry環境ログイン](#37-poetry環境ログイン)
   - [3.8. ansible-navigaterのイメージをpull](#38-ansible-navigaterのイメージをpull)
   - [3.9. dockerコンテナの作成、起動](#39-dockerコンテナの作成起動)
@@ -101,6 +100,8 @@
 - 「認証方式」にて「RSA/DSA/ECDSA/ED25519鍵を使う」を選択
 - 「秘密鍵」にて2.3.でダウンロードした鍵のフォルダパスを指定
 
+<br>
+
 「OK」を押下  
 以下のようなイメージでプロンプトが返ってくることを確認する
 
@@ -119,13 +120,14 @@ sudo dnf install -y git
 ### 3.2. githubから資材を配置しているリポジトリをclone
 
 ```shell
-git clone <https://github.com/apc-nw-auto-cft/ansible_on_vyos.git>
+git clone https://github.com/apc-nw-auto-cft/ansible_on_vyos.git
 ```
 
 ### 3.3. シェルスクリプトを実行して、dockerとpoetryをインストール
 
 ```shell
 cd ~/ansible_on_vyos
+
 sh ./init.sh
 ```
 
@@ -137,20 +139,20 @@ sh ./init.sh
 docker ps
 ```
 
-### 3.6. poetryでpython packageをinstall
+### 3.7. poetry環境ログイン
 
 ```shell
 cd ~/ansible_on_vyos
 
-poetry install
+poetry shell
 ```
 
-### 3.7. poetry環境ログイン
+以下のように出力されプロンプトが変化したことを確認する(先頭に「(ansible-on-vyos-py3.9) 」と付くこと)
 
 ```shell
-poetry shell
-
-# promptに(XXXX)が付いたことを確認
+Spawning shell within /home/ec2-user/ansible_on_vyos/.venv
+[ec2-user@ip-172-31-38-211 ansible_on_vyos]$ . /home/ec2-user/ansible_on_vyos/.venv/bin/activate
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-38-211 ansible_on_vyos]$
 ```
 
 ### 3.8. ansible-navigaterのイメージをpull
@@ -162,13 +164,13 @@ docker pull ghcr.io/apc-nw-auto-cft/ansible_on_vyos/ee:0.2
 ### 3.9. dockerコンテナの作成、起動
 
 ```shell
-docker-compose -f docker-compose.yml up -d
+docker-compose -f ./init_settings/docker-compose.yml up -d
 ```
 
 ### 3.10. test用のplaybookを実行
 
 ```shell
-ansible-navigator run test.yml
+ansible-navigator run ./ansible_practice/test.yml
 ```
 
 ## 4. トレーニング時に毎回行うこと
