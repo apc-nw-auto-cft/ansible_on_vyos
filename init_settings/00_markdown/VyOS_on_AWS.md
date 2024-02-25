@@ -179,14 +179,18 @@ ansible-navigator run ./ansible_practice/test.yml
 
 ### 4.2. 起動したインスタンスにSSH(VSCode推奨)
 
-- VSCodeを起動
+- VScodeを起動
 - 左下にある「><」のような緑色のマークをクリック
 - SSH構成ファイルを開く→C:\Users\<ユーザ名>\.ssh\
-- 先頭に半角スペース2つあけて以下をコピーして、1行目~4行目に貼付する  
-  Host  
+- 以下をコピーして、1行目~4行目に貼付する  
+
+```yaml
+Host  
   HostName  
   User  
   IdentityFile  
+```
+
 - 各項目半角スペース1つあけて、続けて情報を以下のように入力する。  
 
 ```yaml
