@@ -24,7 +24,7 @@
   - 特定の条件に当てはまるタスクのみスキップしたい時 ...etc
 - whenディレクティブを使用するときは、比較演算子・論理演算子・in演算子・in演算子の条件式を用いる。
 
-- whenディレクティブのAnsible documentは[こちら](https://docs.ansible.com/ansible/2.9_ja/user_guide/playbooks_conditionals.html)
+- whenディレクティブのAnsible documentは[こちら](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_conditionals.html)
 
 ---
 
