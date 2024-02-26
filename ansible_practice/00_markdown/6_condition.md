@@ -111,7 +111,8 @@
 | A is B | AがBの状態であるとき |
 | A is not B | AがBの状態でないとき |
 
-- 以下は、hostにhttpdインストールを実施し、httpdインストールが成功した場合「yum httpd succeess!!」httpdインストールが失敗した場合「yum httpd error!!」というメッセージを出力するplaybookである
+- 以下は、hostにhttpdインストールを実施し、httpdインストールが成功した場合「yum httpd succeess!!」、  
+httpdインストールが失敗した場合「yum httpd error!!」というメッセージを出力するplaybookである
 - httpdインストールが失敗してもplaybookが続行されるように「ignore_errors: true」を記述
 
 ```yaml
@@ -193,7 +194,8 @@ ansible_password=test_password
 ### 4.playbookの内容を確認
 
 - 「when」を使用して、実行対象ノードの条件分岐を実施
-- 「when: inventory_hostname == 'vyos01'」とすることで、実行対象ノードがvyos01のとき「show ip route」「show interface」を実行する
+- 「when: inventory_hostname == 'vyos01'」とすることで、  
+実行対象ノードがvyos01のとき「show ip route」「show interface」を実行する
 - showコマンドをdebugさせる際は「when」を使用していない。
 
 ```yaml
@@ -220,7 +222,8 @@ ansible_password=test_password
 ### 5.playbookを実行
 
 - 実行対象ノード「vyos01」のみ「show ip route」「show interface」を実行
-- 実行対象ノード「vyos02」は「show ip route」「show interface」を実行していないので、実行結果をdebugしようとするとエラー出力される。
+- 実行対象ノード「vyos02」は「show ip route」「show interface」を実行していないので、  
+実行結果をdebugしようとするとエラー出力される。
 
 ```shell
 $ ansible--navigator run -i inventory.ini when_sample_1.yml 
