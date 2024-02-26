@@ -62,7 +62,7 @@
 - loopで定義したリストが1つずつ代入され、要素を順番に処理することができる。
 
 ```shell
-$ ansible-playbook playbook.yaml
+$ ansible-navigator run playbook.yaml
 
 PLAY [sample] ******************************************************************
 
@@ -179,7 +179,7 @@ $
 ### 4.playbookを実行
 
 ```shell
-$ ansible-playbook loop_sample_1.yml 
+$ ansible-navigator run loop_sample_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit
 localhost does not match 'all'
 
@@ -258,7 +258,7 @@ $
 - 実行結果
 
 ```shell
-$ ansible-playbook loop_exam_1.yml 
+$ ansible-navigator run loop_exam_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
 
@@ -407,7 +407,7 @@ $
 - 実行結果
 
 ```shell
-$ ansible-playbook answer/loop_exam_2.yml 
+$ ansible-navigator run answer/loop_exam_2.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit
 localhost does not match 'all'
 
@@ -465,7 +465,7 @@ $
 - 実行結果
 
 ```shell
-$ ansible-playbook -i inventory.ini loop_exam_3.yml 
+$ ansible-navigator run -i inventory.ini loop_exam_3.yml 
 
 PLAY [exam3] ****************************************************************************************
 
@@ -560,7 +560,7 @@ $
 - 実行結果
 
 ```shell
-$ ansible-playbook -i inventory.ini loop_exam_4.yml 
+$ ansible-navigator run -i inventory.ini loop_exam_4.yml 
 
 PLAY [exam4] ****************************************************************************************
 
