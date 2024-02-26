@@ -160,11 +160,12 @@
 cd /home/ec2-user/yokogushi_contents_team/ansible_practice/06_condition
 ```
 
-### 2.仮想環境(venv)に入る
+### 2.仮想環境(poetry)に入る
 
 ```yaml
-$ source /home/ec2-user/venv/bin/activate
-$
+$ poetry shell
+
+# Spawning shell within /home/ec2-user/ansible_on_vyos/.venv
 ```
 
 ### 3.インベントリファイルの内容を確認
