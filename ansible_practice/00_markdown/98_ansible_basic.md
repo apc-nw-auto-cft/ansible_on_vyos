@@ -57,11 +57,12 @@ ansible_password=test_password
 
 ## playbookを実行するとき
 
-- playbookを実行する際は仮想環境(venv)で実行する必要があるので、以下を実行しておく。
+- playbookを実行する際は仮想環境(poetry)で実行する必要があるので、以下を実行しておく。
 
 ```shell
-[ec2-user@ip-172-31-42-108 03_vyos]$ source /home/ec2-user/venv/bin/activate
-(venv)[ec2-user@ip-172-31-42-108 03_vyos]$
+[ec2-user@ip-172-31-42-108 03_vyos]$ poetry shell
+
+# Spawning shell within /home/ec2-user/ansible_on_vyos/.venv
 ```
 
 - playbookを実行する際は以下コマンドを実行する
