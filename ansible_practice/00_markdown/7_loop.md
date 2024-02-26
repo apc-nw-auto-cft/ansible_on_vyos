@@ -83,7 +83,8 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
 ### 複数のloop
 
-- 以下は、loopで「fruits: 'Apple', color: 'Red'」「fruits: 'Banana', color: 'Yellow'」「fruits: 'Peach', color: 'Pink'」を定義し、debug moduleを使用してmsgを出力させているplaybookである。
+- 以下は、loopで「fruits: 'Apple', color: 'Red'」「fruits: 'Banana', color: 'Yellow'」「fruits: 'Peach', color: 'Pink'」を定義し、  
+debug moduleを使用してmsgを出力させているplaybookである。
 - loopを辞書型(Dict型)で定義することができる。
 - loopを辞書型(Dict型)で定義したとき、変数「item.key」(fruits: 'xxxx')「item.value」(color: 'yyyy')に格納されるようになっている。
 
@@ -488,6 +489,7 @@ $
 ```shell
 $ docker exec -it host01 /bin/bash
 
+# ここからコンテナ(host01)を操作
 [root@host01 /]# ls -l /tmp/
 total 0
 drwx------ 2 root root 37 Apr 13 04:54 ansible_yum_payload_Vc17Y3
@@ -500,6 +502,7 @@ exit
 
 $ docker exec -it host02 /bin/bash
 
+# ここからコンテナ(host02)を操作
 [root@host02 /]# ls -l /tmp/
 total 0
 drwx------ 2 root root 37 Apr 13 04:54 ansible_yum_payload_FWE23G
