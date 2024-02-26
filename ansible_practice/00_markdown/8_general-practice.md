@@ -11,10 +11,11 @@
 - playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/08_general-practice」配下
 - playbook名：自由
 - 注意事項：
-  - Dockerコンテナを停止(またはEC2インスタンスを停止)するたびに、一部設定が消える(原因・解決方法調査中)  
+  - Dockerコンテナを停止(またはEC2インスタンスを停止)する度に一部設定が消える(原因・解決方法調査中)  
   よって本実習時はdockerコンテナを起動後、playbook (**container_setting.yml**) を実行すること。
 
 ```shell
+# 改行せず入力してください
 ansible-navigator run -i /home/ec2-user/yokogushi_contents_team/init_settings/inventory.ini /home/ec2-user/yokogushi_contents_team/init_settings/container_setting.yml
 ```
 
