@@ -1,7 +1,7 @@
 
 # day8 総合演習
 
-- [構成図](https://docs.google.com/presentation/d/1Z5oyxRJH1G_lImkciK9mhdvWkzOOvG4Z/edit?usp=sharing&ouid=110508462132118985202&rtpof=true&sd=true)を見て、以下の問いに答えなさい
+- [構成図]()を見て、以下の問いに答えなさい
 
 ## 問題
 
