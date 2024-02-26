@@ -157,14 +157,14 @@
 - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
 
 ```yaml
-[ec2-user@ip-172-31-42-108]$ cd /home/ec2-user/yokogushi_contents_team/ansible_practice/06_condition
+cd /home/ec2-user/yokogushi_contents_team/ansible_practice/06_condition
 ```
 
 ### 2.仮想環境(venv)に入る
 
 ```yaml
-[ec2-user@ip-172-31-42-108]$ source /home/ec2-user/venv/bin/activate
-(venv)[ec2-user@ip-172-31-42-108]$
+$ source /home/ec2-user/venv/bin/activate
+$
 ```
 
 ### 3.インベントリファイルの内容を確認
@@ -222,7 +222,7 @@ ansible_password=test_password
 - 実行対象ノード「vyos02」は「show ip route」「show interface」を実行していないので、実行結果をdebugしようとするとエラー出力される。
 
 ```yaml
-(venv) [ec2-user@ip-172-31-42-108 06_condition]$ ansible-playbook -i inventory.ini when_sample_1.yml 
+$ ansible-playbook -i inventory.ini when_sample_1.yml 
 
 PLAY [sample1] ********************************************************************************************
 
@@ -271,7 +271,7 @@ PLAY RECAP *********************************************************************
 vyos01                     : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 vyos02                     : ok=1    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 06_condition]$ 
+$ 
 ```
 
 <br>
@@ -432,7 +432,7 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 - playbookの実行結果
 
 ```yaml
-(venv) [ec2-user@ip-172-31-42-108 06_condition]$ ansible-playbook -i inventory.ini answer/when_exam_3.yml 
+$ ansible-playbook -i inventory.ini answer/when_exam_3.yml 
 
 PLAY [exam3] **********************************************************************************************
 
@@ -454,7 +454,7 @@ host02                     : ok=0    changed=0    unreachable=0    failed=0    s
 vyos01                     : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 vyos02                     : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 06_condition]$ 
+$ 
 ```
 
 <br>
@@ -490,7 +490,7 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 - playbookの実行結果
 
 ```yaml
-(venv) [ec2-user@ip-172-31-42-108 06_condition]$ ansible-playbook -i inventory.ini answer/when_exam_4.yml 
+$ ansible-playbook -i inventory.ini answer/when_exam_4.yml 
 
 PLAY [exam4] **********************************************************************************************
 
@@ -514,5 +514,5 @@ host02                     : ok=0    changed=0    unreachable=0    failed=0    s
 vyos01                     : ok=0    changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
 vyos02                     : ok=0    changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 06_condition]$ 
+$ 
 ```
