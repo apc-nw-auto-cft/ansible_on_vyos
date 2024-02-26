@@ -60,7 +60,7 @@ ansible_password=test_password
 - playbookを実行する際は仮想環境(poetry)で実行する必要があるので、以下を実行しておく。
 
 ```shell
-[ec2-user@ip-172-31-42-108 03_vyos]$ poetry shell
+$ poetry shell
 
 # Spawning shell within /home/ec2-user/ansible_on_vyos/.venv
 ```
@@ -68,8 +68,8 @@ ansible_password=test_password
 - playbookを実行する際は以下コマンドを実行する
 
 ```shell
-ansible-playbook -i <インベントリファイル> <playbook名>.yml
+$ ansible-playbook -i <インベントリファイル> <playbook名>.yml
 
 使用例
-(venv)[ec2-user@ip-172-31-42-108 03_vyos]$ ansible-playbook -i inventory.ini test.yml
+$ ansible-playbook -i inventory.ini test.yml
 ```
