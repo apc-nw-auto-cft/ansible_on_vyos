@@ -70,6 +70,6 @@ $ poetry shell
 ```shell
 $ ansible-navigator run -i <インベントリファイル> <playbook名>.yml
 
-使用例
+# 使用例
 $ ansible-navigator run -i inventory.ini test.yml
 ```
