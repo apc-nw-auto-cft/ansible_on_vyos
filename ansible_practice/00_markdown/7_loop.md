@@ -144,11 +144,12 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 cd /home/ec2-user/yokogushi_contents_team/ansible_practice/07_loop
 ```
 
-### 2.仮想環境(venv)に入る
+### 2.仮想環境(poetry)に入る
 
 ```shell
-$ source /home/ec2-user/venv/bin/activate
-$
+$ poetry shell
+
+# Spawning shell within /home/ec2-user/ansible_on_vyos/.venv
 ```
 
 ### 3.playbookの内容を確認
