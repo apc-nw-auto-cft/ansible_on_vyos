@@ -25,6 +25,7 @@ vyosの初期構築として、以下を実施(初期構築時に実施済み)
 
 ```shell
 cd ansible_on_vyos/
+
 docker-compose -f init_settings/docker-compose.yml up -d
 ```
 
@@ -62,7 +63,7 @@ docker exec -it vyos01 su - vyos
 sshするのであれば
 
 ```shell
-ssh vyos@10.0.0.2
+$ ssh vyos@10.0.0.2
 （初回login時は yes を選択）
 pw: vyos
 ```
