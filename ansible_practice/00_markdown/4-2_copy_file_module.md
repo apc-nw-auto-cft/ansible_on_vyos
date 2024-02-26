@@ -107,7 +107,7 @@
 ```
 
 ```shell
-[ec2-user@ip-172-31-42-108]$ cat sample.txt
+$ cat sample.txt
 contentのテストです
 ```
 
@@ -154,14 +154,15 @@ tasks:
 - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
 
 ```shell
-[ec2-user@ip-172-31-42-108]$ cd /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file
+cd /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file
 ```
 
 #### 2.仮想環境(poetry)に入る
 
 ```shell
-[ec2-user@ip-172-31-42-108]$ poetry shell
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108]$
+$ poetry shell
+
+# Spawning shell within /home/ec2-user/ansible_on_vyos/.venv
 ```
 
 #### 3.playbookの内容を確認
@@ -185,7 +186,7 @@ tasks:
 #### 4.playbookを実行
 
 ```shell
-(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ansible-navigator run copy_module_sample.yml 
+$ ansible-navigator run copy_module_sample.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
 not match 'all'
 
@@ -197,16 +198,16 @@ changed: [localhost]
 PLAY RECAP *************************************************************************************************
 localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ 
+$ 
 ```
 
 #### 5.ファイル確認(事後確認)
 
 ```shell
-[ec2-user@ip-172-31-42-108 04-2_copy_file]$ ls -l handson.txt 
+$ ls -l handson.txt 
 -rw-rw-r-- 1 ec2-user ec2-user 50 Mar 23 01:26 handson.txt
 
-(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ls -l copy_directory/
+$ ls -l copy_directory/
 total 4
 -rw-rw-r-- 1 ec2-user ec2-user 50 Mar 23 01:36 handson.txt
 total 0
@@ -215,7 +216,7 @@ total 0
 - handson.txtの内容
 
 ```shell
-[ec2-user@ip-172-31-42-108]$ cat handson.txt
+$ cat handson.txt
 テスト文です
 ```
 
@@ -236,14 +237,15 @@ total 0
 - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
 
 ```shell
-[ec2-user@ip-172-31-42-108]$ cd /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file
+cd /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file
 ```
 
 #### 2.仮想環境(poetry)に入る
 
 ```shell
-[ec2-user@ip-172-31-42-108]$ poetry shell
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108]$
+$ poetry shell
+
+# Spawning shell within /home/ec2-user/ansible_on_vyos/.venv
 ```
 
 #### 3.ディレクトリ確認(事前確認)
@@ -270,7 +272,7 @@ total 0
 #### 5.playbookを実行
 
 ```shell
-(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ansible-navigator run file_module_sample.yml 
+$ ansible-navigator run file_module_sample.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
 not match 'all'
 
@@ -435,7 +437,7 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 - playbookの実行結果
 
 ```shell
-(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ansible-navigator run copy_file_module_exam_2.yml 
+$ ansible-navigator run copy_file_module_exam_2.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
 not match 'all'
 
@@ -488,7 +490,7 @@ localhost                  : ok=2    changed=2    unreachable=0    failed=0    s
 - playbookの実行結果
 
 ```shell
-(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ ansible-navigator run copy_file_module_exam_3.yml 
+$ ansible-navigator run copy_file_module_exam_3.yml 
 
 PLAY [exam3] **************************************************************************************************
 
@@ -507,7 +509,7 @@ changed: [vyos01]
 PLAY RECAP ****************************************************************************************************
 vyos01                     : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-42-108 04-2_copy_file]$ 
+$ 
 ```
 
 - 作成した「vyos01_show_interfaces.log」の中身
