@@ -222,7 +222,7 @@ ansible_password=test_password
 - 実行対象ノード「vyos02」は「show ip route」「show interface」を実行していないので、実行結果をdebugしようとするとエラー出力される。
 
 ```yaml
-$ ansible-playbook -i inventory.ini when_sample_1.yml 
+$ ansible--navigator run -i inventory.ini when_sample_1.yml 
 
 PLAY [sample1] ********************************************************************************************
 
@@ -432,7 +432,7 @@ $
 - playbookの実行結果
 
 ```yaml
-$ ansible-playbook -i inventory.ini answer/when_exam_3.yml 
+$ ansible--navigator run -i inventory.ini answer/when_exam_3.yml 
 
 PLAY [exam3] **********************************************************************************************
 
@@ -490,7 +490,7 @@ $
 - playbookの実行結果
 
 ```yaml
-$ ansible-playbook -i inventory.ini answer/when_exam_4.yml 
+$ ansible--navigator run -i inventory.ini answer/when_exam_4.yml 
 
 PLAY [exam4] **********************************************************************************************
 
