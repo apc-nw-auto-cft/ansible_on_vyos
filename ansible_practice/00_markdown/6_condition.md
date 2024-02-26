@@ -156,13 +156,13 @@
 
 - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
 
-```yaml
+```shell
 cd /home/ec2-user/yokogushi_contents_team/ansible_practice/06_condition
 ```
 
 ### 2.仮想環境(poetry)に入る
 
-```yaml
+```shell
 $ poetry shell
 
 # Spawning shell within /home/ec2-user/ansible_on_vyos/.venv
@@ -170,7 +170,7 @@ $ poetry shell
 
 ### 3.インベントリファイルの内容を確認
 
-```yaml
+```ini
 [vyos]
 vyos01 ansible_host=10.0.0.2
 vyos02 ansible_host=10.0.0.3
@@ -222,7 +222,7 @@ ansible_password=test_password
 - 実行対象ノード「vyos01」のみ「show ip route」「show interface」を実行
 - 実行対象ノード「vyos02」は「show ip route」「show interface」を実行していないので、実行結果をdebugしようとするとエラー出力される。
 
-```yaml
+```shell
 $ ansible--navigator run -i inventory.ini when_sample_1.yml 
 
 PLAY [sample1] ********************************************************************************************
@@ -432,7 +432,7 @@ $
 
 - playbookの実行結果
 
-```yaml
+```shell
 $ ansible--navigator run -i inventory.ini answer/when_exam_3.yml 
 
 PLAY [exam3] **********************************************************************************************
@@ -490,7 +490,7 @@ $
 
 - playbookの実行結果
 
-```yaml
+```shell
 $ ansible--navigator run -i inventory.ini answer/when_exam_4.yml 
 
 PLAY [exam4] **********************************************************************************************
