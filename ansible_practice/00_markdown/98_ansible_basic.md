@@ -68,8 +68,8 @@ $ poetry shell
 - playbookを実行する際は以下コマンドを実行する
 
 ```shell
-$ ansible-playbook -i <インベントリファイル> <playbook名>.yml
+$ ansible-navigator run -i <インベントリファイル> <playbook名>.yml
 
 使用例
-$ ansible-playbook -i inventory.ini test.yml
+$ ansible-navigator run -i inventory.ini test.yml
 ```
