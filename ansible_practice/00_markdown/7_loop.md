@@ -141,14 +141,14 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
 
 ```shell
-[ec2-user@ip-172-31-42-108]$ cd /home/ec2-user/yokogushi_contents_team/ansible_practice/07_loop
+cd /home/ec2-user/yokogushi_contents_team/ansible_practice/07_loop
 ```
 
 ### 2.仮想環境(venv)に入る
 
 ```shell
-[ec2-user@ip-172-31-42-108]$ source /home/ec2-user/venv/bin/activate
-(venv)[ec2-user@ip-172-31-42-108]$
+$ source /home/ec2-user/venv/bin/activate
+$
 ```
 
 ### 3.playbookの内容を確認
@@ -179,7 +179,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 ### 4.playbookを実行
 
 ```shell
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ ansible-playbook loop_sample_1.yml 
+$ ansible-playbook loop_sample_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit
 localhost does not match 'all'
 
@@ -192,19 +192,19 @@ changed: [localhost] => (item=loop_dir2)
 PLAY RECAP ******************************************************************************************
 localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ 
+$ 
 ```
 
 ### 5.事後確認
 
 ```shell
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ ls -l /home/ec2-user/
+$ ls -l /home/ec2-user/
 total 0
 drwxrwxr-x 2 ec2-user ec2-user  6 Apr 20 06:21 loop_dir1
 drwxrwxr-x 2 ec2-user ec2-user  6 Apr 20 06:21 loop_dir2
 drwxr-xr-x 5 ec2-user ec2-user 77 Mar  3 10:52 venv
 drwxrwxr-x 5 ec2-user ec2-user 63 Mar 15 11:58 yokogushi_contents_team
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ 
+$ 
 ```
 
 <br>
@@ -258,7 +258,7 @@ drwxrwxr-x 5 ec2-user ec2-user 63 Mar 15 11:58 yokogushi_contents_team
 - 実行結果
 
 ```shell
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ ansible-playbook loop_exam_1.yml 
+$ ansible-playbook loop_exam_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
 
@@ -278,7 +278,7 @@ ok: [localhost] => (item=Peach) => {
 PLAY RECAP ************************************************************************************************
 localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ 
+$ 
 ```
 
 <br>
@@ -407,7 +407,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 - 実行結果
 
 ```shell
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ ansible-playbook answer/loop_exam_2.yml 
+$ ansible-playbook answer/loop_exam_2.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit
 localhost does not match 'all'
 
@@ -433,7 +433,7 @@ skipping: [localhost] => (item=350)
 PLAY RECAP ******************************************************************************************
 localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ 
+$ 
 ```
 
 <br>
@@ -465,7 +465,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 - 実行結果
 
 ```shell
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ ansible-playbook -i inventory.ini loop_exam_3.yml 
+$ ansible-playbook -i inventory.ini loop_exam_3.yml 
 
 PLAY [exam3] ****************************************************************************************
 
@@ -479,13 +479,14 @@ PLAY RECAP *********************************************************************
 host01                     : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 host02                     : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ 
+$ 
 ```
 
 - ファイルが作成されているか確認
 
 ```shell
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ docker exec -it host01 /bin/bash
+$ docker exec -it host01 /bin/bash
+
 [root@host01 /]# ls -l /tmp/
 total 0
 drwx------ 2 root root 37 Apr 13 04:54 ansible_yum_payload_Vc17Y3
@@ -495,7 +496,9 @@ drwx------ 2 root root 37 Apr 13 04:54 ansible_yum_payload_Vc17Y3
 [root@host01 /]# 
 [root@host01 /]# exit
 exit
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ docker exec -it host02 /bin/bash
+
+$ docker exec -it host02 /bin/bash
+
 [root@host02 /]# ls -l /tmp/
 total 0
 drwx------ 2 root root 37 Apr 13 04:54 ansible_yum_payload_FWE23G
@@ -504,7 +507,8 @@ drwx------ 2 root root 37 Apr 13 04:54 ansible_yum_payload_FWE23G
 [root@host02 /]# 
 [root@host02 /]# exit
 exit
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ 
+
+$ 
 ```
 
 <br>
@@ -556,7 +560,7 @@ exit
 - 実行結果
 
 ```shell
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ ansible-playbook -i inventory.ini loop_exam_4.yml 
+$ ansible-playbook -i inventory.ini loop_exam_4.yml 
 
 PLAY [exam4] ****************************************************************************************
 
@@ -646,5 +650,5 @@ PLAY RECAP *********************************************************************
 vyos01                     : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 vyos02                     : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$
+$
 ```
