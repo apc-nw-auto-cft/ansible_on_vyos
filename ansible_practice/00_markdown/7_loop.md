@@ -40,7 +40,8 @@
 - 以下は、loopで「Apple」「Banana」「Peach」を定義し、debug moduleを使用してmsgを出力させているplaybookである。
 - loopで繰り返すリストを定義することができる。
 - loopで定義した内容は、変数「item」に格納されるようになっている。
-- 
+-
+
 ```yaml
 ---
 - name: sample
@@ -59,7 +60,8 @@
 
 - このplaybookを実行すると、以下のような実行結果となる。
 - loopで定義したリストが1つずつ代入され、要素を順番に処理することができる。
-```yaml
+
+```shell
 $ ansible-playbook playbook.yaml
 
 PLAY [sample] ******************************************************************
@@ -79,12 +81,12 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
 
-
 ### 複数のloop
 
 - 以下は、loopで「fruits: 'Apple', color: 'Red'」「fruits: 'Banana', color: 'Yellow'」「fruits: 'Peach', color: 'Pink'」を定義し、debug moduleを使用してmsgを出力させているplaybookである。
 - loopを辞書型(Dict型)で定義することができる。
 - loopを辞書型(Dict型)で定義したとき、変数「item.key」(fruits: 'xxxx')「item.value」(color: 'yyyy')に格納されるようになっている。
+
 ```yaml
 ---
 - name: sample
@@ -103,7 +105,8 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
 - このplaybookを実行すると、以下のような実行結果となる。
 - loopで定義した辞書型(Dict型)が1つずつ代入され、要素を順番に処理することができる。
-```yaml
+
+```shell
 PLAY [Sample] ******************************************************************
 
 TASK [Debug fruits] *************************************************************
@@ -130,24 +133,30 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 ## 3.loop ディレクティブの実習
 
 ### 目的
-  - loopディレクティブを使用して、ディレクトリ loop_dir1、loop_dir2を新規作成する
+
+- loopディレクティブを使用して、ディレクトリ loop_dir1、loop_dir2を新規作成する
 
 ### 1.ディレクトリ移動
-  - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
-```yaml
+
+- 使用するplaybook,inventoryファイルが存在するディレクトリに移動
+
+```shell
 [ec2-user@ip-172-31-42-108]$ cd /home/ec2-user/yokogushi_contents_team/ansible_practice/07_loop
 ```
 
-### 2.仮想環境(venv)に入る 
-```yaml
+### 2.仮想環境(venv)に入る
+
+```shell
 [ec2-user@ip-172-31-42-108]$ source /home/ec2-user/venv/bin/activate
 (venv)[ec2-user@ip-172-31-42-108]$
 ```
 
 ### 3.playbookの内容を確認
+
 - varsで変数「dir_names」に「loop_dir1」「loop_dir2」を定義
 - loopで変数も指定することができる
 - loopで変数「dir_names」を指定させて、file moduleのpathパラメータに代入
+
 ```yaml
 ---
 - name: sample1
@@ -168,7 +177,8 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 ```
 
 ### 4.playbookを実行
-```yaml
+
+```shell
 (venv) [ec2-user@ip-172-31-42-108 07_loop]$ ansible-playbook loop_sample_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit
 localhost does not match 'all'
@@ -186,7 +196,8 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 ```
 
 ### 5.事後確認
-```yaml
+
+```shell
 (venv) [ec2-user@ip-172-31-42-108 07_loop]$ ls -l /home/ec2-user/
 total 0
 drwxrwxr-x 2 ec2-user ec2-user  6 Apr 20 06:21 loop_dir1
@@ -203,7 +214,8 @@ drwxrwxr-x 5 ec2-user ec2-user 63 Mar 15 11:58 yokogushi_contents_team
 ---
 
 ## loopディレクティブについてのまとめ
-- loopディレクティブは以下のときに使用する 
+
+- loopディレクティブは以下のときに使用する
   - 同一のタスクを複数回実行
   - 複数の変数やファイルを扱ったりする
 - loopで定義した内容は、変数「item」に格納されるようになっている。
@@ -220,9 +232,10 @@ drwxrwxr-x 5 ec2-user ec2-user 63 Mar 15 11:58 yokogushi_contents_team
 
 ---
 
+### Q1 実行結果から、以下のplaybookの空欄に当てはまるものを考えてください
 
-### Q1 実行結果から、以下のplaybookの空欄に当てはまるものを考えてください。
 - playbook
+
 ```yaml
 ---
 - name: exam1
@@ -243,7 +256,8 @@ drwxrwxr-x 5 ec2-user ec2-user 63 Mar 15 11:58 yokogushi_contents_team
 ```
 
 - 実行結果
-```yaml
+
+```shell
 (venv) [ec2-user@ip-172-31-42-108 07_loop]$ ansible-playbook loop_exam_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
@@ -273,8 +287,10 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
 ---
 
-### Q2 出力結果をloopの中から3つだけ出力させたいとき、■■■にはどんな条件式が入るでしょうか。
+### Q2 出力結果をloopの中から3つだけ出力させたいとき、■■■にはどんな条件式が入るでしょうか
+
 - playbook
+
 ```yaml
 ---
 - name: exam2
@@ -302,6 +318,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 ---
 
 ### Q3 以下の条件のplaybookを作成して、実行してください
+
 - 使用インベントリファイル：「/home/ec2-user/yokogushi_contents_team/ansible_practice/07_loop」配下のinventory.ini
 - playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/07_loop」配下
 - playbook名：「loop_exam_3.yml」で作成
@@ -316,6 +333,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 ---
 
 ### Q4 以下の条件のplaybookを作成して、実行してください
+
 - 使用インベントリファイル：「/home/ec2-user/yokogushi_contents_team/ansible_practice/07_loop」配下のinventory.ini
 - playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/07_loop」配下
 - playbook名：「loop_exam_4.yml」で作成
@@ -334,6 +352,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 ### A1 正解：以下、解答例
 
 - playbook
+
 ```yaml
 ---
 - name: exam1
@@ -361,10 +380,10 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
 ### A2 正解：以下、解答例
 
-- **item > 26** などでもOK。そのほか解答あれば教えてください。 
-
+- **item > 26** などでもOK。そのほか解答あれば教えてください。
 
 - playbook
+
 ```yaml
 ---
 - name: exam2
@@ -386,7 +405,8 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 ```
 
 - 実行結果
-```yaml
+
+```shell
 (venv) [ec2-user@ip-172-31-42-108 07_loop]$ ansible-playbook answer/loop_exam_2.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit
 localhost does not match 'all'
@@ -425,6 +445,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 ### A3 以下、解答例
 
 - playbook
+
 ```yaml
 ---
 - name: exam3
@@ -442,7 +463,8 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 ```
 
 - 実行結果
-```yaml
+
+```shell
 (venv) [ec2-user@ip-172-31-42-108 07_loop]$ ansible-playbook -i inventory.ini loop_exam_3.yml 
 
 PLAY [exam3] ****************************************************************************************
@@ -461,7 +483,8 @@ host02                     : ok=1    changed=1    unreachable=0    failed=0    s
 ```
 
 - ファイルが作成されているか確認
-```yaml
+
+```shell
 (venv) [ec2-user@ip-172-31-42-108 07_loop]$ docker exec -it host01 /bin/bash
 [root@host01 /]# ls -l /tmp/
 total 0
@@ -493,6 +516,7 @@ exit
 ### A4 以下、解答例
 
 - playbook
+
 ```yaml
 ---
 - name: exam4
@@ -530,7 +554,8 @@ exit
 ```
 
 - 実行結果
-```yaml
+
+```shell
 (venv) [ec2-user@ip-172-31-42-108 07_loop]$ ansible-playbook -i inventory.ini loop_exam_4.yml 
 
 PLAY [exam4] ****************************************************************************************
