@@ -104,14 +104,15 @@
 - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
 
 ```shell
-[ec2-user@ip-172-31-42-108]$ cd /home/ec2-user/ansible_on_vyos/ansible_practice/03_vyos
+cd /home/ec2-user/ansible_on_vyos/ansible_practice/03_vyos
 ```
 
 ### 2.仮想環境(poetry)に入る
 
 ```shell
-[ec2-user@ip-172-31-38-192 03_vyos]$ poetry shell
-(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-38-192 03_vyos]$
+$ poetry shell
+
+# Spawning shell within /home/ec2-user/ansible_on_vyos/.venv
 ```
 
 ### 3.vyos01,vyos02の設定を事前確認
@@ -162,7 +163,7 @@ $
 - vyos01,vyos02の接続に必要な情報が存在することを確認する。
 
 ```ini
-[ec2-user@ip-172-31-38-192]$ cat inventory.ini
+$ cat inventory.ini
 [vyos]
 vyos01 ansible_host=10.0.0.2
 vyos02 ansible_host=10.0.0.3
