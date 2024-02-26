@@ -49,13 +49,13 @@
 
   tasks:
     - name: sample1
-      yum: 
+      ansible.builtin.yum: 
         name: httpd
         state: latest
       when: inventory_hostname == 'host01'
 ```
 
-* yumモジュール・・・パッケージの管理（インストール、更新、削除など）をする
+- yumモジュール・・・パッケージの管理（インストール、更新、削除など）をする
 
 ### 論理演算子でのwhenディレクティブの使用例
 
@@ -75,7 +75,7 @@
 
   tasks:
     - name: sample2
-      yum: 
+      ansible.builtin.yum: 
         name: httpd
         state: latest
       when: inventory_hostname == 'host01' or inventory_hostname == 'host02'
@@ -98,7 +98,7 @@
 
   tasks:
     - name: sample3
-      yum: 
+      ansible.builtin.yum: 
         name: httpd
         state: latest
       when: inventory_hostname in ['host01','host02']
@@ -122,19 +122,19 @@
 
   tasks:
     - name: sample4
-      yum: 
+      ansible.builtin.yum: 
         name: httpd
         state: latest
       register: result
       ignore_errors: true
       
     - name: yum httpd success msg
-      debug:
+      ansible.builtin.debug:
         msg: "yum httpd succeess!!"
       when: result is succeeded
 
     - name: yum httpd error msg
-      debug:
+      ansible.builtin.debug:
         msg: "yum httpd error!!"
       when: result is not succeeded
 ```
@@ -203,7 +203,7 @@ ansible_password=test_password
 
   tasks:
     - name: vyos01 only show commands
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands: 
           - show ip route
           - show interface
@@ -211,7 +211,7 @@ ansible_password=test_password
       when: inventory_hostname == 'vyos01'
 
     - name: vyos debug show commands
-      debug: 
+      ansible.builtin.debug: 
         var: result.stdout_lines
 
 ```
@@ -310,7 +310,7 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: 
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands:
           - show configuration
       when: ■■■
@@ -333,7 +333,7 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: exam2 playbook
-      debug:
+      ansible.builtin.debug:
         msg: "exam2 playbook test!!"
       when: "'RedHat' in ansible_distribution or 'CentOS' in ansible_distribution"
 ```
@@ -389,7 +389,7 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: 
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands:
           - show configuration
       when: inventory_hostname == 'vyos01'
@@ -423,7 +423,7 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: vyos show ip route
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands:
           - show ip route
       when: inventory_hostname in ['vyos01','vyos02']
@@ -475,14 +475,14 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: make text file
-      file:
+      ansible.builtin.file:
         path: /tmp/test_exam4.txt
         state: touch
       register: result
       when: inventory_hostname == 'host01'
 
     - name: debug success msg
-      debug:
+      ansible.builtin.debug:
         msg: "make success text!"
       when: inventory_hostname == 'host01' and result is succeeded
 ```
