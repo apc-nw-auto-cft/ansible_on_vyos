@@ -50,7 +50,7 @@
 
   tasks:
   - name: debug fruits 
-    debug:
+    ansible.builtin.debug:
       msg: "{{ item }}"
     loop:
       - Apple
@@ -95,7 +95,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
   - name: debug fruits 
-    debug:
+    ansible.builtin.debug:
       msg: "The {{ item.key }} is {{ item.value }}"
     loop:
       - { fruits: 'Apple', color: 'Red' }
@@ -170,7 +170,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: make directory
-      file:
+      ansible.builtin.file:
         path: /home/ec2-user/{{ item }}
         state: directory
       loop: "{{ dir_names }}"
@@ -250,7 +250,7 @@ drwxrwxr-x 5 ec2-user ec2-user 63 Mar 15 11:58 yokogushi_contents_team
 
   tasks:
     - name: debug fruits
-      debug:
+      ansible.builtin.debug:
         msg: "{{ ■■■ }}"
       loop: "{{ ■■■ }}"
 ```
@@ -299,7 +299,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: when/loop
-      debug: 
+      ansible.builtin.debug: 
         var: item
       loop:
         - 3
@@ -367,7 +367,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: debug fruits
-      debug:
+      ansible.builtin.debug:
         msg: "{{ item }}" #解答
       loop: "{{ fruits }}" #解答
 ```
@@ -392,7 +392,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: when/loop
-      debug: 
+      ansible.builtin.debug: 
         var: item
       loop:
         - 3
@@ -454,7 +454,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: make file
-      file:
+      ansible.builtin.file:
         path: /tmp/{{ item }}
         state: touch
       loop:
@@ -525,17 +525,17 @@ exit
 
   tasks:
     - name: check before interface description #任意の実施
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands:
           - show interfaces
       register: result
 
     - name: check before interface description debug #任意の実施
-      debug:
+      ansible.builtin.debug:
         var: result.stdout_lines
 
     - name: set descriptions
-      vyos_config:
+      vyos.vyos.vyos_config:
         lines:
           - set interfaces ethernet {{ item.ethernet }} description {{ item.description }}
       loop: 
@@ -543,13 +543,13 @@ exit
         - { ethernet: 'eth2', description: 'loop_test2' }
 
     - name: check after interface description #任意の実施
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands:
           - show interfaces
       register: result
 
     - name: check after interface description debug #任意の実施
-      debug:
+      ansible.builtin.debug:
         var: result.stdout_lines
 ```
 
