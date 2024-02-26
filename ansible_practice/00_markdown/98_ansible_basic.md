@@ -20,7 +20,6 @@ ansible_password=vyos                                    #vyosにログインす
 [host:vars]
 ansible_user=root
 ansible_password=test_password
-
 ```
 
 <br>
@@ -45,12 +44,12 @@ ansible_password=test_password
 
   tasks:                                      #実行させたい処理内容を記載
     - name: task name1                        #task名を指定
-      vyos_command:                           #使用するモジュールを指定
+      vyos.vyos.vyos_command:                           #使用するモジュールを指定
         commands:                             #上記で使用するモジュールのパラメータを指定
           - show interfaces                   
 
     - name: task name2                                               
-      vyos_config:                            
+      vyos.vyos.vyos_config:                            
         lines:                                
           - set system XX                     
 ```
