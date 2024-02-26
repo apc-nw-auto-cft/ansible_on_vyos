@@ -15,7 +15,7 @@
   よって本実習時はdockerコンテナを起動後、playbook (**container_setting.yml**) を実行すること。
 
 ```shell
-(venv) [ec2-user@ip-172-31-42-108 yokogushi_contents_team]$ ansible-playbook -i /home/ec2-user/yokogushi_contents_team/init_settings/inventory.ini /home/ec2-user/yokogushi_contents_team/init_settings/container_setting.yml
+ansible-playbook -i /home/ec2-user/yokogushi_contents_team/init_settings/inventory.ini /home/ec2-user/yokogushi_contents_team/init_settings/container_setting.yml
 ```
 
 ### 目的
