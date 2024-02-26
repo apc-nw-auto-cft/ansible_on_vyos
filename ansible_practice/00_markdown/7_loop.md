@@ -25,7 +25,7 @@
 - 補足
   - loopは、「with_list」で代用することも可能。
 
-- loopのAnsible documentは[こちら](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
+- loopのAnsible documentは[こちら](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html)
 
 ---
 
