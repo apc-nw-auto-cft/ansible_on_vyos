@@ -241,14 +241,15 @@ vyos01                     : ok=2    changed=0    unreachable=0    failed=0    s
 - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
 
 ```shell
-[ec2-user@ip-172-31-42-108]$ cd /home/ec2-user/yokogushi_contents_team/ansible_practice/05_variable
+cd /home/ec2-user/yokogushi_contents_team/ansible_practice/05_variable
 ```
 
 ### 2.仮想環境(poetry)に入る
 
 ```shell
-[ec2-user@ip-172-31-42-108]$ poetry shell
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108]$
+$ poetry shell
+
+# Spawning shell within /home/ec2-user/ansible_on_vyos/.venv
 ```
 
 ### 3.インベントリファイルの内容を確認
@@ -290,7 +291,7 @@ ansible_password=vyos
 ### 5.playbookを実行
 
 ```shell
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ ansible-navigator run variable_sample_1.yml 
+$ ansible-navigator run variable_sample_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
 
@@ -304,7 +305,7 @@ ok: [localhost] => {
 PLAY RECAP ************************************************************************************************
 localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ 
+$ 
 ```
 
 ### 目的2 set_factを使用して変数定義を行い、変数の中身をdebugで出力する
@@ -333,7 +334,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 ### 5.playbookを実行
 
 ```shell
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ ansible-navigator run variable_sample_2.yml 
+$ ansible-navigator run variable_sample_2.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
 
@@ -350,7 +351,7 @@ ok: [localhost] => {
 PLAY RECAP ************************************************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ 
+$ 
 ```
 
 ### 目的3 マジック変数の中身をdebugで出力する
@@ -373,10 +374,10 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 
 ### 5.playbookを実行
 
-- - 「ansible_play_name」に格納されたplaybookの名前(nameで定義した内容)が出力されていることを確認
+- 「ansible_play_name」に格納されたplaybookの名前(nameで定義した内容)が出力されていることを確認
 
 ```shell
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ ansible-navigator run variable_sample_3.yml 
+$ ansible-navigator run variable_sample_3.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
 
@@ -390,7 +391,7 @@ ok: [localhost] => {
 PLAY RECAP ************************************************************************************************
 localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ 
+$ 
 ```
 
 ### 目的4 ファクト変数の中身の一部をdebugで出力する
@@ -420,7 +421,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 - 「ansible_facts」に格納されているディクショナリの中の値(value)を取り出すことができる
 
 ```shell
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ ansible-navigator run -i inventory.ini variable_sample_4.yml 
+$ ansible-navigator run -i inventory.ini variable_sample_4.yml 
 
 PLAY [sample4] ********************************************************************************************
 
@@ -593,7 +594,7 @@ ok: [vyos01] => {
 PLAY RECAP ************************************************************************************************
 vyos01                     : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ 
+$ 
 ```
 
 <br>
@@ -646,7 +647,7 @@ vyos01                     : ok=3    changed=0    unreachable=0    failed=0    s
 - 実行結果
 
 ```shell
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 ansible_practice]$ ansible-navigator run 05_variable/variable_exam_1.yml 
+$ ansible-navigator run 05_variable/variable_exam_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
 
@@ -663,7 +664,7 @@ ok: [localhost] => {
 PLAY RECAP *********************************************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 ansible_practice]$
+$
 ```
 
 1. “VARIABLE IS NOT DEFINED!”
@@ -700,7 +701,7 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 - 実行結果
 
 ```shell
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 ansible_practice]$ ansible-navigator run 05_variable/variable_exam_2.yml 
+$ ansible-navigator run 05_variable/variable_exam_2.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
 
@@ -717,7 +718,7 @@ ok: [localhost] => {
 PLAY RECAP *********************************************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 ansible_practice]$ 
+$ 
 ```
 
 1. Hello Ansible!
@@ -751,7 +752,7 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 - 以下、正しい実行結果
 
 ```shell
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ ansible-navigator run variable_exam_1.yml 
+$ ansible-navigator run variable_exam_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
 
@@ -768,7 +769,7 @@ ok: [localhost] => {
 PLAY RECAP *********************************************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ 
+$ 
 ```
 
 - 解説
@@ -787,7 +788,7 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 - 以下、正しい実行結果
 
 ```shell
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ ansible-navigator run variable_exam_2.yml 
+$ ansible-navigator run variable_exam_2.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
 
@@ -804,7 +805,7 @@ ok: [localhost] => {
 PLAY RECAP *********************************************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ 
+$ 
 ```
 
 - `set_fact`で定義した`ansible_play_name`という変数はマジック変数であり、現在実行されているplaybookの名前を変数の中に格納する。
@@ -839,7 +840,7 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 - playbookの実行結果
 
 ```shell
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ ansible-navigator run variable_exam_3.yml 
+$ ansible-navigator run variable_exam_3.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
 
@@ -856,5 +857,5 @@ ok: [localhost] => {
 PLAY RECAP *********************************************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(ansible-on-vyos-py3.9)[ec2-user@ip-172-31-42-108 05_variable]$ 
+$ 
 ```
