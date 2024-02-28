@@ -1,12 +1,14 @@
 # vyosを触ってみよう
+
 ---
 
 # vyosとは
+
 - オープンソースで開発されているネットワークOS
 - おもにソフトウェアルータとして運用
 - 今回は、dockerコンテナでvyosを構築しています
 
-参考：https://ja.wikipedia.org/wiki/VyOS
+参考：<https://ja.wikipedia.org/wiki/VyOS>
 
 ---
 
@@ -16,11 +18,14 @@ paginate: true
 -->
 
 # vyos(host)にlogin
+
 ## 事前準備
 
 vyosの初期構築として、以下を実施(初期構築時に実施済み)
-```
+
+```shell
 cd ansible_on_vyos/
+
 docker-compose -f init_settings/docker-compose.yml up -d
 ```
 
@@ -29,32 +34,41 @@ EC2インスタンスを起動すると、dockerコンテナ(vyos・host)は停�
 トレーニング時や宿題時は以下のコマンドを実行して、vyosを起動する(ここでは、hostも起動します)
 
 すべてのコンテナ(vyos01,vyos02,host01,host02)を起動する
-```
+
+```shell
 docker start $(docker ps -aq)
 ```
+
 1台のコンテナだけ起動する(例：vyos01のみ)
-```
+
+```shell
 docker start vyos01
 ```
+
 コンテナの起動状態を確認する  
 出力されていない場合、起動していない
-```
+
+```shell
 docker ps
 ```
 
 ## vyos01にlogin
+
 containerに直接入るのであれば
-```
+
+```shell
 docker exec -it vyos01 su - vyos
 ```
 
 sshするのであれば
-```
-ssh vyos@10.0.0.2
+
+```shell
+$ ssh vyos@10.0.0.2
 （初回login時は yes を選択）
 pw: vyos
 ```
-参考：https://docs.google.com/presentation/d/1Z5oyxRJH1G_lImkciK9mhdvWkzOOvG4Z/edit#slide=id.p1
+
+参考：<https://docs.google.com/presentation/d/1Z5oyxRJH1G_lImkciK9mhdvWkzOOvG4Z/edit#slide=id.p1>
 
 ---
 
@@ -64,11 +78,15 @@ paginate: true
 -->
 
 # vyosでshow command 取得
+
 出力をページングしない（全行一括表示する）設定
+
 ```
 vyos@vyos01:~$ set terminal length 0
 ```
+
 interfaceの状態確認
+
 ```
 vyos@vyos01:~$ show interfaces
 Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
@@ -91,7 +109,9 @@ paginate: true
 -->
 
 # vyosでshow command 取得
+
 config取得（Tree形式）
+
 ```
 vyos@vyos01:~$ show configuration
 high-availability {
@@ -124,14 +144,18 @@ paginate: true
 -->
 
 # vyosで設定
+
 configure modeに入る
+
 ```
 vyos@vyos01:~$ configure
 [edit]
 vyos@vyos01#
 ```
-working configをtreeで表示
+
+working configをtreeで表示  
 (working configとは設定途中のconfigのこと。投入した設定がなければ、active configと同内容である。)
+
 ```
 vyos@vyos01# show
  high-availability {
@@ -144,6 +168,7 @@ vyos@vyos01# show
          }
 <skip>
 ```
+
 ---
 
 <!--
@@ -154,6 +179,7 @@ paginate: true
 # vyosで設定
 
 configのinterfaces配下の設定を確認
+
 ```
 vyos@vyos01# show interfaces
  ethernet eth1 {
@@ -166,7 +192,8 @@ vyos@vyos01# show interfaces
  }
 <skip>
 ```
-同じ"show interfaces"でも、operation modeではinterfaceの状態が出力され、
+
+同じ"show interfaces"でも、operation modeではinterfaceの状態が出力され、  
 一方、configure modeではinterfaces配下のconfigが出力される。
 
 ---
@@ -178,23 +205,29 @@ paginate: true
 
 # vyosで設定
 
-active(=running)とworking(=candidate)のconfig比較にはcompareを使用する。
+active(=running)とworking(=candidate)のconfig比較にはcompareを使用する。  
 設定投入前には両者に差分がないことを確認
+
 ```
 vyos@vyos01# compare
 No changes between working and active configurations.
 ```
+
 設定追加例: interfaceにdescriptionを付ける
+
 ```
 vyos@vyos01# set interfaces ethernet eth1 description to_service_nw01
 ```
+
 compareで比較
+
 ```
 vyos@vyos01# compare
 [edit interfaces ethernet eth1]
 +description to_service_nw01
 ```
-追加設定には+マークが付く。
+
+追加設定には+マークが付く。  
 無事投入されていること、想定外の設定がないことを確認できる。
 
 ---
@@ -207,6 +240,7 @@ paginate: true
 # vyosで設定
 
 showでも追加設定に+が付いてることを確認できる
+
 ```
 vyos@vyos01# show interfaces ethernet eth1
  address 192.168.1.252/24
@@ -217,11 +251,15 @@ vyos@vyos01# show interfaces ethernet eth1
      }
  }
 ```
+
 working configをactive configに上書きする
+
 ```
 vyos@vyos01# commit
 ```
+
 activeとworkingのconfigに差分がないことを確認
+
 ```
 vyos@vyos01# compare
 No changes between working and active configurations.
@@ -237,6 +275,7 @@ paginate: true
 # vyosで設定
 
 saved configに上書きする
+
 ```
 vyos@vyos01# save
 Saving configuration to '/config/config.boot'...
@@ -244,6 +283,7 @@ Done
 ```
 
 exitでconfigure modeから抜ける
+
 ```
 vyos@vyos01# exit
 exit
@@ -251,6 +291,7 @@ vyos@vyos01:~$
 ```
 
 active configに反映されていることを確認
+
 ```
 vyos@vyos01:~$ show configuration commands
 <skip>
@@ -268,20 +309,25 @@ paginate: true
 # vyosで設定
 
 設定削除例: 先ほど投入した設定を削除する
+
 ```
 vyos@vyos01:~$ configure
 [edit]
 vyos@vyos01# delete interfaces ethernet eth1 description
 ```
-compareする
+
+compareする  
+削除設定には-マークが付く。  
+無事投入されていること、想定外の設定がないことを確認。
+
 ```
 vyos@vyos01# compare
 [edit interfaces ethernet eth1]
 -description to_service_nw01
 ```
-削除設定には-マークが付く。無事投入されていること、想定外の設定がないことを確認。
 
 commitしてsaveする
+
 ```
 vyos@vyos01# commit
 
@@ -298,13 +344,16 @@ paginate: true
 # 演習
 
 1. vyos02のinterfaceのdescription設定
-    1. vyos02のeth1のinterfaceに"to_service_nw01"、eth2のinterfaceに"to_service_nw02"というdescriptionを設定し、active configに反映されたことを確認する。
+    1. vyos02のeth1のinterfaceに"to_service_nw01"、eth2のinterfaceに"to_service_nw02"という  
+   descriptionを設定し、active configに反映されたことを確認する。
     2. 1で設定した内容を削除する
 
 # 解答例
 
 1. vyos02のinterfaceのdescription設定
-    1. vyos02のeth1のinterfaceに"to_service_nw01"、eth2のinterfaceに"to_service_nw02"というdescriptionを設定し、active configに反映されたことを確認する。
+    1. vyos02のeth1のinterfaceに"to_service_nw01"、eth2のinterfaceに"to_service_nw02"という  
+    descriptionを設定し、active configに反映されたことを確認する。
+
     ```
     $ docker exec -it vyos02 su - vyos
      vyos@vyos02:~$ show configuration
@@ -369,7 +418,9 @@ paginate: true
             }
      <skip>
     ```
+
     2. 上記設定の削除
+
     ```
     $ docker exec -it vyos02 su - vyos
      vyos@vyos02:~$ show configuration
@@ -432,4 +483,4 @@ paginate: true
             address {
                 no-default-link-local
             }
-     <skip>    
+     <skip>
