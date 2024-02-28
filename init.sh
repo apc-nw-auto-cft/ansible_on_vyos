@@ -21,3 +21,6 @@ sudo gpasswd -a $USER docker
 
 # dockerデーモンを再起動する
 sudo systemctl restart docker
+
+# ansible-navigator.ymlの環境変数を設定する
+echo 'export ANSIBLE_NAVIGATOR_CONFIG="$HOME/ansible_on_vyos/ansible-navigator.yaml"' >> ~/.bashrc
