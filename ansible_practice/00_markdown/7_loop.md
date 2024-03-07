@@ -25,7 +25,7 @@
 - 補足
   - loopは、「with_list」で代用することも可能。
 
-- loopのAnsible documentは[こちら](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
+- loopのAnsible documentは[こちら](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html)
 
 ---
 
@@ -40,7 +40,8 @@
 - 以下は、loopで「Apple」「Banana」「Peach」を定義し、debug moduleを使用してmsgを出力させているplaybookである。
 - loopで繰り返すリストを定義することができる。
 - loopで定義した内容は、変数「item」に格納されるようになっている。
-- 
+-
+
 ```yaml
 ---
 - name: sample
@@ -49,7 +50,7 @@
 
   tasks:
   - name: debug fruits 
-    debug:
+    ansible.builtin.debug:
       msg: "{{ item }}"
     loop:
       - Apple
@@ -59,8 +60,9 @@
 
 - このplaybookを実行すると、以下のような実行結果となる。
 - loopで定義したリストが1つずつ代入され、要素を順番に処理することができる。
-```yaml
-$ ansible-playbook playbook.yaml
+
+```shell
+$ ansible-navigator run playbook.yaml
 
 PLAY [sample] ******************************************************************
 
@@ -79,12 +81,13 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
 
-
 ### 複数のloop
 
-- 以下は、loopで「fruits: 'Apple', color: 'Red'」「fruits: 'Banana', color: 'Yellow'」「fruits: 'Peach', color: 'Pink'」を定義し、debug moduleを使用してmsgを出力させているplaybookである。
+- 以下は、loopで「fruits: 'Apple', color: 'Red'」「fruits: 'Banana', color: 'Yellow'」「fruits: 'Peach', color: 'Pink'」を定義し、  
+debug moduleを使用してmsgを出力させているplaybookである。
 - loopを辞書型(Dict型)で定義することができる。
 - loopを辞書型(Dict型)で定義したとき、変数「item.key」(fruits: 'xxxx')「item.value」(color: 'yyyy')に格納されるようになっている。
+
 ```yaml
 ---
 - name: sample
@@ -93,7 +96,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
   - name: debug fruits 
-    debug:
+    ansible.builtin.debug:
       msg: "The {{ item.key }} is {{ item.value }}"
     loop:
       - { fruits: 'Apple', color: 'Red' }
@@ -103,7 +106,8 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
 - このplaybookを実行すると、以下のような実行結果となる。
 - loopで定義した辞書型(Dict型)が1つずつ代入され、要素を順番に処理することができる。
-```yaml
+
+```shell
 PLAY [Sample] ******************************************************************
 
 TASK [Debug fruits] *************************************************************
@@ -130,24 +134,31 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 ## 3.loop ディレクティブの実習
 
 ### 目的
-  - loopディレクティブを使用して、ディレクトリ loop_dir1、loop_dir2を新規作成する
+
+- loopディレクティブを使用して、ディレクトリ loop_dir1、loop_dir2を新規作成する
 
 ### 1.ディレクトリ移動
-  - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
-```yaml
-[ec2-user@ip-172-31-42-108]$ cd /home/ec2-user/yokogushi_contents_team/ansible_practice/07_loop
+
+- 使用するplaybook,inventoryファイルが存在するディレクトリに移動
+
+```shell
+cd /home/ec2-user/yokogushi_contents_team/ansible_practice/07_loop
 ```
 
-### 2.仮想環境(venv)に入る 
-```yaml
-[ec2-user@ip-172-31-42-108]$ source /home/ec2-user/venv/bin/activate
-(venv)[ec2-user@ip-172-31-42-108]$
+### 2.仮想環境(poetry)に入る
+
+```shell
+$ poetry shell
+
+# Spawning shell within /home/ec2-user/ansible_on_vyos/.venv
 ```
 
 ### 3.playbookの内容を確認
+
 - varsで変数「dir_names」に「loop_dir1」「loop_dir2」を定義
 - loopで変数も指定することができる
 - loopで変数「dir_names」を指定させて、file moduleのpathパラメータに代入
+
 ```yaml
 ---
 - name: sample1
@@ -161,15 +172,16 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: make directory
-      file:
+      ansible.builtin.file:
         path: /home/ec2-user/{{ item }}
         state: directory
       loop: "{{ dir_names }}"
 ```
 
 ### 4.playbookを実行
-```yaml
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ ansible-playbook loop_sample_1.yml 
+
+```shell
+$ ansible-navigator run loop_sample_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit
 localhost does not match 'all'
 
@@ -182,18 +194,19 @@ changed: [localhost] => (item=loop_dir2)
 PLAY RECAP ******************************************************************************************
 localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ 
+$ 
 ```
 
 ### 5.事後確認
-```yaml
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ ls -l /home/ec2-user/
+
+```shell
+$ ls -l /home/ec2-user/
 total 0
 drwxrwxr-x 2 ec2-user ec2-user  6 Apr 20 06:21 loop_dir1
 drwxrwxr-x 2 ec2-user ec2-user  6 Apr 20 06:21 loop_dir2
 drwxr-xr-x 5 ec2-user ec2-user 77 Mar  3 10:52 venv
 drwxrwxr-x 5 ec2-user ec2-user 63 Mar 15 11:58 yokogushi_contents_team
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ 
+$ 
 ```
 
 <br>
@@ -203,7 +216,8 @@ drwxrwxr-x 5 ec2-user ec2-user 63 Mar 15 11:58 yokogushi_contents_team
 ---
 
 ## loopディレクティブについてのまとめ
-- loopディレクティブは以下のときに使用する 
+
+- loopディレクティブは以下のときに使用する
   - 同一のタスクを複数回実行
   - 複数の変数やファイルを扱ったりする
 - loopで定義した内容は、変数「item」に格納されるようになっている。
@@ -220,9 +234,10 @@ drwxrwxr-x 5 ec2-user ec2-user 63 Mar 15 11:58 yokogushi_contents_team
 
 ---
 
+### Q1 実行結果から、以下のplaybookの空欄に当てはまるものを考えてください
 
-### Q1 実行結果から、以下のplaybookの空欄に当てはまるものを考えてください。
 - playbook
+
 ```yaml
 ---
 - name: exam1
@@ -237,14 +252,15 @@ drwxrwxr-x 5 ec2-user ec2-user 63 Mar 15 11:58 yokogushi_contents_team
 
   tasks:
     - name: debug fruits
-      debug:
+      ansible.builtin.debug:
         msg: "{{ ■■■ }}"
       loop: "{{ ■■■ }}"
 ```
 
 - 実行結果
-```yaml
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ ansible-playbook loop_exam_1.yml 
+
+```shell
+$ ansible-navigator run loop_exam_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
 
@@ -264,7 +280,7 @@ ok: [localhost] => (item=Peach) => {
 PLAY RECAP ************************************************************************************************
 localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ 
+$ 
 ```
 
 <br>
@@ -273,8 +289,10 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
 ---
 
-### Q2 出力結果をloopの中から3つだけ出力させたいとき、■■■にはどんな条件式が入るでしょうか。
+### Q2 出力結果をloopの中から3つだけ出力させたいとき、■■■にはどんな条件式が入るでしょうか
+
 - playbook
+
 ```yaml
 ---
 - name: exam2
@@ -283,7 +301,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: when/loop
-      debug: 
+      ansible.builtin.debug: 
         var: item
       loop:
         - 3
@@ -302,6 +320,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 ---
 
 ### Q3 以下の条件のplaybookを作成して、実行してください
+
 - 使用インベントリファイル：「/home/ec2-user/yokogushi_contents_team/ansible_practice/07_loop」配下のinventory.ini
 - playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/07_loop」配下
 - playbook名：「loop_exam_3.yml」で作成
@@ -316,6 +335,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 ---
 
 ### Q4 以下の条件のplaybookを作成して、実行してください
+
 - 使用インベントリファイル：「/home/ec2-user/yokogushi_contents_team/ansible_practice/07_loop」配下のinventory.ini
 - playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/07_loop」配下
 - playbook名：「loop_exam_4.yml」で作成
@@ -334,6 +354,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 ### A1 正解：以下、解答例
 
 - playbook
+
 ```yaml
 ---
 - name: exam1
@@ -348,7 +369,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: debug fruits
-      debug:
+      ansible.builtin.debug:
         msg: "{{ item }}" #解答
       loop: "{{ fruits }}" #解答
 ```
@@ -361,10 +382,10 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
 ### A2 正解：以下、解答例
 
-- **item > 26** などでもOK。そのほか解答あれば教えてください。 
-
+- **item > 26** などでもOK。そのほか解答あれば教えてください。
 
 - playbook
+
 ```yaml
 ---
 - name: exam2
@@ -373,7 +394,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: when/loop
-      debug: 
+      ansible.builtin.debug: 
         var: item
       loop:
         - 3
@@ -386,8 +407,9 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 ```
 
 - 実行結果
-```yaml
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ ansible-playbook answer/loop_exam_2.yml 
+
+```shell
+$ ansible-navigator run answer/loop_exam_2.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit
 localhost does not match 'all'
 
@@ -413,7 +435,7 @@ skipping: [localhost] => (item=350)
 PLAY RECAP ******************************************************************************************
 localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ 
+$ 
 ```
 
 <br>
@@ -425,6 +447,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 ### A3 以下、解答例
 
 - playbook
+
 ```yaml
 ---
 - name: exam3
@@ -433,7 +456,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: make file
-      file:
+      ansible.builtin.file:
         path: /tmp/{{ item }}
         state: touch
       loop:
@@ -442,8 +465,9 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 ```
 
 - 実行結果
-```yaml
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ ansible-playbook -i inventory.ini loop_exam_3.yml 
+
+```shell
+$ ansible-navigator run -i inventory.ini loop_exam_3.yml 
 
 PLAY [exam3] ****************************************************************************************
 
@@ -457,12 +481,15 @@ PLAY RECAP *********************************************************************
 host01                     : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 host02                     : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ 
+$ 
 ```
 
 - ファイルが作成されているか確認
-```yaml
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ docker exec -it host01 /bin/bash
+
+```shell
+$ docker exec -it host01 /bin/bash
+
+# ここからコンテナ(host01)を操作
 [root@host01 /]# ls -l /tmp/
 total 0
 drwx------ 2 root root 37 Apr 13 04:54 ansible_yum_payload_Vc17Y3
@@ -472,7 +499,10 @@ drwx------ 2 root root 37 Apr 13 04:54 ansible_yum_payload_Vc17Y3
 [root@host01 /]# 
 [root@host01 /]# exit
 exit
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ docker exec -it host02 /bin/bash
+
+$ docker exec -it host02 /bin/bash
+
+# ここからコンテナ(host02)を操作
 [root@host02 /]# ls -l /tmp/
 total 0
 drwx------ 2 root root 37 Apr 13 04:54 ansible_yum_payload_FWE23G
@@ -481,7 +511,8 @@ drwx------ 2 root root 37 Apr 13 04:54 ansible_yum_payload_FWE23G
 [root@host02 /]# 
 [root@host02 /]# exit
 exit
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ 
+
+$ 
 ```
 
 <br>
@@ -493,6 +524,7 @@ exit
 ### A4 以下、解答例
 
 - playbook
+
 ```yaml
 ---
 - name: exam4
@@ -501,17 +533,17 @@ exit
 
   tasks:
     - name: check before interface description #任意の実施
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands:
           - show interfaces
       register: result
 
     - name: check before interface description debug #任意の実施
-      debug:
+      ansible.builtin.debug:
         var: result.stdout_lines
 
     - name: set descriptions
-      vyos_config:
+      vyos.vyos.vyos_config:
         lines:
           - set interfaces ethernet {{ item.ethernet }} description {{ item.description }}
       loop: 
@@ -519,19 +551,20 @@ exit
         - { ethernet: 'eth2', description: 'loop_test2' }
 
     - name: check after interface description #任意の実施
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands:
           - show interfaces
       register: result
 
     - name: check after interface description debug #任意の実施
-      debug:
+      ansible.builtin.debug:
         var: result.stdout_lines
 ```
 
 - 実行結果
-```yaml
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$ ansible-playbook -i inventory.ini loop_exam_4.yml 
+
+```shell
+$ ansible-navigator run -i inventory.ini loop_exam_4.yml 
 
 PLAY [exam4] ****************************************************************************************
 
@@ -621,5 +654,5 @@ PLAY RECAP *********************************************************************
 vyos01                     : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 vyos02                     : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 07_loop]$
+$
 ```
