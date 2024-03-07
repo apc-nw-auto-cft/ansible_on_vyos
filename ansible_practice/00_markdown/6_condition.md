@@ -24,7 +24,7 @@
   - 特定の条件に当てはまるタスクのみスキップしたい時 ...etc
 - whenディレクティブを使用するときは、比較演算子・論理演算子・in演算子・in演算子の条件式を用いる。
 
-- whenディレクティブのAnsible documentは[こちら](https://docs.ansible.com/ansible/2.9_ja/user_guide/playbooks_conditionals.html)
+- whenディレクティブのAnsible documentは[こちら](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_conditionals.html)
 
 ---
 
@@ -36,10 +36,11 @@
 | :-----: | :------------------------------------------------------------------------------------------------------------ |
 | X == Y | X の値と Y の値が等しいとき |
 | X != Y | X の値と Y の値が等しくないとき |
-| X > Y | X の値が Y の値より大きいとき | 
+| X > Y | X の値が Y の値より大きいとき |
 | X >= Y | X の値が Y の値より大きいか等しいとき |
 
 - 以下は、実行対象ノードが「host01」だった場合、httpdをインストールするplaybookである。
+
 ```yaml
 ---
 - name: sample
@@ -48,13 +49,13 @@
 
   tasks:
     - name: sample1
-      yum: 
+      ansible.builtin.yum: 
         name: httpd
         state: latest
       when: inventory_hostname == 'host01'
 ```
-* yumモジュール・・・パッケージの管理（インストール、更新、削除など）をする
 
+- yumモジュール・・・パッケージの管理（インストール、更新、削除など）をする
 
 ### 論理演算子でのwhenディレクティブの使用例
 
@@ -62,9 +63,10 @@
 | :-----: | :------------------------------------------------------------------------------------------------------------ |
 | not 条件X | 条件X が Falseのとき |
 | 条件X and 条件Y | 条件X と条件Y がともに True のとき |
-| 条件X or 条件Y | 条件X か条件Y のどちらかが True のとき | 
+| 条件X or 条件Y | 条件X か条件Y のどちらかが True のとき |
 
 - 以下は、実行対象ノードが「host01」か「host02」だった場合、httpdをインストールするplaybookである。
+
 ```yaml
 ---
 - name: sample
@@ -73,7 +75,7 @@
 
   tasks:
     - name: sample2
-      yum: 
+      ansible.builtin.yum: 
         name: httpd
         state: latest
       when: inventory_hostname == 'host01' or inventory_hostname == 'host02'
@@ -87,6 +89,7 @@
 | A not in [X, Y, Z] | A と同じ値が X, Y, Z の中にないとき |
 
 - 以下は、実行対象ノードがリストに存在する「host01」か「host02」だった場合、httpdをインストールするplaybookである。
+
 ```yaml
 ---
 - name: sample
@@ -95,7 +98,7 @@
 
   tasks:
     - name: sample3
-      yum: 
+      ansible.builtin.yum: 
         name: httpd
         state: latest
       when: inventory_hostname in ['host01','host02']
@@ -108,9 +111,10 @@
 | A is B | AがBの状態であるとき |
 | A is not B | AがBの状態でないとき |
 
-- 以下は、hostにhttpdインストールを実施し、httpdインストールが成功した場合「yum httpd succeess!!」httpdインストールが失敗した場合「yum httpd error!!」というメッセージを出力するplaybookである
+- 以下は、hostにhttpdインストールを実施し、httpdインストールが成功した場合「yum httpd succeess!!」、  
+httpdインストールが失敗した場合「yum httpd error!!」というメッセージを出力するplaybookである
 - httpdインストールが失敗してもplaybookが続行されるように「ignore_errors: true」を記述
- 
+
 ```yaml
 ---
 - name: sample
@@ -119,19 +123,19 @@
 
   tasks:
     - name: sample4
-      yum: 
+      ansible.builtin.yum: 
         name: httpd
         state: latest
       register: result
       ignore_errors: true
       
     - name: yum httpd success msg
-      debug:
+      ansible.builtin.debug:
         msg: "yum httpd succeess!!"
       when: result is succeeded
 
     - name: yum httpd error msg
-      debug:
+      ansible.builtin.debug:
         msg: "yum httpd error!!"
       when: result is not succeeded
 ```
@@ -145,23 +149,29 @@
 ## 3. whenディレクティブの実習(ハンズオン)
 
 ### 目的
-  - vyos01に、「show ip route」「show interface」を実行させる(但しhosts: vyosとする)
-  - 実行結果を出力させる
+
+- vyos01に、「show ip route」「show interface」を実行させる(但しhosts: vyosとする)
+- 実行結果を出力させる
 
 ### 1.ディレクトリ移動
-  - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
-```yaml
-[ec2-user@ip-172-31-42-108]$ cd /home/ec2-user/yokogushi_contents_team/ansible_practice/06_condition
+
+- 使用するplaybook,inventoryファイルが存在するディレクトリに移動
+
+```shell
+cd /home/ec2-user/yokogushi_contents_team/ansible_practice/06_condition
 ```
 
-### 2.仮想環境(venv)に入る 
-```yaml
-[ec2-user@ip-172-31-42-108]$ source /home/ec2-user/venv/bin/activate
-(venv)[ec2-user@ip-172-31-42-108]$
+### 2.仮想環境(poetry)に入る
+
+```shell
+$ poetry shell
+
+# Spawning shell within /home/ec2-user/ansible_on_vyos/.venv
 ```
 
 ### 3.インベントリファイルの内容を確認
-```yaml
+
+```ini
 [vyos]
 vyos01 ansible_host=10.0.0.2
 vyos02 ansible_host=10.0.0.3
@@ -182,8 +192,10 @@ ansible_password=test_password
 ```
 
 ### 4.playbookの内容を確認
+
 - 「when」を使用して、実行対象ノードの条件分岐を実施
-- 「when: inventory_hostname == 'vyos01'」とすることで、実行対象ノードがvyos01のとき「show ip route」「show interface」を実行する
+- 「when: inventory_hostname == 'vyos01'」とすることで、  
+実行対象ノードがvyos01のとき「show ip route」「show interface」を実行する
 - showコマンドをdebugさせる際は「when」を使用していない。
 
 ```yaml
@@ -194,7 +206,7 @@ ansible_password=test_password
 
   tasks:
     - name: vyos01 only show commands
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands: 
           - show ip route
           - show interface
@@ -202,18 +214,19 @@ ansible_password=test_password
       when: inventory_hostname == 'vyos01'
 
     - name: vyos debug show commands
-      debug: 
+      ansible.builtin.debug: 
         var: result.stdout_lines
 
 ```
 
-
 ### 5.playbookを実行
-- 実行対象ノード「vyos01」のみ「show ip route」「show interface」を実行
-- 実行対象ノード「vyos02」は「show ip route」「show interface」を実行していないので、実行結果をdebugしようとするとエラー出力される。
 
-```yaml
-(venv) [ec2-user@ip-172-31-42-108 06_condition]$ ansible-playbook -i inventory.ini when_sample_1.yml 
+- 実行対象ノード「vyos01」のみ「show ip route」「show interface」を実行
+- 実行対象ノード「vyos02」は「show ip route」「show interface」を実行していないので、  
+実行結果をdebugしようとするとエラー出力される。
+
+```shell
+$ ansible--navigator run -i inventory.ini when_sample_1.yml 
 
 PLAY [sample1] ********************************************************************************************
 
@@ -262,9 +275,8 @@ PLAY RECAP *********************************************************************
 vyos01                     : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 vyos02                     : ok=1    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 06_condition]$ 
+$ 
 ```
-
 
 <br>
 <br>
@@ -277,23 +289,23 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 - 条件分岐をさせるときは、whenディレクティブを使用する。
 - 比較演算子、論理演算子、in演算子、is演算子などの条件式を用いて、whenディレクティブが使用されている。
 
-
 <br>
 <br>
 <br>
 
 ---
-
 
 ## 4.whenディレクティブの演習
 
 ---
 
-### Q1 以下の条件でplaybookを作成したとき、空欄に当てはまるものは何でしょう。
+### Q1 以下の条件でplaybookを作成したとき、空欄に当てはまるものは何でしょう
+
 - 条件
   - vyos01だけに「show configuration」を実行する
 
 - playbook
+
 ```yaml
 ---
 - name: exam1
@@ -302,7 +314,7 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: 
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands:
           - show configuration
       when: ■■■
@@ -314,8 +326,10 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 
 ---
 
-### Q2 以下のplaybookは、どのような条件のplaybookであるか答えてください。
+### Q2 以下のplaybookは、どのような条件のplaybookであるか答えてください
+
 - playbook
+
 ```yaml
 ---
 - name: exam2
@@ -323,7 +337,7 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: exam2 playbook
-      debug:
+      ansible.builtin.debug:
         msg: "exam2 playbook test!!"
       when: "'RedHat' in ansible_distribution or 'CentOS' in ansible_distribution"
 ```
@@ -334,7 +348,8 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 
 ---
 
-### Q3 以下の条件でplaybookを作成して下さい。
+### Q3 以下の条件でplaybookを作成して下さい
+
 - 使用インベントリファイル：「/home/ec2-user/yokogushi_contents_team/ansible_practice/06_condition」配下のinventory.ini
 - playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/06_condition」配下
 - playbook名：「when_exam_3.yml」で作成
@@ -342,14 +357,15 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 - 処理内容：
   - vyos01,vyos02に「show ip route」を実行
   - 実行したとき、host01,host02がskippingされることを確認する
-      
+
 <br>
 <br>
 <br>
 
 ---
 
-### Q4 以下の条件でplaybookを作成して下さい。
+### Q4 以下の条件でplaybookを作成して下さい
+
 - 使用インベントリファイル：「/home/ec2-user/yokogushi_contents_team/ansible_practice/06_condition」配下のinventory.ini
 - playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/06_condition」配下
 - playbook名：「when_exam_4.yml」で作成
@@ -365,6 +381,7 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 ---
 
 ### A1. 以下、解答例
+
 - 以下、正しいplaybook
 - vyos01だけを実行対象ノードとしたいので、「when: inventory_hostname == vyos01」を指定
 
@@ -376,7 +393,7 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: 
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands:
           - show configuration
       when: inventory_hostname == 'vyos01'
@@ -389,6 +406,7 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 ---
 
 ### A2. 正解：「実行対象ノードのOSがRedHatかCentOSだった場合、「exam2 playbook test!!」というメッセージを出力させる。」
+
 - ansible_distribution（ファクト変数） には、実行対象ノードのOS情報が格納されている
 
 <br>
@@ -398,7 +416,9 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 ---
 
 ### A3.以下、解答例
+
 - playbook
+
 ```yaml
 ---
 - name: exam3
@@ -407,15 +427,16 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: vyos show ip route
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands:
           - show ip route
       when: inventory_hostname in ['vyos01','vyos02']
 ```
 
 - playbookの実行結果
-```yaml
-(venv) [ec2-user@ip-172-31-42-108 06_condition]$ ansible-playbook -i inventory.ini answer/when_exam_3.yml 
+
+```shell
+$ ansible--navigator run -i inventory.ini answer/when_exam_3.yml 
 
 PLAY [exam3] **********************************************************************************************
 
@@ -437,7 +458,7 @@ host02                     : ok=0    changed=0    unreachable=0    failed=0    s
 vyos01                     : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 vyos02                     : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 06_condition]$ 
+$ 
 ```
 
 <br>
@@ -447,7 +468,9 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 ---
 
 ### A4. 以下、解答例
+
 - playbook
+
 ```yaml
 ---
 - name: exam4
@@ -456,21 +479,22 @@ vyos02                     : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: make text file
-      file:
+      ansible.builtin.file:
         path: /tmp/test_exam4.txt
         state: touch
       register: result
       when: inventory_hostname == 'host01'
 
     - name: debug success msg
-      debug:
+      ansible.builtin.debug:
         msg: "make success text!"
       when: inventory_hostname == 'host01' and result is succeeded
 ```
 
 - playbookの実行結果
-```yaml
-(venv) [ec2-user@ip-172-31-42-108 06_condition]$ ansible-playbook -i inventory.ini answer/when_exam_4.yml 
+
+```shell
+$ ansible--navigator run -i inventory.ini answer/when_exam_4.yml 
 
 PLAY [exam4] **********************************************************************************************
 
@@ -494,9 +518,5 @@ host02                     : ok=0    changed=0    unreachable=0    failed=0    s
 vyos01                     : ok=0    changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
 vyos02                     : ok=0    changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 06_condition]$ 
+$ 
 ```
-
-
-
-
