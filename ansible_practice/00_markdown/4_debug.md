@@ -405,7 +405,7 @@ $
 - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
 
 ```shell
-cd /home/ec2-user/yokogushi_contents_team/ansible_practice/04_debug
+cd /home/ec2-user/ansible_on_vyos/ansible_practice/04_debug
 ```
 
 ### 2.仮想環境(poetry)に入る
@@ -531,7 +531,7 @@ $
 
 ### Q2 以下の条件のplaybookを作成して、実行してください
 
-- playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/04_debug」配下
+- playbook作成先ディレクトリ：「/home/ec2-user/ansible_on_vyos/ansible_practice/04_debug」配下
 - playbook名：「debug_module_exam_2.yml」で作成
 - 実行対象ノード：localhost
 - 処理内容：playbook実行結果に、「"msg": "APC"」と出力させる。
@@ -544,8 +544,8 @@ $
 
 ### Q3 以下の条件のplaybookを作成して、実行してください
 
-- 使用インベントリファイル：「/home/ec2-user/yokogushi_contents_team/ansible_practice/04_debug」配下のinventory.ini
-- playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/04_debug」配下
+- 使用インベントリファイル：「/home/ec2-user/ansible_on_vyos/ansible_practice/04_debug」配下のinventory.ini
+- playbook作成先ディレクトリ：「/home/ec2-user/ansible_on_vyos/ansible_practice/04_debug」配下
 - playbook名：「debug_module_exam_3.yml」で作成
 - 実行対象ノード：vyos02
 - 処理内容：
