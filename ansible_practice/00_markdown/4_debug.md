@@ -167,7 +167,7 @@ vyos01                     : ok=1    changed=0    unreachable=0    failed=0    s
 - 実行すると、以下のような実行結果が出力される。
 
 ```
-$ ansible-navigator run -i inventory.ini debug_test.yml 
+$ ansible-navigator run debug_test.yml -i inventory.ini
 
 PLAY [sample] *************************************************************************************************
 
@@ -670,7 +670,7 @@ $
 - playbookの実行結果
 
 ```shell
-$ ansible-navigator run -i inventory.ini debug_module_exam_3.yml 
+$ ansible-navigator run debug_module_exam_3.yml -i inventory.ini
 
 PLAY [exam3] **************************************************************************************************
 
