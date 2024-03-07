@@ -22,7 +22,8 @@
 →このように変数に対して文字列や数字などの値を入れることを**変数定義**という。
 
 - 数学でよく見る以下の式も変数の一種である。
-```yaml
+
+```python
 x = 2      <-「x」という変数は数字の「2」として定義されている
 
 y = 3      <-「y」という変数は数字の「3」として定義されている
@@ -30,9 +31,9 @@ y = 3      <-「y」という変数は数字の「3」として定義されて�
 x + y = 5  <-「x=2」+「y=3」のため右辺は「5」となる
 ```
 
-
 - ただし、プログラミング上での変数定義では必ずしも左辺と右辺がイコールになるわけではない。
 - 以下に、プログラミングならではの変数定義例を記載する。
+
 ```python
 $ python3
 
@@ -40,7 +41,7 @@ $ python3
 >>> x = 3 + x   <-B. 「x」という変数は新たに「3 + x」として定義される
 >>> print(x)　　<-C. 　BではA時点で定義された「x=2」が右辺の「x」に代入されるため、Cの「x」の出力結果は「3 + 2 = 5」となる
 5
->>>
+>>> 
 ```
 
 <br>
@@ -54,29 +55,30 @@ $ python3
 - playbookにおいて任意の値を定義する方法は以下の2つである。
 
 | 変数名 | 説明 |
-| :----- | :---------------------- | 
+| :----- | :---------------------- |
 | `vars` | Varsセクションで変数定義する。 |
 | `set_fact` | Tasksセクションで変数定義する。 |
 
-
 ### 「vars」の使用例
+
 - varは「variable(変数)」の略で、`vars`とは変数を集めておく場所のようなもの。
-- 以下にplaybook内のVarsセクションにてよく使用される`vars`について紹介する。 
+- 以下にplaybook内のVarsセクションにてよく使用される`vars`について紹介する。
 - 下記のパラメータにより定義された変数はTasksセクションで使用することができる。
 
 - varsの使用例を以下に記載。
+
 ```yaml
 ---
 - name: vars_sample
   hosts: vyos01
-  gather_facts: no
+  gather_facts: false
   
   vars:
     sample: "Hello!!"
     
   tasks:
     - name: debug sample
-      debug:
+      ansible.builtin.debug:
         var: sample
 ```
 
@@ -85,62 +87,67 @@ $ python3
 - Tasksセクションで変数定義をしたい時に使用する。
 
 - `set_fact`の使用例を以下に記載。
+
 ```yaml
 ---
 - name: set_fact_sample
   hosts: vyos01
-  gather_facts: no
+  gather_facts: false
   
   tasks:
     - name: test
-      set_fact:                   
+      ansible.builtin.set_fact:
         test: "Hello!!"
 ```
 
 ### Ansibleが用意している、デフォルトで定義されている変数
+
 - 変数は任意の値を定義することが多いが、デフォルトで定義されているものも存在する。
 
 | 変数の種類 | 説明 |
-| :----- | :---------------------- | 
+| :----- | :---------------------- |
 | マジック変数  | ユーザが直接設定することのできない変数。<br>Ansibleがシステム内の状態を反映してこの変数を常に上書きしている。 |
-| ファクト変数  | 現在実行中のホストに関連する情報(inventory_hostname)を含む変数。<br>playbook内で`gather_facts: no`を指定した場合は使用不可。 |
+| ファクト変数  | 現在実行中のホストに関連する情報(inventory_hostname)を含む変数。<br>playbook内で`gather_facts: false`を指定した場合は使用不可。 |
 | 接続変数 | ターゲットホストへのアクション実行方法を具体的に設定する時に使用。 |
 
 <br>
 
-変数についてのAnsibleの公式ドキュメントは[こちら](https://docs.ansible.com/ansible/2.9_ja/reference_appendices/special_variables.html)
+変数についてのAnsibleの公式ドキュメントは[こちら](https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html)
 
 ### マジック変数
+
 - 以下にマジック変数の中でも特に使用頻度が高いものを紹介する。
 
 | 変数名 | 説明 |
-| :----- | :---------------------- | 
+| :----- | :---------------------- |
 | `inventory_hostname` | 現在実行中のホストのイベントリー名。 |
 | `ansible_play_name` | 現在実行されているplaybookの名前。 |
 | `playbook_dir` | 現在実行されているplaybookのディレクトリパス。 |
 | `inventory_dir` | インベントリファイルのディレクトリパス。 |
 
 ### ファクト変数
+
 - 以下にファクト変数の一部を紹介する。
 
 | 変数名 | 説明 |
-| :----- | :---------------------- | 
-| `ansible_facts` | `gather_facts: no` の場合はターゲットホストのファクト情報が格納されない。`gather_facts: no` であっても、未定義ではなく、値は空になる。 |
+| :----- | :---------------------- |
+| `ansible_facts` | `gather_facts: false` の場合はターゲットホストのファクト情報が格納されない。<br>`gather_facts: false` であっても、未定義ではなく、値は空になる。 |
 
 ### 接続変数
+
 - 以下に接続変数の中でも特に使用頻度が高いものを紹介する。
 
 <br>
 
 | 変数名 | 説明 |
-| :----- | :---------------------- | 
+| :----- | :---------------------- |
 | `ansible_network_os` | ターゲットホストのプラットフォーム情報。 |
 | `ansible_connection` | ターゲットホストへの接続方式。 |
 | `ansible_user` | SSH接続するときのユーザ情報。 |
 | `ansible_password` | SSH接続するときのパスワード情報。 |
 | `become` | root権限昇格の有無。 |
 
-```yaml
+```ini
 [vyos]
 vyos01 ansible_host=10.0.0.2
 vyos02 ansible_host=10.0.0.3
@@ -149,13 +156,13 @@ vyos02 ansible_host=10.0.0.3
 ansible_network_os=vyos
 ansible_connection=network_cli
 ansible_user=vyos
-ansible_password=vyos               
+ansible_password=vyos
 ```
 
 ---
 
-
 ### register
+
 - 実行タスクの結果を格納する
 - 主な使用方法は、実行結果を`register`で変数に詰めて、その変数の内容から処理を変えたりエラーメッセージを出力するなど多岐にわたる。
 - 以下はplaybook作成例である。
@@ -168,19 +175,19 @@ ansible_password=vyos
   
   tasks:
     - name: get show version
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands: 
           - show version
       register: result
 
     - name: debug result
-      debug:
+      ansible.builtin.debug:
         var: result.stdout_lines[0]           
 ```
 
 - 前ページのplaybook実行例を以下に記載。
 
-```yaml 
+```shell
 PLAY [variable_sample] ************************************************************************************************************
 
 TASK [get show version] ************************************************************************************************************
@@ -223,25 +230,31 @@ vyos01                     : ok=2    changed=0    unreachable=0    failed=0    s
 ## 3. variable(変数)の実習
 
 ### 目的
-  - 1. Varsセクションにて`vars`を使用して変数定義を行い、変数の中身をdebugで出力する
-  - 2. `set_fact`を使用して変数定義を行い、変数の中身をdebugで出力する
-  - 3. マジック変数の中身をdebugで出力する
-  - 4. ファクト変数の中身、また一部をdebugで出力する
+
+- 1. Varsセクションにて`vars`を使用して変数定義を行い、変数の中身をdebugで出力する
+- 2. `set_fact`を使用して変数定義を行い、変数の中身をdebugで出力する
+- 3. マジック変数の中身をdebugで出力する
+- 4. ファクト変数の中身、また一部をdebugで出力する
 
 ### 1.ディレクトリ移動
-  - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
-```yaml
-[ec2-user@ip-172-31-42-108]$ cd /home/ec2-user/yokogushi_contents_team/ansible_practice/05_variable
+
+- 使用するplaybook,inventoryファイルが存在するディレクトリに移動
+
+```shell
+cd /home/ec2-user/yokogushi_contents_team/ansible_practice/05_variable
 ```
 
-### 2.仮想環境(venv)に入る 
-```yaml
-[ec2-user@ip-172-31-42-108]$ source /home/ec2-user/venv/bin/activate
-(venv)[ec2-user@ip-172-31-42-108]$
+### 2.仮想環境(poetry)に入る
+
+```shell
+$ poetry shell
+
+# Spawning shell within /home/ec2-user/ansible_on_vyos/.venv
 ```
 
 ### 3.インベントリファイルの内容を確認
-```yaml
+
+```ini
 [vyos]
 vyos01 ansible_host=10.0.0.2
 vyos02 ansible_host=10.0.0.3
@@ -256,8 +269,10 @@ ansible_password=vyos
 ### 目的1 Varsセクションにて`vars`を使用して変数定義を行い、変数の中身をdebugで出力する
 
 ### 4.playbookの内容を確認
+
 - 「test」という変数に「Hello Ansible!」という文字列を定義
 - Varsセクションで定義した「test」の変数の中身を出力
+
 ```yaml
 ---
 - name: sample1
@@ -269,13 +284,14 @@ ansible_password=vyos
 
   tasks:
     - name: sample1 debug vars
-      debug:
+      ansible.builtin.debug:
         var: test
 ```
 
 ### 5.playbookを実行
-```yaml
-(venv) [ec2-user@ip-172-31-42-108 05_variable]$ ansible-playbook variable_sample_1.yml 
+
+```shell
+$ ansible-navigator run variable_sample_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
 
@@ -289,14 +305,16 @@ ok: [localhost] => {
 PLAY RECAP ************************************************************************************************
 localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 05_variable]$ 
+$ 
 ```
 
 ### 目的2 set_factを使用して変数定義を行い、変数の中身をdebugで出力する
 
 ### 4.playbookの内容を確認
+
 - 「set_fact」を使用して「test」という変数に「Hello Ansible!」という文字列を定義
 - 「set_fact」で定義した「test」の変数の中身を出力
+
 ```yaml
 ---
 - name: sample2
@@ -305,17 +323,18 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: sample2 set_fact
-      set_fact:
+      ansible.builtin.set_fact:
         test: "Hello Ansible!"
 
     - name: sample2 debug set_fact 
-      debug:
+      ansible.builtin.debug:
         var: test
 ```
 
 ### 5.playbookを実行
-```yaml
-(venv) [ec2-user@ip-172-31-42-108 05_variable]$ ansible-playbook variable_sample_2.yml 
+
+```shell
+$ ansible-navigator run variable_sample_2.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
 
@@ -332,13 +351,15 @@ ok: [localhost] => {
 PLAY RECAP ************************************************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 05_variable]$ 
+$ 
 ```
 
 ### 目的3 マジック変数の中身をdebugで出力する
 
 ### 4.playbookの内容を確認
+
 - 「ansible_play_name」はマジック変数のため、変数定義の必要なし
+
 ```yaml
 ---
 - name: sample3
@@ -347,14 +368,16 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: sample3 magic debug
-      debug:
+      ansible.builtin.debug:
         var: ansible_play_name
 ```
 
 ### 5.playbookを実行
-- - 「ansible_play_name」に格納されたplaybookの名前(nameで定義した内容)が出力されていることを確認
-```yaml
-(venv) [ec2-user@ip-172-31-42-108 05_variable]$ ansible-playbook variable_sample_3.yml 
+
+- 「ansible_play_name」に格納されたplaybookの名前(nameで定義した内容)が出力されていることを確認
+
+```shell
+$ ansible-navigator run variable_sample_3.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
 
@@ -368,13 +391,15 @@ ok: [localhost] => {
 PLAY RECAP ************************************************************************************************
 localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 05_variable]$ 
+$ 
 ```
 
 ### 目的4 ファクト変数の中身の一部をdebugで出力する
 
 ### 4.playbookの内容を確認
-- 「gather_facts: no」を省略した場合は「ansible_facts」にファクト情報が格納される。
+
+- 「gather_facts: false」を省略した場合は「ansible_facts」にファクト情報が格納される。
+
 ```yaml
 ---
 - name: sample4
@@ -382,19 +407,21 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: debug ansible_facts
-      debug:
+      ansible.builtin.debug:
         var: ansible_facts
 
     - name: debug ansible_facts.net_hostname
-      debug:
+      ansible.builtin.debug:
         var: ansible_facts.net_hostname
 ```
 
 ### 5.playbookを実行
+
 - 「ansible_facts」の中身全てを出力すると量が多すぎる
 - 「ansible_facts」に格納されているディクショナリの中の値(value)を取り出すことができる
-```yaml
-(venv) [ec2-user@ip-172-31-42-108 05_variable]$ ansible-playbook -i inventory.ini variable_sample_4.yml 
+
+```shell
+$ ansible-navigator run -i inventory.ini variable_sample_4.yml 
 
 PLAY [sample4] ********************************************************************************************
 
@@ -567,7 +594,7 @@ ok: [vyos01] => {
 PLAY RECAP ************************************************************************************************
 vyos01                     : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 05_variable]$ 
+$ 
 ```
 
 <br>
@@ -587,22 +614,20 @@ vyos01                     : ok=3    changed=0    unreachable=0    failed=0    s
   - ファクト変数
   - 接続変数
 
-
 <br>
 <br>
 <br>
 
 ---
-
 
 ## 4.variable(変数)の演習
 
 ---
 
-
-### Q1 以下のplaybookを実行し、出力された実行結果の空欄に当てはまるものは何でしょう。
+### Q1 以下のplaybookを実行し、出力された実行結果の空欄に当てはまるものは何でしょう
 
 - playbook
+
 ```yaml
 ---
 - name: variable_exam_1
@@ -611,17 +636,18 @@ vyos01                     : ok=3    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: set_fact
-      set_fact:
+      ansible.builtin.set_fact:
         HelIo: "Hello Ansible!"
 
     - name: debug
-      debug:
+      ansible.builtin.debug:
         var: Hello
 ```
 
 - 実行結果
-```yaml
-(venv) [ec2-user@ip-172-31-42-108 ansible_practice]$ ansible-playbook 05_variable/variable_exam_1.yml 
+
+```shell
+$ ansible-navigator run 05_variable/variable_exam_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
 
@@ -638,7 +664,7 @@ ok: [localhost] => {
 PLAY RECAP *********************************************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 ansible_practice]$
+$
 ```
 
 1. “VARIABLE IS NOT DEFINED!”
@@ -652,9 +678,10 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 
 ---
 
-### Q2 以下のplaybookを実行し、出力された実行結果の空欄に当てはまるものは何でしょう。
+### Q2 以下のplaybookを実行し、出力された実行結果の空欄に当てはまるものは何でしょう
 
 - playbook
+
 ```yaml
 ---
 - name: exam2
@@ -663,17 +690,18 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: set_fact
-      set_fact:
+      ansible.builtin.set_fact:
         ansible_play_name: "Hello Ansible!"
 
     - name: debug
-      debug:
+      ansible.builtin.debug:
         var: ansible_play_name
 ```
 
 - 実行結果
-```yaml
-(venv) [ec2-user@ip-172-31-42-108 ansible_practice]$ ansible-playbook 05_variable/variable_exam_2.yml 
+
+```shell
+$ ansible-navigator run 05_variable/variable_exam_2.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
 
@@ -690,7 +718,7 @@ ok: [localhost] => {
 PLAY RECAP *********************************************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 ansible_practice]$ 
+$ 
 ```
 
 1. Hello Ansible!
@@ -705,6 +733,7 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 ---
 
 ### Q3 以下の条件のplaybookを作成して、実行してください
+
 - 使用インベントリファイル：「/home/ec2-user/yokogushi_contents_team/ansible_practice/05_variable」配下のinventory.ini
 - playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/05_variable」配下
 - playbook名：「variable_exam_3.yml」で作成
@@ -721,8 +750,9 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 ### A1 正解：「“VARIABLE IS NOT DEFINED!”」
 
 - 以下、正しい実行結果
-```yaml
-(venv) [ec2-user@ip-172-31-42-108 05_variable]$ ansible-playbook variable_exam_1.yml 
+
+```shell
+$ ansible-navigator run variable_exam_1.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
 
@@ -739,13 +769,13 @@ ok: [localhost] => {
 PLAY RECAP *********************************************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 05_variable]$ 
+$ 
 ```
+
 - 解説
   - よく変数部分をみてみると`set_fact`で定義している変数名が「Hello」ではなく、「HelIo」になっている。
   - 変数名が間違えていたため、「Hello」は定義されない。
   - 定義されていない変数を出力しようとすると、(VARIABLE IS NOT DEFINED!)と表示される。
-
 
 <br>
 <br>
@@ -754,9 +784,11 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 ---
 
 ### A2 正解：「4.exam2」
+
 - 以下、正しい実行結果
-```yaml
-(venv) [ec2-user@ip-172-31-42-108 05_variable]$ ansible-playbook variable_exam_2.yml 
+
+```shell
+$ ansible-navigator run variable_exam_2.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
 
@@ -773,8 +805,9 @@ ok: [localhost] => {
 PLAY RECAP *********************************************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 05_variable]$ 
+$ 
 ```
+
 - `set_fact`で定義した`ansible_play_name`という変数はマジック変数であり、現在実行されているplaybookの名前を変数の中に格納する。
 - 今回`set_fact`で「Hello Ansible!」という文字列を定義したが、それよりもマジック変数が優先されるため、出力結果は`exam2`となる。
 
@@ -787,6 +820,7 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 ### A3 以下、解答例
 
 - playbook
+
 ```yaml
 ---
 - name: exam3
@@ -795,17 +829,18 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 
   tasks:
     - name: set_fact
-      set_fact:
+      ansible.builtin.set_fact:
         test_hostname: "vyos01"
 
     - name: debug test_hostname
-      debug:
+      ansible.builtin.debug:
         var: test_hostname
 ```
 
 - playbookの実行結果
-```
-(venv) [ec2-user@ip-172-31-42-108 05_variable]$ ansible-playbook variable_exam_3.yml 
+
+```shell
+$ ansible-navigator run variable_exam_3.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
 does not match 'all'
 
@@ -822,9 +857,5 @@ ok: [localhost] => {
 PLAY RECAP *********************************************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-(venv) [ec2-user@ip-172-31-42-108 05_variable]$ 
+$ 
 ```
-
-
-
-
