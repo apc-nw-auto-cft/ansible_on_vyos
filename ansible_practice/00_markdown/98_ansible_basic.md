@@ -1,7 +1,8 @@
 # inventoryファイルとplaybookの基本的な構成と中身
 
 ## inventoryファイルの中身
-```yaml
+
+```ini
 [vyos]                                                   #グループ名vyos
 vyos01 ansible_host=10.0.0.2                             #ホスト変数、ホスト変数名vyos01のIPは10.0.0.2 
 vyos02 ansible_host=10.0.0.3                             #ホスト変数、ホスト変数名vyos02のIPは10.0.0.3
@@ -19,16 +20,16 @@ ansible_password=vyos                                    #vyosにログインす
 [host:vars]
 ansible_user=root
 ansible_password=test_password
-
 ```
-<br>
-<br>
-<br>
-<br>
-<br>
 
+<br>
+<br>
+<br>
+<br>
+<br>
 
 ## playbookの中身
+
 - playbookの中身はこのような構成が基本となります。詳細は、今後習っていきます。(以下は基本だけであり、以下以外にも様々な記述や機能があります)
 
 ```yaml
@@ -43,27 +44,31 @@ ansible_password=test_password
 
   tasks:                                      #実行させたい処理内容を記載
     - name: task name1                        #task名を指定
-      vyos_command:                           #使用するモジュールを指定
+      vyos.vyos.vyos_command:                           #使用するモジュールを指定
         commands:                             #上記で使用するモジュールのパラメータを指定
           - show interfaces                   
 
     - name: task name2                                               
-      vyos_config:                            
+      vyos.vyos.vyos_config:                            
         lines:                                
           - set system XX                     
 ```
 
 ## playbookを実行するとき
-- playbookを実行する際は仮想環境(venv)で実行する必要があるので、以下を実行しておく。
-```yaml
-[ec2-user@ip-172-31-42-108 03_vyos]$ source /home/ec2-user/venv/bin/activate
-(venv)[ec2-user@ip-172-31-42-108 03_vyos]$
+
+- playbookを実行する際は仮想環境(poetry)で実行する必要があるので、以下を実行しておく。
+
+```shell
+$ poetry shell
+
+# Spawning shell within /home/ec2-user/ansible_on_vyos/.venv
 ```
 
 - playbookを実行する際は以下コマンドを実行する
-```yaml
-ansible-playbook -i <インベントリファイル> <playbook名>.yml
 
-使用例
-(venv)[ec2-user@ip-172-31-42-108 03_vyos]$ ansible-playbook -i inventory.ini test.yml
+```shell
+$ ansible-navigator run -i <インベントリファイル> <playbook名>.yml
+
+# 使用例
+$ ansible-navigator run -i inventory.ini test.yml
 ```
