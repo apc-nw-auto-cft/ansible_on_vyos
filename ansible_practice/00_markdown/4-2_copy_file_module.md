@@ -250,8 +250,13 @@ $ poetry shell
 
 #### 3.ディレクトリ確認(事前確認)
 
-```yaml
-？？？ここって何が入る？？？
+```shell
+$ ls -l /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file
+total 8
+drwxrwxr-x. 2 ec2-user ec2-user 111 Mar  7 13:18 answer
+-rw-rw-r--. 1 ec2-user ec2-user 234 Mar  7 13:18 file_module_sample.yml
+-rw-rw-r--. 1 ec2-user ec2-user 173 Mar  7 13:18 inventory.ini
+$
 ```
 
 #### 4.playbookの内容を確認
@@ -287,8 +292,14 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 
 #### 6.ディレクトリ確認(事後確認)
 
-```yaml
-？？？ここって何が入る？？？
+```shell
+$ ls -l /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file
+total 8
+drwxrwxr-x. 2 ec2-user ec2-user 111 Mar  7 13:18 answer
+drwxr-xr-x. 2 ec2-user root       6 Mar  8 13:27 file_directory
+-rw-rw-r--. 1 ec2-user ec2-user 226 Mar  8 13:15 file_module_sample.yml
+-rw-rw-r--. 1 ec2-user ec2-user 173 Mar  7 13:18 inventory.ini
+$
 ```
 
 <br>
