@@ -158,7 +158,7 @@ httpdインストールが失敗した場合「yum httpd error!!」というメ�
 - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
 
 ```shell
-cd /home/ec2-user/yokogushi_contents_team/ansible_practice/06_condition
+cd /home/ec2-user/ansible_on_vyos/ansible_practice/06_condition
 ```
 
 ### 2.仮想環境(poetry)に入る
@@ -226,7 +226,7 @@ ansible_password=test_password
 実行結果をdebugしようとするとエラー出力される。
 
 ```shell
-$ ansible--navigator run -i inventory.ini when_sample_1.yml 
+$ ansible-navigator run when_sample_1.yml -i inventory.ini
 
 PLAY [sample1] ********************************************************************************************
 
@@ -350,8 +350,8 @@ $
 
 ### Q3 以下の条件でplaybookを作成して下さい
 
-- 使用インベントリファイル：「/home/ec2-user/yokogushi_contents_team/ansible_practice/06_condition」配下のinventory.ini
-- playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/06_condition」配下
+- 使用インベントリファイル：「/home/ec2-user/ansible_on_vyos/ansible_practice/06_condition」配下のinventory.ini
+- playbook作成先ディレクトリ：「/home/ec2-user/ansible_on_vyos/ansible_practice/06_condition」配下
 - playbook名：「when_exam_3.yml」で作成
 - 実行対象ノード： hosts: all とすること。
 - 処理内容：
@@ -366,8 +366,8 @@ $
 
 ### Q4 以下の条件でplaybookを作成して下さい
 
-- 使用インベントリファイル：「/home/ec2-user/yokogushi_contents_team/ansible_practice/06_condition」配下のinventory.ini
-- playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/06_condition」配下
+- 使用インベントリファイル：「/home/ec2-user/ansible_on_vyos/ansible_practice/06_condition」配下のinventory.ini
+- playbook作成先ディレクトリ：「/home/ec2-user/ansible_on_vyos/ansible_practice/06_condition」配下
 - playbook名：「when_exam_4.yml」で作成
 - 実行対象ノード： hosts: all とすること。
 - 処理内容：
@@ -436,7 +436,7 @@ $
 - playbookの実行結果
 
 ```shell
-$ ansible--navigator run -i inventory.ini answer/when_exam_3.yml 
+$ ansible-navigator run answer/when_exam_3.yml -i inventory.ini
 
 PLAY [exam3] **********************************************************************************************
 
@@ -494,7 +494,7 @@ $
 - playbookの実行結果
 
 ```shell
-$ ansible--navigator run -i inventory.ini answer/when_exam_4.yml 
+$ ansible-navigator run answer/when_exam_4.yml -i inventory.ini
 
 PLAY [exam4] **********************************************************************************************
 
