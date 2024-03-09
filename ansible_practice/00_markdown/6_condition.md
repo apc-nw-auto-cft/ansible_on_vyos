@@ -226,7 +226,7 @@ ansible_password=test_password
 実行結果をdebugしようとするとエラー出力される。
 
 ```shell
-$ ansible--navigator run -i inventory.ini when_sample_1.yml 
+$ ansible-navigator run -i inventory.ini when_sample_1.yml 
 
 PLAY [sample1] ********************************************************************************************
 
@@ -436,7 +436,7 @@ $
 - playbookの実行結果
 
 ```shell
-$ ansible--navigator run -i inventory.ini answer/when_exam_3.yml 
+$ ansible-navigator run -i inventory.ini answer/when_exam_3.yml 
 
 PLAY [exam3] **********************************************************************************************
 
@@ -494,7 +494,7 @@ $
 - playbookの実行結果
 
 ```shell
-$ ansible--navigator run -i inventory.ini answer/when_exam_4.yml 
+$ ansible-navigator run -i inventory.ini answer/when_exam_4.yml 
 
 PLAY [exam4] **********************************************************************************************
 
