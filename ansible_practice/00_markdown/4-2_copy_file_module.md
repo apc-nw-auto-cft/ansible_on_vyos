@@ -83,8 +83,8 @@
   tasks:
   - name: copy file and change mode
     ansible.builtin.copy:
-      src: /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file_modules/sample.txt
-      dest: /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file_modules/copy_sample.txt
+      src: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file_modules/sample.txt
+      dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file_modules/copy_sample.txt
       mode: 0644
 ```
 
@@ -102,7 +102,7 @@
   - name: write message
     ansible.builtin.copy:
       content: contentのテストです
-      dest: /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file_modules/sample.txt
+      dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file_modules/sample.txt
       mode: 0644
 ```
 
@@ -131,7 +131,7 @@ contentのテストです
 tasks:
   - name: delete file
     ansible.builtin.file:
-      path: /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file_modules/sample.txt
+      path: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file_modules/sample.txt
       state: absent
 ```
 
@@ -154,7 +154,7 @@ tasks:
 - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
 
 ```shell
-cd /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file
+cd /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file
 ```
 
 #### 2.仮想環境(poetry)に入る
@@ -180,7 +180,7 @@ $ poetry shell
     - name: copy text file
       ansible.builtin.copy:
         content: "{{ sample_handson }}"
-        dest: /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file/copy_directory/handson.txt
+        dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/copy_directory/handson.txt
 ```
 
 #### 4.playbookを実行
@@ -237,7 +237,7 @@ $ cat handson.txt
 - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
 
 ```shell
-cd /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file
+cd /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file
 ```
 
 #### 2.仮想環境(poetry)に入る
@@ -265,7 +265,7 @@ $ poetry shell
   tasks:
     - name: make directory
       ansible.builtin.file:
-        path: /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file/file_directory
+        path: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/file_directory
         state: directory
 ```
 
@@ -346,7 +346,7 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 
 ### Q2 以下の条件のplaybookを作成して、実行してください
 
-- playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file」配下
+- playbook作成先ディレクトリ：「/home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file」配下
 - playbook名：「vyos_module_exam_2.yml」で作成
 - 実行対象ノード：localhost
 - 処理内容：
@@ -361,8 +361,8 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 
 ### Q3 以下の条件のplaybookを作成して、実行してください
 
-- 使用インベントリファイル：「/home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file」配下のinventory.ini
-- playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file」配下
+- 使用インベントリファイル：「/home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file」配下のinventory.ini
+- playbook作成先ディレクトリ：「/home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file」配下
 - playbook名：「vyos_module_exam_3.yml」で作成
 - 実行対象ノード：vyos01
 - 処理内容：
@@ -425,13 +425,13 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
   tasks:
   - name: make file
     ansible.builtin.file:
-      path: /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file/exam3.txt
+      path: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/exam3.txt
       state: touch
 
   - name: copy file
     ansible.builtin.copy:
-      src: /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file/exam3.txt
-      dest: /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file/copy_directory
+      src: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/exam3.txt
+      dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/copy_directory
 ```
 
 - playbookの実行結果
@@ -478,13 +478,13 @@ localhost                  : ok=2    changed=2    unreachable=0    failed=0    s
 
     - name: vyos01_show_interfaces.log touch
       ansible.builtin.file:
-        path: /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file/vyos01_show_interfaces.log
+        path: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/vyos01_show_interfaces.log
         state: touch
 
     - name: vyos01_show_interfaces.log writing
       ansible.builtin.copy:
         content: "{{ vyos01_show_interfaces.stdout[0] }}"
-        dest: /home/ec2-user/yokogushi_contents_team/ansible_practice/04-2_copy_file/vyos01_show_interfaces.log
+        dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/vyos01_show_interfaces.log
 ```
 
 - playbookの実行結果
