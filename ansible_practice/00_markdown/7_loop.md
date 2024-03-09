@@ -467,7 +467,7 @@ $
 - 実行結果
 
 ```shell
-$ ansible-navigator run -i inventory.ini loop_exam_3.yml 
+$ ansible-navigator run loop_exam_3.yml -i inventory.ini
 
 PLAY [exam3] ****************************************************************************************
 
@@ -564,7 +564,7 @@ $
 - 実行結果
 
 ```shell
-$ ansible-navigator run -i inventory.ini loop_exam_4.yml 
+$ ansible-navigator run loop_exam_4.yml -i inventory.ini
 
 PLAY [exam4] ****************************************************************************************
 
