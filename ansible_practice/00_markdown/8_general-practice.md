@@ -7,8 +7,8 @@
 
 ### 前提条件
 
-- 使用インベントリファイル：「/home/ec2-user/yokogushi_contents_team/ansible_practice/08_general-practice」配下のinventory.ini
-- playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/08_general-practice」配下
+- 使用インベントリファイル：「/home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice」配下のinventory.ini
+- playbook作成先ディレクトリ：「/home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice」配下
 - playbook名：自由
 - 注意事項：
   - Dockerコンテナを停止(またはEC2インスタンスを停止)する度に一部設定が消える(原因・解決方法調査中)  
@@ -16,7 +16,7 @@
 
 ```shell
 # 改行せず入力してください
-ansible-navigator run -i /home/ec2-user/yokogushi_contents_team/init_settings/inventory.ini /home/ec2-user/yokogushi_contents_team/init_settings/container_setting.yml
+ansible-navigator run -i /home/ec2-user/ansible_on_vyos/init_settings/inventory.ini /home/ec2-user/ansible_on_vyos/init_settings/container_setting.yml
 ```
 
 ### 目的
@@ -42,7 +42,7 @@ ansible-navigator run -i /home/ec2-user/yokogushi_contents_team/init_settings/in
 2-1. 以下のplaybookを作成してください。
 
 - 内容：
-  - １. localhostの「/home/ec2-user/yokogushi_contents_team/ansible_practice/08_general-practice」配下に、  
+  - １. localhostの「/home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice」配下に、  
         「/before/vyos01」 「/before/vyos02」「/after/vyos01」「/after/vyos02」のディレクトリを作成する(※loopディレクティブを使用すること)
   - ２. パーミッションは「0644」で作成する
   - ３. hosts: localhost で作成すること。
