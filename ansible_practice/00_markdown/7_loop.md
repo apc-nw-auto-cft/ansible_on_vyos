@@ -142,7 +142,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
 
 ```shell
-cd /home/ec2-user/yokogushi_contents_team/ansible_practice/07_loop
+cd /home/ec2-user/ansible_on_vyos/ansible_practice/07_loop
 ```
 
 ### 2.仮想環境(poetry)に入る
@@ -205,7 +205,7 @@ total 0
 drwxrwxr-x 2 ec2-user ec2-user  6 Apr 20 06:21 loop_dir1
 drwxrwxr-x 2 ec2-user ec2-user  6 Apr 20 06:21 loop_dir2
 drwxr-xr-x 5 ec2-user ec2-user 77 Mar  3 10:52 venv
-drwxrwxr-x 5 ec2-user ec2-user 63 Mar 15 11:58 yokogushi_contents_team
+drwxrwxr-x 5 ec2-user ec2-user 63 Mar 15 11:58 ansible_on_vyos
 $ 
 ```
 
@@ -321,8 +321,8 @@ $
 
 ### Q3 以下の条件のplaybookを作成して、実行してください
 
-- 使用インベントリファイル：「/home/ec2-user/yokogushi_contents_team/ansible_practice/07_loop」配下のinventory.ini
-- playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/07_loop」配下
+- 使用インベントリファイル：「/home/ec2-user/ansible_on_vyos/ansible_practice/07_loop」配下のinventory.ini
+- playbook作成先ディレクトリ：「/home/ec2-user/ansible_on_vyos/ansible_practice/07_loop」配下
 - playbook名：「loop_exam_3.yml」で作成
 - 実行対象ノード：host01、host02
 - 処理内容：
@@ -336,8 +336,8 @@ $
 
 ### Q4 以下の条件のplaybookを作成して、実行してください
 
-- 使用インベントリファイル：「/home/ec2-user/yokogushi_contents_team/ansible_practice/07_loop」配下のinventory.ini
-- playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/07_loop」配下
+- 使用インベントリファイル：「/home/ec2-user/ansible_on_vyos/ansible_practice/07_loop」配下のinventory.ini
+- playbook作成先ディレクトリ：「/home/ec2-user/ansible_on_vyos/ansible_practice/07_loop」配下
 - playbook名：「loop_exam_4.yml」で作成
 - 実行対象ノード：vyos01、vyos02
 - 処理内容：
@@ -467,7 +467,7 @@ $
 - 実行結果
 
 ```shell
-$ ansible-navigator run -i inventory.ini loop_exam_3.yml 
+$ ansible-navigator run loop_exam_3.yml -i inventory.ini
 
 PLAY [exam3] ****************************************************************************************
 
@@ -564,7 +564,7 @@ $
 - 実行結果
 
 ```shell
-$ ansible-navigator run -i inventory.ini loop_exam_4.yml 
+$ ansible-navigator run loop_exam_4.yml -i inventory.ini
 
 PLAY [exam4] ****************************************************************************************
 
