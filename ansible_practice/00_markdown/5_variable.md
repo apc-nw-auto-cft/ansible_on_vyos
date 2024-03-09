@@ -241,7 +241,7 @@ vyos01                     : ok=2    changed=0    unreachable=0    failed=0    s
 - 使用するplaybook,inventoryファイルが存在するディレクトリに移動
 
 ```shell
-cd /home/ec2-user/yokogushi_contents_team/ansible_practice/05_variable
+cd /home/ec2-user/ansible_on_vyos/ansible_practice/05_variable
 ```
 
 ### 2.仮想環境(poetry)に入る
@@ -421,7 +421,7 @@ $
 - 「ansible_facts」に格納されているディクショナリの中の値(value)を取り出すことができる
 
 ```shell
-$ ansible-navigator run -i inventory.ini variable_sample_4.yml 
+$ ansible-navigator run variable_sample_4.yml -i inventory.ini
 
 PLAY [sample4] ********************************************************************************************
 
@@ -734,8 +734,8 @@ $
 
 ### Q3 以下の条件のplaybookを作成して、実行してください
 
-- 使用インベントリファイル：「/home/ec2-user/yokogushi_contents_team/ansible_practice/05_variable」配下のinventory.ini
-- playbook作成先ディレクトリ：「/home/ec2-user/yokogushi_contents_team/ansible_practice/05_variable」配下
+- 使用インベントリファイル：「/home/ec2-user/ansible_on_vyos/ansible_practice/05_variable」配下のinventory.ini
+- playbook作成先ディレクトリ：「/home/ec2-user/ansible_on_vyos/ansible_practice/05_variable」配下
 - playbook名：「variable_exam_3.yml」で作成
 - 実行対象ノード：処理内容を満たしていれば何でも可
 - 処理内容：
