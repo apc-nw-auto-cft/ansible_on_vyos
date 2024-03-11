@@ -6,5 +6,5 @@
   tasks:
     - name: disable interface
       vyos.vyos.vyos_config:
-        lines: 
+        lines:
           - delete interfaces ethernet eth0 disable

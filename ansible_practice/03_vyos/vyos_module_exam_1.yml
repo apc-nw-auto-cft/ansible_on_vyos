@@ -6,5 +6,5 @@
   tasks:
     - name: check interface
       ■■■■■■:
-        commands: 
+        commands:
           - show interfaces

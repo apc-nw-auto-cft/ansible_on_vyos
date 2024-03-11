@@ -6,5 +6,5 @@
   tasks:
     - name: check interface
       vyos.vyos.vyos_command:
-        commands: 
+        commands:
           - show interfaces

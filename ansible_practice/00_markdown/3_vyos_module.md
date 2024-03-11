@@ -80,7 +80,7 @@
   tasks:
     - name: set interfaces
       vyos.vyos.vyos_config:
-        lines: 
+        lines:
           - set interfaces ethernet eth1 enable
         save: true
 ```
@@ -344,7 +344,7 @@ $
   tasks:
     - name: check interface
       ■■■■■■:
-        commands: 
+        commands:
           - show interfaces
 ```
 
@@ -369,7 +369,7 @@ $
   tasks:
     - name: disable interface
       vyos.vyos.vyos_config:
-        ■■■■■■: 
+        ■■■■■■:
           - delete interfaces ethernet eth0 disable
 ```
 
@@ -427,7 +427,7 @@ $
   tasks:
     - name: check interface
       vyos.vyos.vyos_command:
-        commands: 
+        commands:
           - show interfaces
 
 ```
@@ -457,7 +457,7 @@ $
   tasks:
     - name: disable interface
       vyos.vyos.vyos_config:
-        lines: 
+        lines:
           - delete interfaces ethernet eth0 disable
 ```
 
@@ -487,7 +487,7 @@ $
   tasks:
     - name: check vyos info
       vyos.vyos.vyos_command:
-        commands: 
+        commands:
           - show version
           - show ip route
 
