@@ -206,25 +206,21 @@ $ cat vyos_module_sample.yml
 ```shell
 $ ansible-navigator run vyos_module_sample.yml -i inventory.ini
 
-PLAY [sample] **********************************************************************************************
+PLAY [sample] ***********************************************************************************************************************************************
 
-TASK [check interfaces description] ************************************************************************
-[WARNING]: Platform linux on host vyos02 is using the discovered Python interpreter at /usr/bin/python, but
-future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
-ok: [vyos02]
-[WARNING]: Platform linux on host vyos01 is using the discovered Python interpreter at /usr/bin/python, but
-future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+TASK [check interfaces description] *************************************************************************************************************************
 ok: [vyos01]
+ok: [vyos02]
 
-TASK [setting interfaces description] **********************************************************************
+TASK [setting interfaces description] ***********************************************************************************************************************
+[WARNING]: To ensure idempotency and correct diff the input configuration lines should be similar to how they appear if present in the running configuration
+on device
 changed: [vyos01]
 changed: [vyos02]
 
-PLAY RECAP *************************************************************************************************
+PLAY RECAP **************************************************************************************************************************************************
 vyos01                     : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-vyos02                     : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+vyos02                     : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0    
 
 $ 
 ```
@@ -281,23 +277,17 @@ $
 ```shell
 $ ansible-navigator run vyos_module_sample.yml -i inventory.ini
 
-PLAY [sample] **********************************************************************************************
+PLAY [sample] ***********************************************************************************************************************************************
 
-TASK [check interfaces description] ************************************************************************
-[WARNING]: Platform linux on host vyos01 is using the discovered Python interpreter at /usr/bin/python, but
-future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
-ok: [vyos01]
-[WARNING]: Platform linux on host vyos02 is using the discovered Python interpreter at /usr/bin/python, but
-future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
-ok: [vyos02]
-
-TASK [setting interfaces description] **********************************************************************
+TASK [check interfaces description] *************************************************************************************************************************
 ok: [vyos01]
 ok: [vyos02]
 
-PLAY RECAP *************************************************************************************************
+TASK [setting interfaces description] ***********************************************************************************************************************
+ok: [vyos01]
+ok: [vyos02]
+
+PLAY RECAP **************************************************************************************************************************************************
 vyos01                     : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 vyos02                     : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
@@ -498,21 +488,15 @@ $
 ```shell
 $ ansible-navigator run vyos_module_exam_3.yml -i inventory.ini
 
-PLAY [exam3] ***********************************************************************************************
+PLAY [exam3_answer] *****************************************************************************************************************************************
 
-TASK [check vyos info] *************************************************************************************
-[WARNING]: Platform linux on host vyos01 is using the discovered Python interpreter at /usr/bin/python, but
-future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+TASK [check vyos info] **************************************************************************************************************************************
 ok: [vyos01]
-[WARNING]: Platform linux on host vyos02 is using the discovered Python interpreter at /usr/bin/python, but
-future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
 ok: [vyos02]
 
-PLAY RECAP *************************************************************************************************
+PLAY RECAP **************************************************************************************************************************************************
 vyos01                     : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-vyos02                     : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+vyos02                     : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
 
 $ 
 ```
@@ -553,18 +537,16 @@ $
 ```shell
 $ ansible-navigator run vyos_module_exam_4.yml -i inventory.ini
 
-PLAY [exam4] **************************************************************************************************
+PLAY [exam4_answer] *********************************************************************************************************************************************************
 
-TASK [check interfaces] ***************************************************************************************
-[WARNING]: Platform linux on host vyos01 is using the discovered Python interpreter at /usr/bin/python, but
-future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+TASK [check interfaces] *****************************************************************************************************************************************************
 ok: [vyos01]
 
-TASK [delete interfaces description] **************************************************************************
+TASK [delete interfaces description] ****************************************************************************************************************************************
+[WARNING]: To ensure idempotency and correct diff the input configuration lines should be similar to how they appear if present in the running configuration on device
 changed: [vyos01]
 
-PLAY RECAP ****************************************************************************************************
+PLAY RECAP ******************************************************************************************************************************************************************
 vyos01                     : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 $ 
