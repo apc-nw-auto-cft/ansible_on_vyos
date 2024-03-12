@@ -47,6 +47,7 @@
 ---
 - name: sample
   hosts: vyos01
+  gather_facts: false
 
   vars:
     var1: This is Test Message
@@ -79,6 +80,7 @@ vyos01                     : ok=1    changed=0    unreachable=0    failed=0    s
 ---
 - name: sample
   hosts: vyos01
+  gather_facts: false
 
   vars:
     var1: This is Test Message
@@ -113,6 +115,7 @@ vyos01                     : ok=1    changed=0    unreachable=0    failed=0    s
 ---
 - name: sample
   hosts: vyos01
+  gather_facts: false
 
   vars:
     var1: This is Test Message
