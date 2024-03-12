@@ -200,7 +200,6 @@ $ cat vyos_module_sample.yml
 ### 6.playbookを実行
 
 - TASK [check interfaces description] でshow interfacesを実行している。ok: [vyos01] ok: [vyos02]であることを確認<br>
-  ※今回のトレーニングは[WARNING]は無視でよいです。
 - TASK [setting interfaces description] でdescriptionを設定している。changed: [vyos01] changed: [vyos02]であることを確認
 
 ```shell
