@@ -172,25 +172,19 @@ vyos01                     : ok=1    changed=0    unreachable=0    failed=0    s
 ```
 $ ansible-navigator run debug_test.yml -i inventory.ini
 
-PLAY [sample] *************************************************************************************************
+PLAY [sample] *****************************************************************************************************************************************************
 
-TASK [get vyos_command] ***************************************************************************************
-[WARNING]: Platform linux on host vyos01 is using the discovered Python interpreter at /usr/bin/python, but
-future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+TASK [get vyos_command] *******************************************************************************************************************************************
 ok: [vyos01]
 
-TASK [debug vyos_show_command] ********************************************************************************
+TASK [debug vyos_show_command] ************************************************************************************************************************************
 ok: [vyos01] => {
     "vyos01_show_command": {
-        "ansible_facts": {
-            "discovered_interpreter_python": "/usr/bin/python"
-        },
         "changed": false,
         "failed": false,
         "stdout": [
             "Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down\nInterface        IP Address                        S/L  Description\n---------        ----------                        ---  -----------\neth0             10.0.0.2/24                       u/u  \neth1             192.168.1.252/24                  u/u  vyos_config-test1\n                 192.168.1.254/24                       \neth2             192.168.2.252/24                  u/u  vyos_config-test2\n                 192.168.2.254/24                       \nlo               127.0.0.1/8                       u/u",
-            "Codes: K - kernel route, C - connected, S - static, R - RIP,\n       O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,\n       T - Table, v - VNC, V - VNC-Direct, A - Babel, D - SHARP,\n       F - PBR, f - OpenFabric,\n       > - selected route, * - FIB route, q - queued, r - rejected, b - backup\n\nK>* 0.0.0.0/0 [0/0] via 10.0.0.1, eth0, 01:13:27\nC>* 10.0.0.0/24 is directly connected, eth0, 01:13:27\nC * 192.168.1.0/24 is directly connected, eth1, 01:13:15\nC>* 192.168.1.0/24 is directly connected, eth1, 01:13:27\nC * 192.168.2.0/24 is directly connected, eth2, 01:13:15\nC>* 192.168.2.0/24 is directly connected, eth2, 01:13:27"
+            "Codes: K - kernel route, C - connected, S - static, R - RIP,\n       O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,\n       T - Table, v - VNC, V - VNC-Direct, A - Babel, D - SHARP,\n       F - PBR, f - OpenFabric,\n       > - selected route, * - FIB route, q - queued, r - rejected, b - backup\n\nK>* 0.0.0.0/0 [0/0] via 10.0.0.1, eth0, 00:20:44\nC>* 10.0.0.0/24 is directly connected, eth0, 00:20:44\nC * 192.168.1.0/24 is directly connected, eth1, 00:20:31\nC>* 192.168.1.0/24 is directly connected, eth1, 00:20:44\nC * 192.168.2.0/24 is directly connected, eth2, 00:20:31\nC>* 192.168.2.0/24 is directly connected, eth2, 00:20:44"
         ],
         "stdout_lines": [
             [
@@ -211,21 +205,18 @@ ok: [vyos01] => {
                 "       F - PBR, f - OpenFabric,",
                 "       > - selected route, * - FIB route, q - queued, r - rejected, b - backup",
                 "",
-                "K>* 0.0.0.0/0 [0/0] via 10.0.0.1, eth0, 01:13:27",
-                "C>* 10.0.0.0/24 is directly connected, eth0, 01:13:27",
-                "C * 192.168.1.0/24 is directly connected, eth1, 01:13:15",
-                "C>* 192.168.1.0/24 is directly connected, eth1, 01:13:27",
-                "C * 192.168.2.0/24 is directly connected, eth2, 01:13:15",
-                "C>* 192.168.2.0/24 is directly connected, eth2, 01:13:27"
+                "K>* 0.0.0.0/0 [0/0] via 10.0.0.1, eth0, 00:20:44",
+                "C>* 10.0.0.0/24 is directly connected, eth0, 00:20:44",
+                "C * 192.168.1.0/24 is directly connected, eth1, 00:20:31",
+                "C>* 192.168.1.0/24 is directly connected, eth1, 00:20:44",
+                "C * 192.168.2.0/24 is directly connected, eth2, 00:20:31",
+                "C>* 192.168.2.0/24 is directly connected, eth2, 00:20:44"
             ]
-        ],
-        "warnings": [
-            "Platform linux on host vyos01 is using the discovered Python interpreter at /usr/bin/python, but future installation of another Python interpreter could change this. See https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information."
         ]
     }
 }
 
-PLAY RECAP ****************************************************************************************************
+PLAY RECAP ********************************************************************************************************************************************************
 vyos01                     : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 $ 
@@ -447,22 +438,22 @@ $ poetry shell
 
 ```shell
 $ ansible-navigator run debug_module_sample.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
-not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [sample] *************************************************************************************************
+PLAY [sample] *****************************************************************************************************************************************************
 
-TASK [debug msg] **********************************************************************************************
+TASK [debug msg] **************************************************************************************************************************************************
 ok: [localhost] => {
     "msg": "Hello Ansible!"
 }
 
-TASK [debug var_message] **************************************************************************************
+TASK [debug var_message] ******************************************************************************************************************************************
 ok: [localhost] => {
     "var_message": "Hello message!"
 }
 
-PLAY RECAP ****************************************************************************************************
+PLAY RECAP ********************************************************************************************************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 $ 
@@ -505,8 +496,8 @@ $
 
 ```shell
 $ ansible-navigator run debug_module_exam_1.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
-not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
 PLAY [exam1] **************************************************************************************************
 
@@ -568,7 +559,8 @@ $
 
 ```shell
 $ ansible-navigator run debug_module_exam_1.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 not match 'all'
 
 PLAY [exam1] **************************************************************************************************
@@ -610,8 +602,8 @@ $
 
 ```shell
 $ ansible-navigator run debug_module_exam_2.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
-not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
 PLAY [exam2] **************************************************************************************************
 
@@ -651,7 +643,7 @@ $
 
     - name: debug before show interfaces
       ansible.builtin.debug:
-        var: before_show_interfaces.stdout_lines[0]
+        var: before_show_interfaces.stdout_lines
 
     - name: set description
       vyos.vyos.vyos_config:
@@ -667,7 +659,7 @@ $
 
     - name: debug after show interfaces
       ansible.builtin.debug:
-        var: after_show_interfaces.stdout_lines[0]
+        var: after_show_interfaces.stdout_lines
 ```
 
 - playbookの実行結果
@@ -675,47 +667,50 @@ $
 ```shell
 $ ansible-navigator run debug_module_exam_3.yml -i inventory.ini
 
-PLAY [exam3] **************************************************************************************************
+PLAY [exam3] ******************************************************************************************************************************************************
 
-TASK [before show interfaces] *********************************************************************************
-[WARNING]: Platform linux on host vyos02 is using the discovered Python interpreter at /usr/bin/python, but
-future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+TASK [before show interfaces] *************************************************************************************************************************************
 ok: [vyos02]
 
-TASK [debug before show interfaces] ***************************************************************************
+TASK [debug before show interfaces] *******************************************************************************************************************************
 ok: [vyos02] => {
-    "before_show_interfaces.stdout_lines[0]": [
-        "Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down",
-        "Interface        IP Address                        S/L  Description",
-        "---------        ----------                        ---  -----------",
-        "eth0             10.0.0.3/24                       u/u  ",
-        "eth1             192.168.1.253/24                  u/u  vyos_config-test1",
-        "eth2             192.168.2.253/24                  u/u  vyos_config-test2",
-        "lo               127.0.0.1/8                       u/u"
+    "before_show_interfaces.stdout_lines": [
+        [
+            "Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down",
+            "Interface        IP Address                        S/L  Description",
+            "---------        ----------                        ---  -----------",
+            "eth0             10.0.0.3/24                       u/u  ",
+            "eth1             192.168.1.253/24                  u/u  vyos_config-test1",
+            "eth2             192.168.2.253/24                  u/u  vyos_config-test2",
+            "lo               127.0.0.1/8                       u/u"
+        ]
     ]
 }
 
-TASK [set description] ****************************************************************************************
+TASK [set description] ********************************************************************************************************************************************
+[WARNING]: To ensure idempotency and correct diff the input configuration lines should be similar to how they appear if present in the running configuration on
+device
 changed: [vyos02]
 
-TASK [after show interfaces] **********************************************************************************
+TASK [after show interfaces] **************************************************************************************************************************************
 ok: [vyos02]
 
-TASK [debug after show interfaces] ****************************************************************************
+TASK [debug after show interfaces] ********************************************************************************************************************************
 ok: [vyos02] => {
-    "after_show_interfaces.stdout_lines[0]": [
-        "Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down",
-        "Interface        IP Address                        S/L  Description",
-        "---------        ----------                        ---  -----------",
-        "eth0             10.0.0.3/24                       u/u  ",
-        "eth1             192.168.1.253/24                  u/u  debug_exam",
-        "eth2             192.168.2.253/24                  u/u  vyos_config-test2",
-        "lo               127.0.0.1/8                       u/u"
+    "after_show_interfaces.stdout_lines": [
+        [
+            "Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down",
+            "Interface        IP Address                        S/L  Description",
+            "---------        ----------                        ---  -----------",
+            "eth0             10.0.0.3/24                       u/u  ",
+            "eth1             192.168.1.253/24                  u/u  debug_exam",
+            "eth2             192.168.2.253/24                  u/u  vyos_config-test2",
+            "lo               127.0.0.1/8                       u/u"
+        ]
     ]
 }
 
-PLAY RECAP ****************************************************************************************************
+PLAY RECAP ********************************************************************************************************************************************************
 vyos02                     : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 $ 
