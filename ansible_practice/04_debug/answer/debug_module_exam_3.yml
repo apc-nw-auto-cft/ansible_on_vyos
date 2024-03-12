@@ -5,27 +5,27 @@
 
   tasks:
     - name: before show interfaces
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands:
           - show interfaces
       register: before_show_interfaces
 
     - name: debug before show interfaces
-      debug:
+      ansible.builtin.debug:
         var: before_show_interfaces.stdout_lines
 
     - name: set description
-      vyos_config:
+      vyos.vyos.vyos_config:
         lines:
           - set interfaces ethernet eth1 description debug_exam
         save: true
 
     - name: after show interfaces
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands:
           - show interfaces
       register: after_show_interfaces
 
     - name: debug after show interfaces
-      debug:
+      ansible.builtin.debug:
         var: after_show_interfaces.stdout_lines

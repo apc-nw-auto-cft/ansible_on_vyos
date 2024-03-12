@@ -5,5 +5,5 @@
 
   tasks:
     - name: debug
-      debug:
+      ansible.builtin.debug:
         msg: "APC"
