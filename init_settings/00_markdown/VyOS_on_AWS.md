@@ -123,10 +123,12 @@ sudo dnf install -y git
 git clone https://github.com/apc-nw-auto-cft/ansible_on_vyos.git
 ```
 
-### 3.3. シェルスクリプトを実行して、dockerとpoetryをインストール
+### 3.3. gitアカウントをswitch後シェルスクリプトを実行して、dockerとpoetryをインストール
 
 ```shell
 cd ~/ansible_on_vyos
+
+git switch -c <APCのユーザ名(メールアドレスの@前)> 
 
 sh ./init.sh
 ```
