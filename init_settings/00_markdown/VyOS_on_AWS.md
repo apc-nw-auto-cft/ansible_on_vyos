@@ -14,7 +14,7 @@
 - [3. トレーニング環境の構築（初回構築時のみ）](#3-トレーニング環境の構築初回構築時のみ)
   - [3.1. gitをインストール](#31-gitをインストール)
   - [3.2. githubから資材を配置しているリポジトリをclone](#32-githubから資材を配置しているリポジトリをclone)
-  - [3.3. シェルスクリプトを実行して、dockerとpoetryをインストール](#33-シェルスクリプトを実行してdockerとpoetryをインストール)
+  - [3.3. gitアカウントをswitch後シェルスクリプトを実行して、dockerとpoetryをインストール](#33-シェルスクリプトを実行してdockerとpoetryをインストール)
   - [3.4. 再度SSHでログインをし直す（TeraTermだと、altキー+D ）](#34-再度sshでログインをし直すteratermだとaltキーd-)
   - [3.5. sudo なしでdockerコマンドを打てることを確認(errorにならなければOK)](#35-sudo-なしでdockerコマンドを打てることを確認errorにならなければok)
   - [3.7. poetry環境ログイン](#37-poetry環境ログイン)
@@ -123,10 +123,12 @@ sudo dnf install -y git
 git clone https://github.com/apc-nw-auto-cft/ansible_on_vyos.git
 ```
 
-### 3.3. シェルスクリプトを実行して、dockerとpoetryをインストール
+### 3.3. gitアカウントをswitch後シェルスクリプトを実行して、dockerとpoetryをインストール
 
 ```shell
 cd ~/ansible_on_vyos
+
+git switch -c <APCのユーザ名(メールアドレスの@前)> 
 
 sh ./init.sh
 ```
