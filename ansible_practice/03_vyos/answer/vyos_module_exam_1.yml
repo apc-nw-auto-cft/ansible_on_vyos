@@ -1,10 +1,10 @@
 ---
-- name: exam1_answer
+- name: Exam1_answer
   hosts: vyos
   gather_facts: false
 
   tasks:
-    - name: check interface
+    - name: Check interface
       vyos.vyos.vyos_command:
         commands:
           - show interfaces

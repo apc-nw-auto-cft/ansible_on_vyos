@@ -1,10 +1,10 @@
 ---
-- name: exam3_answer
+- name: Exam3_answer
   hosts: vyos
   gather_facts: false
 
   tasks:
-    - name: check vyos info
+    - name: Check vyos info
       vyos.vyos.vyos_command:
         commands:
           - show version
