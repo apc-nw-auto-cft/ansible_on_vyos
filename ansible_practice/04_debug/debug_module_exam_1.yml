@@ -1,8 +1,8 @@
 ---
-- name: exam1
+- name: Exam1
   hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: debug
+    - name: Debug
       ansible.builtin.debug:

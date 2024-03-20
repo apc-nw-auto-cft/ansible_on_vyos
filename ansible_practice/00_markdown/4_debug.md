@@ -45,7 +45,7 @@
 
 ```yaml
 ---
-- name: sample
+- name: Sample
   hosts: vyos01
   gather_facts: false
 
@@ -53,7 +53,7 @@
     var1: This is Test Message
 
   tasks:
-    - name: debug msg
+    - name: Debug msg
       ansible.builtin.debug:
         msg: "みなさん {{ var1 }} ですよ。"
 ```
@@ -61,9 +61,9 @@
 - 上記のように記述すれば、以下のような実行例として出力ができる。
 
 ```
-PLAY [sample] *****************************************************************************
+PLAY [Sample] *****************************************************************************
 
-TASK [debug messages] *****************************************************************************
+TASK [Debug messages] *****************************************************************************
 ok: [vyos01] => {
   "msg": "みなさん This is Test Message ですよ。"
 }
@@ -78,7 +78,7 @@ vyos01                     : ok=1    changed=0    unreachable=0    failed=0    s
 
 ```yaml
 ---
-- name: sample
+- name: Sample
   hosts: vyos01
   gather_facts: false
 
@@ -86,7 +86,7 @@ vyos01                     : ok=1    changed=0    unreachable=0    failed=0    s
     var1: This is Test Message
 
   tasks:
-    - name: debug messages
+    - name: Debug messages
       ansible.builtin.debug:
         var: var1
 ```
@@ -95,9 +95,9 @@ vyos01                     : ok=1    changed=0    unreachable=0    failed=0    s
 - var1の中身はみれるが、パラメータ「msg」のようにvar1の前後に適当な文字列をつけることはできない。
 
 ```
-PLAY [sample] ***************************************************************************
+PLAY [Sample] ***************************************************************************
 
-TASK [debug messages] ***************************************************************************
+TASK [Debug messages] ***************************************************************************
 ok: [vyos01] => {
     "var1": "This is Test Message"
 }
@@ -113,7 +113,7 @@ vyos01                     : ok=1    changed=0    unreachable=0    failed=0    s
 
 ```yaml
 ---
-- name: sample
+- name: Sample
   hosts: vyos01
   gather_facts: false
 
@@ -121,16 +121,16 @@ vyos01                     : ok=1    changed=0    unreachable=0    failed=0    s
     var1: This is Test Message
 
   tasks:
-    - name: debug messages
+    - name: Debug messages
       ansible.builtin.debug:
 ```
 
 - 上記のように記述すれば、以下のようにデフォルトメッセージ「Hello world!」が表示されます。
 
 ```
-PLAY [sample] ***************************************************************************
+PLAY [Sample] ***************************************************************************
 
-TASK [debug messages] ***************************************************************************
+TASK [Debug messages] ***************************************************************************
 ok: [vyos01] => {
    "msg": "Hello world!"
 }
@@ -149,19 +149,19 @@ vyos01                     : ok=1    changed=0    unreachable=0    failed=0    s
 
 ```yaml
 ---
-- name: sample
+- name: Sample
   hosts: vyos01
   gather_facts: false
 
   tasks:
-    - name: get vyos_command
+    - name: Get vyos_command
       vyos.vyos.vyos_command:
         commands:
           - show interfaces
           - show ip route
       register: vyos01_show_command
 
-    - name: debug vyos_show_command
+    - name: Debug vyos_show_command
       ansible.builtin.debug:
         var: vyos01_show_command
 
@@ -238,7 +238,7 @@ $
 
 ```yaml
 ~~省略~~
-    - name: debug vyos_show_command
+    - name: Debug vyos_show_command
       ansible.builtin.debug:
         var: vyos01_show_command.stdout
 ```
@@ -268,7 +268,7 @@ $
 
 ```yaml
 ~~省略~~
-    - name: debug vyos_show_command
+    - name: Debug vyos_show_command
       ansible.builtin.debug:
         var: vyos01_show_command.stdout[0]
 ```
@@ -279,7 +279,7 @@ $
 
 ```
 ~~省略~~
-TASK [debug vyos_show_command] ********************************************************************************
+TASK [Debug vyos_show_command] ********************************************************************************
 ok: [vyos01] => {
     "vyos01_show_command.stdout[0]": "Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down\nInterface        IP Address                        S/L  Description\n---------        ----------                        ---  -----------\neth0             10.0.0.2/24                       u/u  \neth1             192.168.1.252/24                  u/u  vyos_config-test1\n                 192.168.1.254/24                       \neth2             192.168.2.252/24                  u/u  vyos_config-test2\n                 192.168.2.254/24                       \nlo               127.0.0.1/8                       u/u"
 }
@@ -296,7 +296,7 @@ $
 
 ```yaml
 ~~省略~~
-    - name: debug vyos_show_command
+    - name: Debug vyos_show_command
       ansible.builtin.debug:
         var: vyos01_show_command.stdout_lines
 ```
@@ -306,7 +306,7 @@ $
 
 ```
 ~~省略~~
-TASK [debug vyos_show_command] ********************************************************************************
+TASK [Debug vyos_show_command] ********************************************************************************
 ok: [vyos01] => {
     "vyos01_show_command.stdout_lines": [
         [
@@ -349,7 +349,7 @@ $
 
 ```yaml
 ~~省略~~
-    - name: debug vyos_show_command
+    - name: Debug vyos_show_command
       ansible.builtin.debug:
         var: vyos01_show_command.stdout_lines[0]
 ```
@@ -360,7 +360,7 @@ $
 
 ```
 ~~省略~~
-TASK [debug vyos_show_command] ********************************************************************************
+TASK [Debug vyos_show_command] ********************************************************************************
 ok: [vyos01] => {
     "vyos01_show_command.stdout_lines[0]": [
         "Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down",
@@ -414,7 +414,7 @@ $ poetry shell
 
 ```yaml
 ---
-- name: sample
+- name: Sample
   hosts: localhost
   gather_facts: false
 
@@ -422,11 +422,11 @@ $ poetry shell
     var_message: Hello message!
 
   tasks:
-    - name: debug msg
+    - name: Debug msg
       ansible.builtin.debug:
         msg: Hello Ansible!
 
-    - name: debug var_message
+    - name: Debug var_message
       ansible.builtin.debug:
         var: var_message
 ```
@@ -483,12 +483,12 @@ $
 
 ```yaml
 ---
-- name: debug_exercise1
+- name: Debug_exercise1
   hosts: localhost
   gather_facts: false
 
   tasks:
-   - name: debug
+   - name: Debug
      ansible.builtin.debug:
 ```
 
@@ -499,9 +499,9 @@ $ ansible-navigator run debug_module_exam_1.yml
 [WARNING]: No inventory was parsed, only implicit localhost is available
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [exam1] **************************************************************************************************
+PLAY [Exam1] **************************************************************************************************
 
-TASK [debug] **************************************************************************************************
+TASK [Debug] **************************************************************************************************
 ok: [localhost] => {
     "msg": ■■■■■■
 }
@@ -563,9 +563,9 @@ $ ansible-navigator run debug_module_exam_1.yml
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 not match 'all'
 
-PLAY [exam1] **************************************************************************************************
+PLAY [Exam1] **************************************************************************************************
 
-TASK [debug] **************************************************************************************************
+TASK [Debug] **************************************************************************************************
 ok: [localhost] => {
     "msg": "Hello world!"
 }
@@ -588,12 +588,12 @@ $
 
 ```yaml
 ---
-- name: exam2
+- name: Exam2
   hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: debug
+    - name: Debug
       ansible.builtin.debug:
         msg: "APC"
 ```
@@ -605,9 +605,9 @@ $ ansible-navigator run debug_module_exam_2.yml
 [WARNING]: No inventory was parsed, only implicit localhost is available
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [exam2] **************************************************************************************************
+PLAY [Exam2] **************************************************************************************************
 
-TASK [debug] **************************************************************************************************
+TASK [Debug] **************************************************************************************************
 ok: [localhost] => {
     "msg": "APC"
 }
@@ -630,34 +630,34 @@ $
 
 ```yaml
 ---
-- name: exam3
+- name: Exam3
   hosts: vyos02
   gather_facts: false
 
   tasks:
-    - name: before show interfaces
+    - name: Before show interfaces
       vyos.vyos.vyos_command:
         commands:
           - show interfaces
       register: before_show_interfaces
 
-    - name: debug before show interfaces
+    - name: Debug before show interfaces
       ansible.builtin.debug:
         var: before_show_interfaces.stdout_lines
 
-    - name: set description
+    - name: Set description
       vyos.vyos.vyos_config:
         lines:
           - set interfaces ethernet eth1 description debug_exam
         save: true
 
-    - name: after show interfaces
+    - name: After show interfaces
       vyos.vyos.vyos_command:
         commands:
           - show interfaces
       register: after_show_interfaces
 
-    - name: debug after show interfaces
+    - name: Debug after show interfaces
       ansible.builtin.debug:
         var: after_show_interfaces.stdout_lines
 ```
