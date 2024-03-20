@@ -63,7 +63,7 @@
 - hosts: vyos
 
   tasks:
-    - name: vyos_command example
+    - name: Vyos_command example
       vyos.vyos.vyos_command:
         commands:
           - show version
@@ -78,9 +78,9 @@
 - hosts: vyos
 
   tasks:
-    - name: set interfaces
+    - name: Set interfaces
       vyos.vyos.vyos_config:
-        lines: 
+        lines:
           - set interfaces ethernet eth1 enable
         save: true
 ```
@@ -180,17 +180,17 @@ ansible_password=vyos
 ```yaml
 $ cat vyos_module_sample.yml 
 ---
-- name: sample
+- name: Sample
   hosts: vyos
   gather_facts: false
 
   tasks:
-    - name: check interfaces description
+    - name: Check interfaces description
       vyos.vyos.vyos_command:
         commands:
           - show interfaces
 
-    - name: setting interfaces description
+    - name: Setting interfaces description
       vyos.vyos.vyos_config:
         lines:
           - set interfaces ethernet eth1 description vyos_config-test1
@@ -199,26 +199,21 @@ $ cat vyos_module_sample.yml
 
 ### 6.playbookを実行
 
-- TASK [check interfaces description] でshow interfacesを実行している。ok: [vyos01] ok: [vyos02]であることを確認<br>
-  ※今回のトレーニングは[WARNING]は無視でよいです。
-- TASK [setting interfaces description] でdescriptionを設定している。changed: [vyos01] changed: [vyos02]であることを確認
+- TASK [Check interfaces description] でshow interfacesを実行している。ok: [vyos01] ok: [vyos02]であることを確認<br>
+- TASK [Setting interfaces description] でdescriptionを設定している。changed: [vyos01] changed: [vyos02]であることを確認
 
 ```shell
 $ ansible-navigator run vyos_module_sample.yml -i inventory.ini
 
-PLAY [sample] **********************************************************************************************
+PLAY [Sample] **********************************************************************************************
 
-TASK [check interfaces description] ************************************************************************
-[WARNING]: Platform linux on host vyos02 is using the discovered Python interpreter at /usr/bin/python, but
-future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
-ok: [vyos02]
-[WARNING]: Platform linux on host vyos01 is using the discovered Python interpreter at /usr/bin/python, but
-future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+TASK [Check interfaces description] ************************************************************************
 ok: [vyos01]
+ok: [vyos02]
 
-TASK [setting interfaces description] **********************************************************************
+TASK [Setting interfaces description] **********************************************************************
+[WARNING]: To ensure idempotency and correct diff the input configuration lines should be similar to how they appear if present in the running configuration
+on device
 changed: [vyos01]
 changed: [vyos02]
 
@@ -274,26 +269,20 @@ $
 
 ### 補足1.もう一度、playbookを実行
 
-- TASK [check interfaces description] でshow interfacesを実行している。ok: [vyos01] ok: [vyos02]であることを確認。<br>
-- TASK [setting interfaces description] でdescriptionを設定しているが、手順6ですでに設定しているので、今回は実施されない。<br>
+- TASK [Check interfaces description] でshow interfacesを実行している。ok: [vyos01] ok: [vyos02]であることを確認。<br>
+- TASK [Setting interfaces description] でdescriptionを設定しているが、手順6ですでに設定しているので、今回は実施されない。<br>
   ok: [vyos01] ok: [vyos02]であることを確認。= べき等性
 
 ```shell
 $ ansible-navigator run vyos_module_sample.yml -i inventory.ini
 
-PLAY [sample] **********************************************************************************************
+PLAY [Sample] **********************************************************************************************
 
-TASK [check interfaces description] ************************************************************************
-[WARNING]: Platform linux on host vyos01 is using the discovered Python interpreter at /usr/bin/python, but
-future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+TASK [Check interfaces description] ************************************************************************
 ok: [vyos01]
-[WARNING]: Platform linux on host vyos02 is using the discovered Python interpreter at /usr/bin/python, but
-future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
 ok: [vyos02]
 
-TASK [setting interfaces description] **********************************************************************
+TASK [Setting interfaces description] **********************************************************************
 ok: [vyos01]
 ok: [vyos02]
 
@@ -337,14 +326,14 @@ $
 
 ```yaml
 ---
-- name: exam1
+- name: Exam1
   hosts: vyos
   gather_facts: false
 
   tasks:
-    - name: check interface
+    - name: Check interface
       ■■■■■■:
-        commands: 
+        commands:
           - show interfaces
 ```
 
@@ -362,14 +351,14 @@ $
 ### Q2 以下のplaybookの空欄に当てはまるものは何でしょう
 
 ```yaml
-- name: exam2
+- name: Exam2
   hosts: vyos
   gather_facts: false
 
   tasks:
-    - name: disable interface
+    - name: Disable interface
       vyos.vyos.vyos_config:
-        ■■■■■■: 
+        ■■■■■■:
           - delete interfaces ethernet eth0 disable
 ```
 
@@ -420,14 +409,14 @@ $
 
 ```yaml
 ---
-- name: exam1
+- name: Exam1
   hosts: vyos
   gather_facts: false
 
   tasks:
-    - name: check interface
+    - name: Check interface
       vyos.vyos.vyos_command:
-        commands: 
+        commands:
           - show interfaces
 
 ```
@@ -450,14 +439,14 @@ $
 - 以下、正しいplaybook
 
 ```yaml
-- name: exam2
+- name: Exam2
   hosts: vyos
   gather_facts: false
 
   tasks:
-    - name: disable interface
+    - name: Disable interface
       vyos.vyos.vyos_config:
-        lines: 
+        lines:
           - delete interfaces ethernet eth0 disable
 ```
 
@@ -480,14 +469,14 @@ $
 
 ```yaml
 ---
-- name: exam3
+- name: Exam3
   hosts: vyos
   gather_facts: false
 
   tasks:
-    - name: check vyos info
+    - name: Check vyos info
       vyos.vyos.vyos_command:
-        commands: 
+        commands:
           - show version
           - show ip route
 
@@ -498,21 +487,15 @@ $
 ```shell
 $ ansible-navigator run vyos_module_exam_3.yml -i inventory.ini
 
-PLAY [exam3] ***********************************************************************************************
+PLAY [Exam3] ***********************************************************************************************
 
-TASK [check vyos info] *************************************************************************************
-[WARNING]: Platform linux on host vyos01 is using the discovered Python interpreter at /usr/bin/python, but
-future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+TASK [Check vyos info] *************************************************************************************
 ok: [vyos01]
-[WARNING]: Platform linux on host vyos02 is using the discovered Python interpreter at /usr/bin/python, but
-future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
 ok: [vyos02]
 
 PLAY RECAP *************************************************************************************************
 vyos01                     : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-vyos02                     : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+vyos02                     : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
 
 $ 
 ```
@@ -529,17 +512,17 @@ $
 
 ```yaml
 ---
-- name: exam4
+- name: Exam4
   hosts: vyos01
   gather_facts: false
 
   tasks:
-  - name: check interfaces
+  - name: Check interfaces
     vyos.vyos.vyos_command:
       commands:
         - show interfaces
 
-  - name: delete interfaces description
+  - name: Delete interfaces description
     vyos.vyos.vyos_config:
       lines:
         - delete interfaces ethernet eth1 description
@@ -553,15 +536,13 @@ $
 ```shell
 $ ansible-navigator run vyos_module_exam_4.yml -i inventory.ini
 
-PLAY [exam4] **************************************************************************************************
+PLAY [Exam4] **************************************************************************************************
 
-TASK [check interfaces] ***************************************************************************************
-[WARNING]: Platform linux on host vyos01 is using the discovered Python interpreter at /usr/bin/python, but
-future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+TASK [Check interfaces] ***************************************************************************************
 ok: [vyos01]
 
-TASK [delete interfaces description] **************************************************************************
+TASK [Delete interfaces description] **************************************************************************
+[WARNING]: To ensure idempotency and correct diff the input configuration lines should be similar to how they appear if present in the running configuration on device
 changed: [vyos01]
 
 PLAY RECAP ****************************************************************************************************

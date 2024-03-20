@@ -1,15 +1,15 @@
 ---
-- name: sample
+- name: Sample
   hosts: vyos
   gather_facts: false
 
   tasks:
-    - name: check interfaces description
+    - name: Check interfaces description
       vyos.vyos.vyos_command:
         commands:
           - show interfaces
 
-    - name: setting interfaces description
+    - name: Setting interfaces description
       vyos.vyos.vyos_config:
         lines:
           - set interfaces ethernet eth1 description vyos_config-test1
