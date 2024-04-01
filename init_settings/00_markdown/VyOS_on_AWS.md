@@ -156,19 +156,13 @@ Spawning shell within /home/ec2-user/ansible_on_vyos/.venv
 (ansible-on-vyos-py3.9) [ec2-user@ip-172-31-38-211 ansible_on_vyos]$
 ```
 
-### 3.8. ansible-navigaterのイメージをpull
-
-```shell
-docker pull ghcr.io/apc-nw-auto-cft/ansible_on_vyos/ee:0.2
-```
-
-### 3.9. dockerコンテナの作成、起動
+### 3.8. dockerコンテナの作成、起動
 
 ```shell
 docker-compose -f ./init_settings/docker-compose.yml up -d
 ```
 
-### 3.10. test用のplaybookを実行
+### 3.9. test用のplaybookを実行
 
 ```shell
 ansible-navigator run ./ansible_practice/test.yml
