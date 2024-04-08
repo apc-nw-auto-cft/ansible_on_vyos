@@ -66,6 +66,7 @@
 - ネットワーク設定
   - 「編集」を押下
   - 「パブリックIPの自動割り当て」にて「有効化」を選択
+  - 「サブネット」にて「subnet-d44e1c9d」を選択
   - 「セキュリティグループ名」にAPCのユーザ名(メールアドレスの@前)を入力
   - 「インバウンドセキュリティグループのルール」について以下の通り設定
     - 「タイプ」にて「すべてのトラフィック」を選択
@@ -157,19 +158,13 @@ Spawning shell within /home/ec2-user/ansible_on_vyos/.venv
 (ansible-on-vyos-py3.9) [ec2-user@ip-172-31-38-211 ansible_on_vyos]$
 ```
 
-### 3.8. ansible-navigaterのイメージをpull
-
-```shell
-docker pull ghcr.io/apc-nw-auto-cft/ansible_on_vyos/ee:0.2
-```
-
-### 3.9. dockerコンテナの作成、起動
+### 3.8. dockerコンテナの作成、起動
 
 ```shell
 docker-compose -f ./init_settings/docker-compose.yml up -d
 ```
 
-### 3.10. test用のplaybookを実行
+### 3.9. test用のplaybookを実行
 
 ```shell
 ansible-navigator run ./ansible_practice/test.yml
@@ -183,7 +178,7 @@ ansible-navigator run ./ansible_practice/test.yml
 
 - VScodeを起動
 - 左下にある「><」のような緑色のマークをクリック
-- SSH構成ファイルを開く→C:\Users\<ユーザ名>\.ssh\
+- ホストに接続する→SSHホストを構成する→C:\Users\<ユーザ名>_ap-com\.ssh\config
 - 以下をコピーして、1行目~4行目に貼付する  
 
 ```yaml
