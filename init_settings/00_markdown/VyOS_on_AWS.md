@@ -178,7 +178,7 @@ ansible-navigator run ./ansible_practice/test.yml
 
 - VScodeを起動
 - 左下にある「><」のような緑色のマークをクリック
-- SSH構成ファイルを開く→C:\Users\<ユーザ名>\.ssh\
+- ホストに接続する→SSHホストを構成する→C:\Users\<ユーザ名>_ap-com\.ssh\config
 - 以下をコピーして、1行目~4行目に貼付する  
 
 ```yaml
