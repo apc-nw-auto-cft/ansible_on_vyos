@@ -187,7 +187,7 @@ GitHubにPushできることを確認する。
 touch test.txt # 変更がないとコミットできないため
 git add .
 git commit -m "first commit"
-git push
+git push -u origin <branch名>
 ```
 
 ## 4. トレーニング時に毎回行うこと
