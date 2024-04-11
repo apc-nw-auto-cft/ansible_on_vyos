@@ -39,6 +39,8 @@
 ### 2.1. AWSにログイン
 
 - Chromeを開き、右上のGoogleアプリアイコン→「AWS for APC」を押下
+- 右上の「GoogleSAMLGeneralRole...」の左側が「東京」になっていること
+  - 東京以外であれば、「<都市名> ▼」を押下→「アジアパシフィック（東京）」を選択
 
 ### 2.2. EC2画面に移動
 
@@ -225,11 +227,13 @@ Host yokogushi_EC2　#EC2に接続するときに分かりやすい名前で
 - AWSで作成したEC2インスタンスに接続完了
 - 表示→ターミナル でコマンドを実行可能
 
-### 4.3. dockerコンテナの起動
+### 4.3. poetry環境にログインし、dockerコンテナを起動
 ```yaml
-cd ~/ansible_on_vyos/init_settings
+cd ~/ansible_on_vyos/
 
-docker-compose up -d
+poetry shell
+
+docker-compose -f ./init_settings/docker-compose.yml up -d
 ```
 
 ### 4.4. dockerコンテナの起動確認
