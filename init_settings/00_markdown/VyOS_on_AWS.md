@@ -24,8 +24,6 @@
 - [4. トレーニング時に毎回行うこと](#4-トレーニング時に毎回行うこと)
   - [4.1. 構築したEC2インスタンスを起動](#41-構築したec2インスタンスを起動)
   - [4.2. 起動したインスタンスにSSH(VSCode推奨)](#42-起動したインスタンスにsshvscode推奨)
-  - [4.3. dockerコンテナの起動](#43-dockerコンテナの起動)
-  - [4.4. dockerコンテナの起動確認](#44-dockerコンテナの起動確認)
 
 ## 1. 前提条件
 
@@ -69,6 +67,7 @@
   - 「編集」を押下
   - 「パブリックIPの自動割り当て」にて「有効化」を選択
   - 「サブネット」にて「subnet-d44e1c9d」を選択
+  - 「セキュリティグループ名」にAPCのユーザ名(メールアドレスの@前)を入力
   - 「インバウンドセキュリティグループのルール」について以下の通り設定
     - 「タイプ」にて「すべてのトラフィック」を選択
     - 「ソースタイプ」にて「自分のIP」を選択
@@ -171,6 +170,24 @@ docker-compose -f ./init_settings/docker-compose.yml up -d
 ansible-navigator run ./ansible_practice/test.yml
 ```
 
+### 3.10. LinuxのGit設定を行う
+
+- ユーザー名・メールアドレスを設定
+
+```shell
+git config --global user.name <メールアドレスの@以前の部分>
+git config --global user.email <メールアドレス>
+```
+
+GitHubにPushできることを確認する。
+
+```shell
+touch test.txt # 変更がないとコミットできないため
+git add .
+git commit -m "first commit"
+git push
+```
+
 ## 4. トレーニング時に毎回行うこと
 
 ### 4.1. 構築したEC2インスタンスを起動
@@ -206,15 +223,14 @@ Host yokogushi_EC2　#EC2に接続するときに分かりやすい名前で
 - AWSで作成したEC2インスタンスに接続完了
 - 表示→ターミナル でコマンドを実行可能
 
-### 4.3. dockerコンテナの起動
-```yaml
-cd ~/ansible_on_vyos/init_settings
+## 5. トレーニング終了前に毎回行うこと
 
-docker-compose up -d
-```
+- VScodeのターミナルで下記コマンドを実行し、GitHubのブランチを更新する。
 
-### 4.4. dockerコンテナの起動確認
-```yaml
-docker ps
+```sh
+cd ~/ansible_on_vyos
+git branch # 自分の名前のブランチにいることを確認
+git add .
+git commit -m "Day<N>"
+git push
 ```
-- 「vyos01」「vyos02」「host01」「host02」が表示されていることを確認
