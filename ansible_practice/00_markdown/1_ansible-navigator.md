@@ -61,7 +61,7 @@ ansible-navigatorは、Execution Environment（EE）経由でPlaybookを実行�
 
 ## ansible-navigator構成図
 今回のトレーニングの構成図は以下となる。<br>
-![image](https://github.com/apc-nw-auto-cft/ansible_on_vyos/blob/50-ansible-navigator%E3%81%AE%E8%B3%87%E6%96%99%E4%BD%9C%E6%88%90/others/navigator_image.png?raw=true)
+![image](https://github.com/apc-nw-auto-cft/ansible_on_vyos/blob/main/others/navigator_image.png)
 
 ## 参考サイト
   - [これからはじめるAnsible - Ansible Night Tokyo 2024](https://www.slideshare.net/slideshow/ansible-ansible-night-tokyo-2024/266763151)
