@@ -212,8 +212,8 @@ git add .
 git commit -m "first commit"
 git push -u origin <branch名>
 ```
-UsernameはGitHubアカウント名、Passwordは3.10.で取得したアクセストークンをを入力する。
-
+- UsernameはGitHubアカウント名、Passwordは3.10.で取得したアクセストークンをを入力する。
+- [ansible_on_vyos](https://github.com/apc-nw-auto-cft/ansible_on_vyos/tree/main)へアクセスし、main→<メールアドレスの@以前の部分>を選択できることを確認する。
 
 
 ## 4. トレーニング時に毎回行うこと
