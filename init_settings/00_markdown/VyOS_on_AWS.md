@@ -14,18 +14,20 @@
 - [3. トレーニング環境の構築（初回構築時のみ）](#3-トレーニング環境の構築初回構築時のみ)
   - [3.1. gitをインストール](#31-gitをインストール)
   - [3.2. githubから資材を配置しているリポジトリをclone](#32-githubから資材を配置しているリポジトリをclone)
-  - [3.3. gitアカウントをswitch後シェルスクリプトを実行して、dockerとpoetryをインストール](#33-シェルスクリプトを実行してdockerとpoetryをインストール)
+  - [3.3. gitアカウントをswitch後シェルスクリプトを実行して、dockerとpoetryをインストール](#33-gitアカウントをswitch後シェルスクリプトを実行して、dockerとpoetryをインストール)
   - [3.4. 再度SSHでログインをし直す（TeraTermだと、altキー+D ）](#34-再度sshでログインをし直すteratermだとaltキーd-)
   - [3.5. sudo なしでdockerコマンドを打てることを確認(errorにならなければOK)](#35-sudo-なしでdockerコマンドを打てることを確認errorにならなければok)
   - [3.7. poetry環境ログイン](#37-poetry環境ログイン)
-  - [3.8. ansible-navigaterのイメージをpull](#38-ansible-navigaterのイメージをpull)
-  - [3.9. dockerコンテナの作成、起動](#39-dockerコンテナの作成起動)
-  - [3.10. test用のplaybookを実行](#310-test用のplaybookを実行)
+  - [3.8. dockerコンテナの作成、起動](#38-dockerコンテナの作成、起動)
+  - [3.9. test用のplaybookを実行](#39-test用のplaybookを実行)
+  - [3.10. LinuxのGit設定を行う](#310-LinuxのGit設定を行う)
+  - [3.11. GitHubでアクセストークンを取得する](#311-GitHubでアクセストークンを取得する)
 - [4. トレーニング時に毎回行うこと](#4-トレーニング時に毎回行うこと)
   - [4.1. 構築したEC2インスタンスを起動](#41-構築したec2インスタンスを起動)
   - [4.2. 起動したインスタンスにSSH(VSCode推奨)](#42-起動したインスタンスにsshvscode推奨)
   - [4.3. dockerコンテナの起動](#43-dockerコンテナの起動)
   - [4.4. dockerコンテナの起動確認](#44-dockerコンテナの起動確認)
+- [5. トレーニング終了前に毎回行うこと](#5-トレーニング終了前に毎回行うこと)
 
 ## 1. 前提条件
 
@@ -71,7 +73,8 @@
   - 「編集」を押下
   - 「パブリックIPの自動割り当て」にて「有効化」を選択
   - 「サブネット」にて「subnet-d44e1c9d」を選択
-  - 「セキュリティグループ名」にAPCのユーザ名(メールアドレスの@前)を入力
+  - 「セキュリティグループ名」に既に入っている値の末尾に「-<番号>」を入力する
+    - トレーニング時間外（個人）で実施しているときは既に入っている値のみで問題ない
   - 「インバウンドセキュリティグループのルール」について以下の通り設定
     - 「タイプ」にて「すべてのトラフィック」を選択
     - 「ソースタイプ」にて「自分のIP」を選択
@@ -191,6 +194,23 @@ git add .
 git commit -m "first commit"
 git push -u origin <branch名>
 ```
+
+### 3.11. GitHubでアクセストークンを取得する
+
+- Chromeを開き、[GitHub](https://github.com/)にアクセス
+- 右上の「Sign in」から自分のGitHubアカウントへログイン
+- ログイン後、右上のアイコンを押下し、「Settings」を選択
+  - 「Developer settings」を選択
+  - 「Personal access tokens」を押下し、プルダウンが表示されたら「Tokens(classic)」を選択
+  - 「Generate new token」を押下し、「Generate new token(classic)」を選択
+- Authentication codeによる二段階認証画面になったら、アカウント登録時に実施した二段階認証を実施する
+- New personal access token (classic)と表示されたら、以下を入力していく
+  - Noteを「APCのユーザ名(メールアドレスの@前)_token」と入力する
+  - Expirationは「No expiration」を選択
+  - Select scopesは「repo」にチェックを入れる
+  - 一番下の「Generate token」を押下
+- 緑色のバーでチェックマークの後に、「ghp」から始まる文字列が生成されるので、保存しておく
+  - トークンは再表示ができないため、画面遷移する前に保存しておくこと
 
 ## 4. トレーニング時に毎回行うこと
 
