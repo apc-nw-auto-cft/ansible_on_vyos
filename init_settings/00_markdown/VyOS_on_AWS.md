@@ -20,8 +20,8 @@
   - [3.7. poetry環境ログイン](#37-poetry環境ログイン)
   - [3.8. dockerコンテナの作成、起動](#38-dockerコンテナの作成、起動)
   - [3.9. test用のplaybookを実行](#39-test用のplaybookを実行)
-  - [3.10. LinuxのGit設定を行う](#310-LinuxのGit設定を行う)
-  - [3.11. GitHubでアクセストークンを取得する](#311-GitHubでアクセストークンを取得する)
+  - [3.10. GitHubでアクセストークンを取得する](#310-GitHubでアクセストークンを取得する) 
+  - [3.11. LinuxのGit設定を行う](#311-LinuxのGit設定を行う)
 - [4. トレーニング時に毎回行うこと](#4-トレーニング時に毎回行うこと)
   - [4.1. 構築したEC2インスタンスを起動](#41-構築したec2インスタンスを起動)
   - [4.2. 起動したインスタンスにSSH(VSCode推奨)](#42-起動したインスタンスにsshvscode推奨)
@@ -177,25 +177,7 @@ docker-compose -f ./init_settings/docker-compose.yml up -d
 ansible-navigator run ./ansible_practice/test.yml
 ```
 
-### 3.10. LinuxのGit設定を行う
-
-- ユーザー名・メールアドレスを設定
-
-```shell
-git config --global user.name <メールアドレスの@以前の部分>
-git config --global user.email <メールアドレス>
-```
-
-GitHubにPushできることを確認する。
-
-```shell
-touch test.txt # 変更がないとコミットできないため
-git add .
-git commit -m "first commit"
-git push -u origin <branch名>
-```
-
-### 3.11. GitHubでアクセストークンを取得する
+### 3.10. GitHubでアクセストークンを取得する
 
 - Chromeを開き、[GitHub](https://github.com/)にアクセス
 - 右上の「Sign in」から自分のGitHubアカウントへログイン
@@ -211,6 +193,28 @@ git push -u origin <branch名>
   - 一番下の「Generate token」を押下
 - 緑色のバーでチェックマークの後に、「ghp」から始まる文字列が生成されるので、保存しておく
   - トークンは再表示ができないため、画面遷移する前に保存しておくこと
+
+### 3.11. LinuxのGit設定を行う
+
+- ユーザー名・メールアドレスを設定
+
+```shell
+git config --global user.name <メールアドレスの@以前の部分>
+git config --global user.email <メールアドレス>
+```
+
+GitHubにPushできることを確認する。
+
+```shell
+cd ~/ansible_on_vyos/
+touch test.txt # 変更がないとコミットできないため
+git add .
+git commit -m "first commit"
+git push -u origin <branch名>
+```
+UsernameはGitHubアカウント名、Passwordは3.10.で取得したアクセストークンをを入力する。
+
+
 
 ## 4. トレーニング時に毎回行うこと
 
