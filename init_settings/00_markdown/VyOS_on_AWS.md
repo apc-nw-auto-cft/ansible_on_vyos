@@ -14,18 +14,20 @@
 - [3. トレーニング環境の構築（初回構築時のみ）](#3-トレーニング環境の構築初回構築時のみ)
   - [3.1. gitをインストール](#31-gitをインストール)
   - [3.2. githubから資材を配置しているリポジトリをclone](#32-githubから資材を配置しているリポジトリをclone)
-  - [3.3. gitアカウントをswitch後シェルスクリプトを実行して、dockerとpoetryをインストール](#33-シェルスクリプトを実行してdockerとpoetryをインストール)
+  - [3.3. gitアカウントをswitch後シェルスクリプトを実行して、dockerとpoetryをインストール](#33-gitアカウントをswitch後シェルスクリプトを実行して、dockerとpoetryをインストール)
   - [3.4. 再度SSHでログインをし直す（TeraTermだと、altキー+D ）](#34-再度sshでログインをし直すteratermだとaltキーd-)
   - [3.5. sudo なしでdockerコマンドを打てることを確認(errorにならなければOK)](#35-sudo-なしでdockerコマンドを打てることを確認errorにならなければok)
   - [3.7. poetry環境ログイン](#37-poetry環境ログイン)
-  - [3.8. ansible-navigaterのイメージをpull](#38-ansible-navigaterのイメージをpull)
-  - [3.9. dockerコンテナの作成、起動](#39-dockerコンテナの作成起動)
-  - [3.10. test用のplaybookを実行](#310-test用のplaybookを実行)
+  - [3.8. dockerコンテナの作成、起動](#38-dockerコンテナの作成、起動)
+  - [3.9. test用のplaybookを実行](#39-test用のplaybookを実行)
+  - [3.10. LinuxのGit設定を行う](#310-LinuxのGit設定を行う)
+  - [3.11. GitHubでアクセストークンを取得する](#311-GitHubでアクセストークンを取得する)
 - [4. トレーニング時に毎回行うこと](#4-トレーニング時に毎回行うこと)
   - [4.1. 構築したEC2インスタンスを起動](#41-構築したec2インスタンスを起動)
   - [4.2. 起動したインスタンスにSSH(VSCode推奨)](#42-起動したインスタンスにsshvscode推奨)
   - [4.3. dockerコンテナの起動](#43-dockerコンテナの起動)
   - [4.4. dockerコンテナの起動確認](#44-dockerコンテナの起動確認)
+- [5. トレーニング終了前に毎回行うこと](#5-トレーニング終了前に毎回行うこと)
 
 ## 1. 前提条件
 
@@ -39,6 +41,8 @@
 ### 2.1. AWSにログイン
 
 - Chromeを開き、右上のGoogleアプリアイコン→「AWS for APC」を押下
+- 右上の「GoogleSAMLGeneralRole...」の左側が「東京」になっていること
+  - 東京以外であれば、「<都市名> ▼」を押下→「アジアパシフィック（東京）」を選択
 
 ### 2.2. EC2画面に移動
 
@@ -69,6 +73,8 @@
   - 「編集」を押下
   - 「パブリックIPの自動割り当て」にて「有効化」を選択
   - 「サブネット」にて「subnet-d44e1c9d」を選択
+  - 「セキュリティグループ名」に既に入っている値の末尾に「-<番号>」を入力する
+    - トレーニング時間外（個人）で実施しているときは既に入っている値のみで問題ない
   - 「インバウンドセキュリティグループのルール」について以下の通り設定
     - 「タイプ」にて「すべてのトラフィック」を選択
     - 「ソースタイプ」にて「自分のIP」を選択
@@ -171,6 +177,41 @@ docker-compose -f ./init_settings/docker-compose.yml up -d
 ansible-navigator run ./ansible_practice/test.yml
 ```
 
+### 3.10. LinuxのGit設定を行う
+
+- ユーザー名・メールアドレスを設定
+
+```shell
+git config --global user.name <メールアドレスの@以前の部分>
+git config --global user.email <メールアドレス>
+```
+
+GitHubにPushできることを確認する。
+
+```shell
+touch test.txt # 変更がないとコミットできないため
+git add .
+git commit -m "first commit"
+git push -u origin <branch名>
+```
+
+### 3.11. GitHubでアクセストークンを取得する
+
+- Chromeを開き、[GitHub](https://github.com/)にアクセス
+- 右上の「Sign in」から自分のGitHubアカウントへログイン
+- ログイン後、右上のアイコンを押下し、「Settings」を選択
+  - 「Developer settings」を選択
+  - 「Personal access tokens」を押下し、プルダウンが表示されたら「Tokens(classic)」を選択
+  - 「Generate new token」を押下し、「Generate new token(classic)」を選択
+- Authentication codeによる二段階認証画面になったら、アカウント登録時に実施した二段階認証を実施する
+- New personal access token (classic)と表示されたら、以下を入力していく
+  - Noteを「APCのユーザ名(メールアドレスの@前)_token」と入力する
+  - Expirationは「No expiration」を選択
+  - Select scopesは「repo」にチェックを入れる
+  - 一番下の「Generate token」を押下
+- 緑色のバーでチェックマークの後に、「ghp」から始まる文字列が生成されるので、保存しておく
+  - トークンは再表示ができないため、画面遷移する前に保存しておくこと
+
 ## 4. トレーニング時に毎回行うこと
 
 ### 4.1. 構築したEC2インスタンスを起動
@@ -206,11 +247,13 @@ Host yokogushi_EC2　#EC2に接続するときに分かりやすい名前で
 - AWSで作成したEC2インスタンスに接続完了
 - 表示→ターミナル でコマンドを実行可能
 
-### 4.3. dockerコンテナの起動
+### 4.3. poetry環境にログインし、dockerコンテナを起動
 ```yaml
-cd ~/ansible_on_vyos/init_settings
+cd ~/ansible_on_vyos/
 
-docker-compose up -d
+poetry shell
+
+docker-compose -f ./init_settings/docker-compose.yml up -d
 ```
 
 ### 4.4. dockerコンテナの起動確認
@@ -218,3 +261,15 @@ docker-compose up -d
 docker ps
 ```
 - 「vyos01」「vyos02」「host01」「host02」が表示されていることを確認
+
+## 5. トレーニング終了前に毎回行うこと
+
+- VScodeのターミナルで下記コマンドを実行し、GitHubのブランチを更新する。
+
+```sh
+cd ~/ansible_on_vyos
+git branch # 自分の名前のブランチにいることを確認
+git add .
+git commit -m "Day<N>"
+git push
+```
