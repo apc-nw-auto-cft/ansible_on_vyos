@@ -192,6 +192,23 @@ git commit -m "first commit"
 git push -u origin <branch名>
 ```
 
+### 3.11. GitHubでアクセストークンを取得する
+
+- Chromeを開き、[GitHub](https://github.com/)にアクセス
+- 右上の「Sign in」から自分のGitHubアカウントへログイン
+- ログイン後、右上のアイコンを押下し、「Settings」を選択
+  - 「Developer settings」を選択
+  - 「Personal access tokens」を押下し、プルダウンが表示されたら「Tokens(classic)」を選択
+  - 「Generate new token」を押下し、「Generate new token(classic)」を選択
+- Authentication codeによる二段階認証画面になったら、アカウント登録時に実施した二段階認証を実施する
+- New personal access token (classic)と表示されたら、以下を入力していく
+  - Noteを「APCのユーザ名(メールアドレスの@前)_token」と入力する
+  - Expirationは「No expiration」を選択
+  - Select scopesは「repo」にチェックを入れる
+  - 一番下の「Generate token」を押下
+- 緑色のバーでチェックマークの後に、「ghp」から始まる文字列が生成されるので、保存しておく
+  - トークンは再表示ができないため、画面遷移する前に保存しておくこと
+
 ## 4. トレーニング時に毎回行うこと
 
 ### 4.1. 構築したEC2インスタンスを起動
