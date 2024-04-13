@@ -143,7 +143,19 @@ class: slide
 paginate: true
 -->
 
-# vyosで設定
+# vyosで設定（コンフィギュレーションモードへの移行）
+## vyosのconfiguration関係図
+![vyos_configurations_image](https://github.com/apc-nw-auto-cft/ansible_on_vyos/assets/135104351/e9d4d0fe-ce5a-4f9c-8e96-1fa612f39edb)
+
+vyosには3つのconfigが存在する。
+- working configuration
+  - 現在編集を行っているconfig。
+  - コマンドを実行しただけでは反映されないので、commitコマンドでactive configに反映させる。
+- active configuration
+  - 現在読み込まれ、アクティブになっているconfig。
+- saved configuration
+  - 設定ファイル(config.boot)に書き込まれ、起動時に読み込まれるconfig。
+  - 再起動後も永続的にactive configを残すには、saveコマンドで設定ファイルに書き込む。
 
 configure modeに入る
 
