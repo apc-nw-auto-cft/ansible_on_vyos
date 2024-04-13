@@ -77,7 +77,7 @@ class: slide
 paginate: true
 -->
 
-# vyosでshow command 取得
+# vyosでshow command 取得（show interfaces）
 
 出力をページングしない（全行一括表示する）設定
 
@@ -108,7 +108,7 @@ class: slide
 paginate: true
 -->
 
-# vyosでshow command 取得
+# vyosでshow command 取得（show configuration）
 
 config取得（Tree形式）
 
@@ -188,7 +188,7 @@ class: slide
 paginate: true
 -->
 
-# vyosで設定
+# vyosで設定（現在の設定確認）
 
 configのinterfaces配下の設定を確認
 
@@ -215,7 +215,7 @@ class: slide
 paginate: true
 -->
 
-# vyosで設定
+# vyosで設定（interfaceにdescriptionを設定）
 
 active(=running)とworking(=candidate)のconfig比較にはcompareを使用する。  
 設定投入前には両者に差分がないことを確認
@@ -249,7 +249,7 @@ class: slide
 paginate: true
 -->
 
-# vyosで設定
+# vyosで設定（active configにcommit）
 
 showでも追加設定に+が付いてることを確認できる
 
@@ -284,7 +284,7 @@ class: slide
 paginate: true
 -->
 
-# vyosで設定
+# vyosで設定（saved configにsave）
 
 saved configに上書きする
 
@@ -318,7 +318,7 @@ class: slide
 paginate: true
 -->
 
-# vyosで設定
+# vyosで設定（設定したdescriptionを削除）
 
 設定削除例: 先ほど投入した設定を削除する
 
