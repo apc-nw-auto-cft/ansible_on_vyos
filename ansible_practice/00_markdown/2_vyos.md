@@ -77,7 +77,7 @@ class: slide
 paginate: true
 -->
 
-# vyosでshow command 取得
+# vyosでshow command 取得（show interfaces）
 
 出力をページングしない（全行一括表示する）設定
 
@@ -108,7 +108,7 @@ class: slide
 paginate: true
 -->
 
-# vyosでshow command 取得
+# vyosでshow command 取得（show configuration）
 
 config取得（Tree形式）
 
@@ -143,7 +143,19 @@ class: slide
 paginate: true
 -->
 
-# vyosで設定
+# vyosで設定（コンフィギュレーションモードへの移行）
+## vyosのconfiguration関係図
+![vyos_configurations_image](https://github.com/apc-nw-auto-cft/ansible_on_vyos/assets/135104351/e9d4d0fe-ce5a-4f9c-8e96-1fa612f39edb)
+
+vyosには3つのconfigが存在する。
+- working configuration
+  - 現在編集を行っているconfig。
+  - コマンドを実行しただけでは反映されないので、commitコマンドでactive configに反映させる。
+- active configuration
+  - 現在読み込まれ、アクティブになっているconfig。
+- saved configuration
+  - 設定ファイル(config.boot)に書き込まれ、起動時に読み込まれるconfig。
+  - 再起動後も永続的にactive configを残すには、saveコマンドで設定ファイルに書き込む。
 
 configure modeに入る
 
@@ -176,7 +188,7 @@ class: slide
 paginate: true
 -->
 
-# vyosで設定
+# vyosで設定（現在の設定確認）
 
 configのinterfaces配下の設定を確認
 
@@ -203,7 +215,7 @@ class: slide
 paginate: true
 -->
 
-# vyosで設定
+# vyosで設定（interfaceにdescriptionを設定）
 
 active(=running)とworking(=candidate)のconfig比較にはcompareを使用する。  
 設定投入前には両者に差分がないことを確認
@@ -237,7 +249,7 @@ class: slide
 paginate: true
 -->
 
-# vyosで設定
+# vyosで設定（active configにcommit）
 
 showでも追加設定に+が付いてることを確認できる
 
@@ -272,7 +284,7 @@ class: slide
 paginate: true
 -->
 
-# vyosで設定
+# vyosで設定（saved configにsave）
 
 saved configに上書きする
 
@@ -306,7 +318,7 @@ class: slide
 paginate: true
 -->
 
-# vyosで設定
+# vyosで設定（設定したdescriptionを削除）
 
 設定削除例: 先ほど投入した設定を削除する
 
