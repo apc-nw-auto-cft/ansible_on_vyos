@@ -6,7 +6,7 @@
   tasks:
     - name: set_fact
       ansible.builtin.set_fact:
-        Hello: "Hello Ansible!"
+        HelIo: "Hello Ansible!"
 
     - name: debug
       ansible.builtin.debug:
