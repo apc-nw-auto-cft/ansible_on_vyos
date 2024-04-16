@@ -5,5 +5,5 @@
 
   tasks:
     - name: sample3 magic debug
-      debug:
+      ansible.builtin.debug:
         var: ansible_play_name
