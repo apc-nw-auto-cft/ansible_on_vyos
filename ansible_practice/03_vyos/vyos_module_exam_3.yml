@@ -1,0 +1,11 @@
+---
+- name: exam_3
+  hosts: vyos
+  gather_facts: false
+
+  tasks:
+    - name: Check Version and route
+      vyos.vyos.vyos_command:
+        commands:
+          - show version
+          - show ip route
