@@ -1,0 +1,16 @@
+---
+- name: Show version and routing table
+  hosts: vyos
+  gather_facts: false
+
+  tasks:
+    - name: Show version
+      vyos.vyos.vyos_command:
+        commands:
+          - show version
+
+    - name: Show routing table
+      vyos.vyos.vyos_command:
+        commands:
+          - show ip route
+

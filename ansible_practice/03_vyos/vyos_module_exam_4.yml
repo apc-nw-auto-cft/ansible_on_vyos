@@ -1,0 +1,18 @@
+---
+- name: Show interface and Delete ethernet description
+  hosts: vyos01
+  gather_facts: false
+
+  tasks:
+    - name: Show interfaces
+      vyos.vyos.vyos_command:
+        commands:
+          - show version
+
+    - name: Delete interfaces description
+      vyos.vyos.vyos_config:
+        lines:
+          - delete interfaces ethernet eth1 description 
+          - delete interfaces ethernet eth2 description 
+        save: true
+
