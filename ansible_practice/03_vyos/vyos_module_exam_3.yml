@@ -1,0 +1,12 @@
+---
+- name: Exam1
+  hosts: vyos
+  gather_facts: false
+
+  tasks:
+    - name: Check interface
+      vyos.vyos.vyos_command:
+        commands:
+          - show version
+          - show ip route
+
