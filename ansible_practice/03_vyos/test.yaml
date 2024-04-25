@@ -1,0 +1,4 @@
+---
+- name: test
+  hosts: vyos
+  gather_facts: false
