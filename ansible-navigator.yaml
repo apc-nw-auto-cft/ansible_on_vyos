@@ -75,7 +75,7 @@ ansible-navigator:
     append: False
     file: /tmp/log.txt
 
-  mode: stdout
+  # mode: stdout
 
   playbook-artifact:
     enable: False

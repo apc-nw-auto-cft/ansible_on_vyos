@@ -11,6 +11,6 @@
   tasks:
     - name: make directory
       file:
-        path: /home/ec2-user/{{ item }}
+        path: /home/ec2-user/ansible_on_vyos/ansible_practice/07_loop/{{ item }}
         state: directory
       loop: "{{ dir_names }}"
