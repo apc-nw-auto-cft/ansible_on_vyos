@@ -1,10 +1,10 @@
 ---
-- name: exam3
+- name: Exam3
   hosts: all
   gather_facts: false
 
   tasks:
-    - name: vyos show ip route
+    - name: Vyos show ip route
       vyos.vyos.vyos_command:
         commands:
           - show ip route
