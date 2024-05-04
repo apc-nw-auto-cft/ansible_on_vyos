@@ -22,7 +22,7 @@
 - whenディレクティブを使用する例
   - 特定の条件に当てはまるタスクのみ実行したい時
   - 特定の条件に当てはまるタスクのみスキップしたい時 ...etc
-- whenディレクティブを使用するときは、比較演算子・論理演算子・in演算子・in演算子の条件式を用いる。
+- whenディレクティブを使用するときは、比較演算子・論理演算子・in演算子・is演算子の条件式を用いる。
 
 - whenディレクティブのAnsible documentは[こちら](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_conditionals.html)
 
@@ -43,14 +43,14 @@
 
 ```yaml
 ---
-- name: sample
+- name: Sample
   hosts: host01
   gather_facts: false
 
   tasks:
-    - name: sample1
+    - name: Sample1
       ansible.builtin.yum: 
-        name: httpd
+        name: Httpd
         state: latest
       when: inventory_hostname == 'host01'
 ```
@@ -69,14 +69,14 @@
 
 ```yaml
 ---
-- name: sample
+- name: Sample
   hosts: host01
   gather_facts: false
 
   tasks:
-    - name: sample2
+    - name: Sample2
       ansible.builtin.yum: 
-        name: httpd
+        name: Httpd
         state: latest
       when: inventory_hostname == 'host01' or inventory_hostname == 'host02'
 ```
@@ -92,14 +92,14 @@
 
 ```yaml
 ---
-- name: sample
+- name: Sample
   hosts: host01
   gather_facts: false
 
   tasks:
-    - name: sample3
+    - name: Sample3
       ansible.builtin.yum: 
-        name: httpd
+        name: Httpd
         state: latest
       when: inventory_hostname in ['host01','host02']
 ```
@@ -117,24 +117,24 @@ httpdインストールが失敗した場合「yum httpd error!!」というメ�
 
 ```yaml
 ---
-- name: sample
+- name: Sample
   hosts: host
   gather_facts: false
 
   tasks:
-    - name: sample4
+    - name: Sample4
       ansible.builtin.yum: 
-        name: httpd
+        name: Httpd
         state: latest
       register: result
       ignore_errors: true
       
-    - name: yum httpd success msg
+    - name: Yum httpd success msg
       ansible.builtin.debug:
         msg: "yum httpd succeess!!"
       when: result is succeeded
 
-    - name: yum httpd error msg
+    - name: Yum httpd error msg
       ansible.builtin.debug:
         msg: "yum httpd error!!"
       when: result is not succeeded
@@ -200,12 +200,12 @@ ansible_password=test_password
 
 ```yaml
 ---
-- name: sample1
+- name: Sample1
   hosts: vyos
   gather_facts: false
 
   tasks:
-    - name: vyos01 only show commands
+    - name: Vyos01 only show commands
       vyos.vyos.vyos_command:
         commands: 
           - show ip route
@@ -213,7 +213,7 @@ ansible_password=test_password
       register: result
       when: inventory_hostname == 'vyos01'
 
-    - name: vyos debug show commands
+    - name: Vyos debug show commands
       ansible.builtin.debug: 
         var: result.stdout_lines
 
@@ -228,16 +228,13 @@ ansible_password=test_password
 ```shell
 $ ansible-navigator run when_sample_1.yml -i inventory.ini
 
-PLAY [sample1] ********************************************************************************************
+PLAY [Sample1] ********************************************************************************************
 
-TASK [vyos01 only show commands] **************************************************************************
+TASK [Vyos01 only show commands] **************************************************************************
 skipping: [vyos02]
-[WARNING]: Platform linux on host vyos01 is using the discovered Python interpreter at /usr/bin/python,
-but future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
 ok: [vyos01]
 
-TASK [vyos debug show commands] ***************************************************************************
+TASK [Vyos debug show commands] ***************************************************************************
 ok: [vyos01] => {
     "result.stdout_lines": [
         [
@@ -247,21 +244,21 @@ ok: [vyos01] => {
             "       F - PBR, f - OpenFabric,",
             "       > - selected route, * - FIB route, q - queued, r - rejected, b - backup",
             "",
-            "K>* 0.0.0.0/0 [0/0] via 10.0.0.1, eth0, 00:00:17",
-            "C>* 10.0.0.0/24 is directly connected, eth0, 00:00:17",
-            "C * 192.168.1.0/24 is directly connected, eth1, 00:00:07",
-            "C>* 192.168.1.0/24 is directly connected, eth1, 00:00:17",
-            "C * 192.168.2.0/24 is directly connected, eth2, 00:00:07",
-            "C>* 192.168.2.0/24 is directly connected, eth2, 00:00:17"
+            "K>* 0.0.0.0/0 [0/0] via 10.0.0.1, eth0, 00:00:26",
+            "C>* 10.0.0.0/24 is directly connected, eth0, 00:00:26",
+            "C * 192.168.1.0/24 is directly connected, eth1, 00:00:14",
+            "C>* 192.168.1.0/24 is directly connected, eth1, 00:00:26",
+            "C * 192.168.2.0/24 is directly connected, eth2, 00:00:14",
+            "C>* 192.168.2.0/24 is directly connected, eth2, 00:00:26"
         ],
         [
             "Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down",
             "Interface        IP Address                        S/L  Description",
             "---------        ----------                        ---  -----------",
             "eth0             10.0.0.2/24                       u/u  ",
-            "eth1             192.168.1.252/24                  u/u  vyos_config-test1",
+            "eth1             192.168.1.252/24                  u/u  ",
             "                 192.168.1.254/24                       ",
-            "eth2             192.168.2.252/24                  u/u  vyos_config-test2",
+            "eth2             192.168.2.252/24                  u/u  ",
             "                 192.168.2.254/24                       ",
             "lo               127.0.0.1/8                       u/u"
         ]
@@ -308,12 +305,12 @@ $
 
 ```yaml
 ---
-- name: exam1
+- name: Exam1
   hosts: all
   gather_facts: false
 
   tasks:
-    - name: 
+    - name: Vyos show configuration
       vyos.vyos.vyos_command:
         commands:
           - show configuration
@@ -332,11 +329,11 @@ $
 
 ```yaml
 ---
-- name: exam2
+- name: Exam2
   hosts: all
 
   tasks:
-    - name: exam2 playbook
+    - name: Exam2 playbook
       ansible.builtin.debug:
         msg: "exam2 playbook test!!"
       when: "'RedHat' in ansible_distribution or 'CentOS' in ansible_distribution"
@@ -387,12 +384,12 @@ $
 
 ```yaml
 ---
-- name: exam1
+- name: Exam1
   hosts: all
   gather_facts: false
 
   tasks:
-    - name: 
+    - name: Vyos show configuration
       vyos.vyos.vyos_command:
         commands:
           - show configuration
@@ -421,12 +418,12 @@ $
 
 ```yaml
 ---
-- name: exam3
+- name: Exam3
   hosts: all
   gather_facts: false
 
   tasks:
-    - name: vyos show ip route
+    - name: Vyos show ip route
       vyos.vyos.vyos_command:
         commands:
           - show ip route
@@ -438,18 +435,12 @@ $
 ```shell
 $ ansible-navigator run answer/when_exam_3.yml -i inventory.ini
 
-PLAY [exam3] **********************************************************************************************
+PLAY [Exam3] **********************************************************************************************
 
-TASK [vyos show ip route] *********************************************************************************
-skipping: [host02]
+TASK [Vyos show ip route] *********************************************************************************
 skipping: [host01]
-[WARNING]: Platform linux on host vyos02 is using the discovered Python interpreter at /usr/bin/python,
-but future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+skipping: [host02]
 ok: [vyos02]
-[WARNING]: Platform linux on host vyos01 is using the discovered Python interpreter at /usr/bin/python,
-but future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
 ok: [vyos01]
 
 PLAY RECAP ************************************************************************************************
@@ -473,19 +464,20 @@ $
 
 ```yaml
 ---
-- name: exam4
+- name: Exam4
   hosts: all
   gather_facts: false
 
   tasks:
-    - name: make text file
+    - name: Make text file
       ansible.builtin.file:
         path: /tmp/test_exam4.txt
         state: touch
+        mode: "0644"
       register: result
       when: inventory_hostname == 'host01'
 
-    - name: debug success msg
+    - name: Debug success msg
       ansible.builtin.debug:
         msg: "make success text!"
       when: inventory_hostname == 'host01' and result is succeeded
@@ -496,20 +488,20 @@ $
 ```shell
 $ ansible-navigator run answer/when_exam_4.yml -i inventory.ini
 
-PLAY [exam4] **********************************************************************************************
+PLAY [Exam4] **********************************************************************************************
 
-TASK [make text file] *************************************************************************************
-skipping: [vyos02]
+TASK [Make text file] *************************************************************************************
 skipping: [vyos01]
+skipping: [vyos02]
 skipping: [host02]
 changed: [host01]
 
-TASK [debug success msg] **********************************************************************************
+TASK [Debug success msg] **********************************************************************************
+skipping: [vyos01]
 skipping: [vyos02]
 ok: [host01] => {
     "msg": "make success text!"
 }
-skipping: [vyos01]
 skipping: [host02]
 
 PLAY RECAP ************************************************************************************************

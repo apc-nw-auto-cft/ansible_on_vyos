@@ -1,17 +1,18 @@
 ---
-- name: exam4
+- name: Exam4
   hosts: all
   gather_facts: false
 
   tasks:
-    - name: make text file
-      file:
+    - name: Make text file
+      ansible.builtin.file:
         path: /tmp/test_exam4.txt
         state: touch
+        mode: "0644"
       register: result
       when: inventory_hostname == 'host01'
 
-    - name: debug success msg
-      debug:
+    - name: Debug success msg
+      ansible.builtin.debug:
         msg: "make success text!"
       when: inventory_hostname == 'host01' and result is succeeded
