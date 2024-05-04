@@ -228,16 +228,16 @@ ansible_password=test_password
 ```shell
 $ ansible-navigator run when_sample_1.yml -i inventory.ini
 
-PLAY [sample1] ********************************************************************************************
+PLAY [Sample1] ********************************************************************************************
 
-TASK [vyos01 only show commands] **************************************************************************
+TASK [Vyos01 only show commands] **************************************************************************
 skipping: [vyos02]
 [WARNING]: Platform linux on host vyos01 is using the discovered Python interpreter at /usr/bin/python,
 but future installation of another Python interpreter could change this. See
 https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
 ok: [vyos01]
 
-TASK [vyos debug show commands] ***************************************************************************
+TASK [Vyos debug show commands] ***************************************************************************
 ok: [vyos01] => {
     "result.stdout_lines": [
         [
@@ -247,21 +247,21 @@ ok: [vyos01] => {
             "       F - PBR, f - OpenFabric,",
             "       > - selected route, * - FIB route, q - queued, r - rejected, b - backup",
             "",
-            "K>* 0.0.0.0/0 [0/0] via 10.0.0.1, eth0, 00:00:17",
-            "C>* 10.0.0.0/24 is directly connected, eth0, 00:00:17",
-            "C * 192.168.1.0/24 is directly connected, eth1, 00:00:07",
-            "C>* 192.168.1.0/24 is directly connected, eth1, 00:00:17",
-            "C * 192.168.2.0/24 is directly connected, eth2, 00:00:07",
-            "C>* 192.168.2.0/24 is directly connected, eth2, 00:00:17"
+            "K>* 0.0.0.0/0 [0/0] via 10.0.0.1, eth0, 00:00:26",
+            "C>* 10.0.0.0/24 is directly connected, eth0, 00:00:26",
+            "C * 192.168.1.0/24 is directly connected, eth1, 00:00:14",
+            "C>* 192.168.1.0/24 is directly connected, eth1, 00:00:26",
+            "C * 192.168.2.0/24 is directly connected, eth2, 00:00:14",
+            "C>* 192.168.2.0/24 is directly connected, eth2, 00:00:26"
         ],
         [
             "Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down",
             "Interface        IP Address                        S/L  Description",
             "---------        ----------                        ---  -----------",
             "eth0             10.0.0.2/24                       u/u  ",
-            "eth1             192.168.1.252/24                  u/u  vyos_config-test1",
+            "eth1             192.168.1.252/24                  u/u  ",
             "                 192.168.1.254/24                       ",
-            "eth2             192.168.2.252/24                  u/u  vyos_config-test2",
+            "eth2             192.168.2.252/24                  u/u  ",
             "                 192.168.2.254/24                       ",
             "lo               127.0.0.1/8                       u/u"
         ]
@@ -438,9 +438,10 @@ $
 ```shell
 $ ansible-navigator run answer/when_exam_3.yml -i inventory.ini
 
-PLAY [exam3] **********************************************************************************************
+PLAY [Exam3] **********************************************************************************************
 
-TASK [vyos show ip route] *********************************************************************************
+TASK [Vyos show ip route] *********************************************************************************
+skipping: [host01]
 skipping: [host02]
 skipping: [host01]
 [WARNING]: Platform linux on host vyos02 is using the discovered Python interpreter at /usr/bin/python,
@@ -496,15 +497,16 @@ $
 ```shell
 $ ansible-navigator run answer/when_exam_4.yml -i inventory.ini
 
-PLAY [exam4] **********************************************************************************************
+PLAY [Exam4] **********************************************************************************************
 
-TASK [make text file] *************************************************************************************
-skipping: [vyos02]
+TASK [Make text file] *************************************************************************************
 skipping: [vyos01]
+skipping: [vyos02]
 skipping: [host02]
 changed: [host01]
 
-TASK [debug success msg] **********************************************************************************
+TASK [Debug success msg] **********************************************************************************
+skipping: [vyos01]
 skipping: [vyos02]
 ok: [host01] => {
     "msg": "make success text!"
