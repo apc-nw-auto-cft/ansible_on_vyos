@@ -483,6 +483,7 @@ $
       ansible.builtin.file:
         path: /tmp/test_exam4.txt
         state: touch
+        mode: "0644"
       register: result
       when: inventory_hostname == 'host01'
 
