@@ -22,7 +22,7 @@
 - whenディレクティブを使用する例
   - 特定の条件に当てはまるタスクのみ実行したい時
   - 特定の条件に当てはまるタスクのみスキップしたい時 ...etc
-- whenディレクティブを使用するときは、比較演算子・論理演算子・in演算子・in演算子の条件式を用いる。
+- whenディレクティブを使用するときは、比較演算子・論理演算子・in演算子・is演算子の条件式を用いる。
 
 - whenディレクティブのAnsible documentは[こちら](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_conditionals.html)
 
