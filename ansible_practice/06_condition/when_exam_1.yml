@@ -5,7 +5,7 @@
 
   tasks:
     - name: 
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands:
           - show configuration
       when: ■■■

@@ -5,7 +5,7 @@
 
   tasks:
     - name: vyos01 only show commands
-      vyos_command:
+      vyos.vyos.vyos_command:
         commands: 
           - show ip route
           - show interface
