@@ -43,14 +43,14 @@
 
 ```yaml
 ---
-- name: sample
+- name: Sample
   hosts: host01
   gather_facts: false
 
   tasks:
-    - name: sample1
+    - name: Sample1
       ansible.builtin.yum: 
-        name: httpd
+        name: Httpd
         state: latest
       when: inventory_hostname == 'host01'
 ```
@@ -69,14 +69,14 @@
 
 ```yaml
 ---
-- name: sample
+- name: Sample
   hosts: host01
   gather_facts: false
 
   tasks:
-    - name: sample2
+    - name: Sample2
       ansible.builtin.yum: 
-        name: httpd
+        name: Httpd
         state: latest
       when: inventory_hostname == 'host01' or inventory_hostname == 'host02'
 ```
@@ -92,14 +92,14 @@
 
 ```yaml
 ---
-- name: sample
+- name: Sample
   hosts: host01
   gather_facts: false
 
   tasks:
-    - name: sample3
+    - name: Sample3
       ansible.builtin.yum: 
-        name: httpd
+        name: Httpd
         state: latest
       when: inventory_hostname in ['host01','host02']
 ```
@@ -117,24 +117,24 @@ httpdインストールが失敗した場合「yum httpd error!!」というメ�
 
 ```yaml
 ---
-- name: sample
+- name: Sample
   hosts: host
   gather_facts: false
 
   tasks:
-    - name: sample4
+    - name: Sample4
       ansible.builtin.yum: 
-        name: httpd
+        name: Httpd
         state: latest
       register: result
       ignore_errors: true
       
-    - name: yum httpd success msg
+    - name: Yum httpd success msg
       ansible.builtin.debug:
         msg: "yum httpd succeess!!"
       when: result is succeeded
 
-    - name: yum httpd error msg
+    - name: Yum httpd error msg
       ansible.builtin.debug:
         msg: "yum httpd error!!"
       when: result is not succeeded
@@ -200,12 +200,12 @@ ansible_password=test_password
 
 ```yaml
 ---
-- name: sample1
+- name: Sample1
   hosts: vyos
   gather_facts: false
 
   tasks:
-    - name: vyos01 only show commands
+    - name: Vyos01 only show commands
       vyos.vyos.vyos_command:
         commands: 
           - show ip route
@@ -213,7 +213,7 @@ ansible_password=test_password
       register: result
       when: inventory_hostname == 'vyos01'
 
-    - name: vyos debug show commands
+    - name: Vyos debug show commands
       ansible.builtin.debug: 
         var: result.stdout_lines
 
@@ -232,9 +232,6 @@ PLAY [Sample1] *****************************************************************
 
 TASK [Vyos01 only show commands] **************************************************************************
 skipping: [vyos02]
-[WARNING]: Platform linux on host vyos01 is using the discovered Python interpreter at /usr/bin/python,
-but future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
 ok: [vyos01]
 
 TASK [Vyos debug show commands] ***************************************************************************
@@ -308,7 +305,7 @@ $
 
 ```yaml
 ---
-- name: exam1
+- name: Exam1
   hosts: all
   gather_facts: false
 
@@ -332,11 +329,11 @@ $
 
 ```yaml
 ---
-- name: exam2
+- name: Exam2
   hosts: all
 
   tasks:
-    - name: exam2 playbook
+    - name: Exam2 playbook
       ansible.builtin.debug:
         msg: "exam2 playbook test!!"
       when: "'RedHat' in ansible_distribution or 'CentOS' in ansible_distribution"
@@ -387,7 +384,7 @@ $
 
 ```yaml
 ---
-- name: exam1
+- name: Exam1
   hosts: all
   gather_facts: false
 
@@ -421,12 +418,12 @@ $
 
 ```yaml
 ---
-- name: exam3
+- name: Exam3
   hosts: all
   gather_facts: false
 
   tasks:
-    - name: vyos show ip route
+    - name: Vyos show ip route
       vyos.vyos.vyos_command:
         commands:
           - show ip route
@@ -443,14 +440,7 @@ PLAY [Exam3] *******************************************************************
 TASK [Vyos show ip route] *********************************************************************************
 skipping: [host01]
 skipping: [host02]
-skipping: [host01]
-[WARNING]: Platform linux on host vyos02 is using the discovered Python interpreter at /usr/bin/python,
-but future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
 ok: [vyos02]
-[WARNING]: Platform linux on host vyos01 is using the discovered Python interpreter at /usr/bin/python,
-but future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
 ok: [vyos01]
 
 PLAY RECAP ************************************************************************************************
@@ -474,12 +464,12 @@ $
 
 ```yaml
 ---
-- name: exam4
+- name: Exam4
   hosts: all
   gather_facts: false
 
   tasks:
-    - name: make text file
+    - name: Make text file
       ansible.builtin.file:
         path: /tmp/test_exam4.txt
         state: touch
@@ -487,7 +477,7 @@ $
       register: result
       when: inventory_hostname == 'host01'
 
-    - name: debug success msg
+    - name: Debug success msg
       ansible.builtin.debug:
         msg: "make success text!"
       when: inventory_hostname == 'host01' and result is succeeded
@@ -512,7 +502,6 @@ skipping: [vyos02]
 ok: [host01] => {
     "msg": "make success text!"
 }
-skipping: [vyos01]
 skipping: [host02]
 
 PLAY RECAP ************************************************************************************************
