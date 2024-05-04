@@ -313,7 +313,7 @@ $
   gather_facts: false
 
   tasks:
-    - name: 
+    - name: Vyos show configuration
       vyos.vyos.vyos_command:
         commands:
           - show configuration
@@ -392,7 +392,7 @@ $
   gather_facts: false
 
   tasks:
-    - name: 
+    - name: Vyos show configuration
       vyos.vyos.vyos_command:
         commands:
           - show configuration
