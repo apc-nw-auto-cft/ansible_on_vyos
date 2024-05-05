@@ -4,13 +4,13 @@
   gather_facts: false
 
   vars:
-    var_message: Hello message!
+    var1: Hello message!
 
   tasks:
     - name: Debug msg
       ansible.builtin.debug:
         msg: Hello Ansible!
 
-    - name: Debug var_message
+    - name: Debug var1
       ansible.builtin.debug:
-        var: var_message
+        var: var1
