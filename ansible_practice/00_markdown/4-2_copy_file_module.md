@@ -147,7 +147,7 @@ tasks:
 
 #### 目的
 
-- localhostの「handson.txt」に変数「sample_handson」の内容を記述する。
+- 「handson.txt」に変数「sample_handson」の内容を記述する。
 
 #### 1.ディレクトリ移動
 
@@ -168,55 +168,44 @@ $ poetry shell
 #### 3.playbookの内容を確認
 
 ```yaml
+$ cat copy_module_sample.yml 
 ---
-- name: sample
+- name: Sample_copy
   hosts: localhost
   gather_facts: false
 
   vars:
-    sample_handson: テスト文です 
+    sample_handson: テスト文です
 
   tasks:
-    - name: copy text file
+    - name: Sample copy module
       ansible.builtin.copy:
         content: "{{ sample_handson }}"
-        dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/copy_directory/handson.txt
+        dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/handson.txt
+        mode: "0644"
 ```
 
 #### 4.playbookを実行
-
+- TASK [Sample copy module]でhandson.txtに変数「sample_handson」で定義した文字列を記述している。changed: [localhost]であることを確認
 ```shell
 $ ansible-navigator run copy_module_sample.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
-not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [sample] **********************************************************************************************
+PLAY [Sample_copy] ***************************************************************************************************************************************
 
-TASK [copy text file] **************************************************************************************
+TASK [Sample copy module] ********************************************************************************************************************************
 changed: [localhost]
 
-PLAY RECAP *************************************************************************************************
-localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+PLAY RECAP ***********************************************************************************************************************************************
+localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
 
-$ 
 ```
 
 #### 5.ファイル確認(事後確認)
 
 ```shell
-$ ls -l handson.txt 
--rw-rw-r-- 1 ec2-user ec2-user 50 Mar 23 01:26 handson.txt
-
-$ ls -l copy_directory/
-total 4
--rw-rw-r-- 1 ec2-user ec2-user 50 Mar 23 01:36 handson.txt
-total 0
-```
-
-- handson.txtの内容
-
-```shell
-$ cat handson.txt
+$ cat handson.txt 
 テスト文です
 ```
 
