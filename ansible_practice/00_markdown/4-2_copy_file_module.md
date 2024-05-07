@@ -331,20 +331,20 @@ drw-r--r--. 2 ec2-user root       6 May  7 07:17 file_directory
 
 ```yaml
 ---
-- name: exam1
+- name: Exam1
   hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: content dest
+    - name: Content dest
       ansible.builtin.copy:
         content: exam1です
-        dest: /home/ec2-user/test.txt
-        ■■■■■■: 0644
+        dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/copy_file_exam1.txt
+        ■■■■■■: "0644"
 
-    - name: file delete
+    - name: File delete
       ansible.builtin.file:
-        path: /home/ec2-user/test.txt
+        path: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/copy_file_exam1.txt
         state: ■■■■■■
 ```
 
@@ -365,8 +365,8 @@ drw-r--r--. 2 ec2-user root       6 May  7 07:17 file_directory
 - playbook名：「vyos_module_exam_2.yml」で作成
 - 実行対象ノード：localhost
 - 処理内容：
-  - playbook作成先ディレクトリ配下に「exam3.txt」を作成
-  - 「exam.txt」を「copy_directory」配下にコピーする
+  - playbook作成先ディレクトリ配下に「copy_file_exam2.txt」を作成(権限は644)
+  - 「copy_file_exam2.txt」を「copy_directory」配下にコピーする(権限は755)
 
 <br>
 <br>
@@ -397,20 +397,20 @@ drw-r--r--. 2 ec2-user root       6 May  7 07:17 file_directory
 
 ```yaml
 ---
-- name: exam1
+- name: Exam1
   hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: content dest
+    - name: Content dest
       ansible.builtin.copy:
         content: exam1です
-        dest: /home/ec2-user/test.txt
-        mode: 0644
+        dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/copy_file_exam1.txt
+        mode: "0644"
 
-    - name: file delete
+    - name: File delete
       ansible.builtin.file:
-        path: /home/ec2-user/test.txt
+        path: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/copy_file_exam1.txt
         state: absent
 ```
 
@@ -433,39 +433,65 @@ drw-r--r--. 2 ec2-user root       6 May  7 07:17 file_directory
 
 ```yaml
 ---
-- hosts: localhost
+- name: Exam2
+  hosts: localhost
   gather_facts: false
   become: false
 
   tasks:
-  - name: make file
-    ansible.builtin.file:
-      path: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/exam3.txt
-      state: touch
+    - name: Make file
+      ansible.builtin.file:
+        path: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/copy_file_exam2.txt
+        state: touch
+        mode: "0644"
 
-  - name: copy file
-    ansible.builtin.copy:
-      src: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/exam3.txt
-      dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/copy_directory
+    - name: Copy file
+      ansible.builtin.copy:
+        src: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/copy_file_exam2.txt
+        dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/copy_directory
+        mode: "0755"
 ```
 
 - playbookの実行結果
 
 ```shell
 $ ansible-navigator run copy_file_module_exam_2.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
-not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [localhost] **********************************************************************************************
+PLAY [Exam2] ************************************************************************************************************************************
 
-TASK [make file] **********************************************************************************************
+TASK [Make file] ********************************************************************************************************************************
 changed: [localhost]
 
-TASK [copy file] **********************************************************************************************
+TASK [Copy file] ********************************************************************************************************************************
 changed: [localhost]
 
-PLAY RECAP ****************************************************************************************************
+PLAY RECAP **************************************************************************************************************************************
 localhost                  : ok=2    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-46-18 04-2_copy_file]$ 
+```
+
+- 作成した「copy_file_exam2.txt」
+```shell
+$ cd /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/
+
+$ ls -l
+total 12
+drwxr-xr-x. 2 ec2-user ec2-user 111 May  7 01:27 answer
+drwxrwxr-x. 2 ec2-user ec2-user  50 May  7 07:51 copy_directory
+-rw-r--r--. 1 ec2-user root       0 May  7 07:51 copy_file_exam2.txt
+-rw-r--r--. 1 ec2-user ec2-user 324 May  7 07:21 copy_module_sample.yml
+-rw-r--r--. 1 ec2-user ec2-user 268 May  7 05:57 file_module_sample.yml
+-rw-r--r--. 1 ec2-user root       0 May  7 07:14 handson.txt
+-rw-r--r--. 1 ec2-user ec2-user 173 May  7 01:27 inventory.ini
+
+$ ls -l copy_directory/
+total 0
+-rwxr-xr-x. 1 ec2-user root     0 May  7 07:51 copy_file_exam2.txt
+-rw-rw-r--. 1 ec2-user ec2-user 0 May  7 06:42 dummy.txt
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-46-18 04-2_copy_file]$ 
 ```
 
 <br>
@@ -480,63 +506,64 @@ localhost                  : ok=2    changed=2    unreachable=0    failed=0    s
 
 ```yaml
 ---
-- name: exam3
+- name: Exam3
   hosts: vyos01
   gather_facts: false
 
   tasks:
-    - name: get show interfaces
+    - name: Get show commands
       vyos.vyos.vyos_command:
         commands:
           - show interfaces
-      register: vyos01_show_interfaces
+          - show ip route
+      register: vyos01_show_commands
 
-    - name: vyos01_show_interfaces.log touch
+    - name: Touch vyos01_show_ip_route.log 
       ansible.builtin.file:
-        path: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/vyos01_show_interfaces.log
+        path: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/vyos01_show_ip_route.log
         state: touch
 
-    - name: vyos01_show_interfaces.log writing
+    - name: Writing vyos01_show_ip_route.log
       ansible.builtin.copy:
-        content: "{{ vyos01_show_interfaces.stdout[0] }}"
-        dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/vyos01_show_interfaces.log
+        content: "{{ vyos01_show_commands.stdout[1] }}"
+        dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/vyos01_show_ip_route.log
 ```
 
 - playbookの実行結果
 
 ```shell
-$ ansible-navigator run copy_file_module_exam_3.yml 
+$ ansible-navigator run copy_file_module_exam_3.yml -i inventory.ini 
 
-PLAY [exam3] **************************************************************************************************
+PLAY [Exam3] ************************************************************************************************************************************
 
-TASK [get show interfaces] ************************************************************************************
-[WARNING]: Platform linux on host vyos01 is using the discovered Python interpreter at /usr/bin/python, but
-future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+TASK [Get show commands] ************************************************************************************************************************
 ok: [vyos01]
 
-TASK [vyos01_show_interfaces.log touch] ***********************************************************************
+TASK [Touch vyos01_show_ip_route.log] ***********************************************************************************************************
 changed: [vyos01]
 
-TASK [vyos01_show_interfaces.log writing] *********************************************************************
+TASK [Writing vyos01_show_ip_route.log] *********************************************************************************************************
 changed: [vyos01]
 
-PLAY RECAP ****************************************************************************************************
+PLAY RECAP **************************************************************************************************************************************
 vyos01                     : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-$ 
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-46-18 04-2_copy_file]$ 
 ```
 
 - 作成した「vyos01_show_interfaces.log」の中身
 
 ```
-Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
-Interface        IP Address                        S/L  Description
----------        ----------                        ---  -----------
-eth0             10.0.0.2/24                       u/u  
-eth1             192.168.1.252/24                  u/u  vyos_config-test1
-                 192.168.1.254/24                       
-eth2             192.168.2.252/24                  u/u  vyos_config-test2
-                 192.168.2.254/24                       
-lo               127.0.0.1/8                       u/u
+Codes: K - kernel route, C - connected, S - static, R - RIP,
+       O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, D - SHARP,
+       F - PBR, f - OpenFabric,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+
+K>* 0.0.0.0/0 [0/0] via 10.0.0.1, eth0, 00:01:48
+C>* 10.0.0.0/24 is directly connected, eth0, 00:01:48
+C * 192.168.1.0/24 is directly connected, eth1, 00:01:35
+C>* 192.168.1.0/24 is directly connected, eth1, 00:01:48
+C * 192.168.2.0/24 is directly connected, eth2, 00:01:35
+C>* 192.168.2.0/24 is directly connected, eth2, 00:01:48
 ```
