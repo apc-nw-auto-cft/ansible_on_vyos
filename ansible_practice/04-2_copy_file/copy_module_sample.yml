@@ -1,5 +1,5 @@
 ---
-- name: Sample
+- name: Sample_copy
   hosts: localhost
   gather_facts: false
 
