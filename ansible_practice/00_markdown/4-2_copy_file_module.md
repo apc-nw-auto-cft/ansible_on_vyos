@@ -219,7 +219,7 @@ $ cat handson.txt
 
 ### 目的
 
-- localhostにディレクトリ「file_directory」を作成する
+- ディレクトリ「file_directory」を作成する
 
 #### 1.ディレクトリ移動
 
@@ -240,55 +240,63 @@ $ poetry shell
 #### 3.ディレクトリ確認(事前確認)
 
 ```shell
-$ ls -l /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file
-total 8
-drwxrwxr-x. 2 ec2-user ec2-user 111 Mar  7 13:18 answer
--rw-rw-r--. 1 ec2-user ec2-user 234 Mar  7 13:18 file_module_sample.yml
--rw-rw-r--. 1 ec2-user ec2-user 173 Mar  7 13:18 inventory.ini
-$
+$ ls -l
+total 12
+drwxr-xr-x. 2 ec2-user ec2-user 111 May  7 01:27 answer
+drwxrwxr-x. 2 ec2-user ec2-user  23 May  7 06:42 copy_directory
+-rw-r--r--. 1 ec2-user ec2-user 332 May  7 07:06 copy_module_sample.yml
+-rw-r--r--. 1 ec2-user ec2-user 268 May  7 05:57 file_module_sample.yml
+-rw-r--r--. 1 ec2-user root       0 May  7 07:14 handson.txt
+-rw-r--r--. 1 ec2-user ec2-user 173 May  7 01:27 inventory.ini
 ```
 
 #### 4.playbookの内容を確認
 
 ```yaml
+$ cat file_module_sample.yml 
 ---
-- name: sample
+- name: Sample_file
   hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: make directory
+    - name: Make directory
       ansible.builtin.file:
         path: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/file_directory
         state: directory
+        mode: "0644"
 ```
 
 #### 5.playbookを実行
-
+- TASK [Make directory]でディレクトリ「file_directory」を作成している。changed: [localhost]であることを確認
 ```shell
 $ ansible-navigator run file_module_sample.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does
-not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [sample] **********************************************************************************************
+PLAY [Sample_file] ***************************************************************************************************************************************
 
-TASK [make directory] **************************************************************************************
+TASK [Make directory] ************************************************************************************************************************************
 changed: [localhost]
 
-PLAY RECAP *************************************************************************************************
-localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+PLAY RECAP ***********************************************************************************************************************************************
+localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+(ansible-on-vyos-py3.9) [ec2-user@ip-172-31-46-18 04-2_copy_file]$ 
 ```
 
 #### 6.ディレクトリ確認(事後確認)
 
 ```shell
-$ ls -l /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file
-total 8
-drwxrwxr-x. 2 ec2-user ec2-user 111 Mar  7 13:18 answer
-drwxr-xr-x. 2 ec2-user root       6 Mar  8 13:27 file_directory
--rw-rw-r--. 1 ec2-user ec2-user 226 Mar  8 13:15 file_module_sample.yml
--rw-rw-r--. 1 ec2-user ec2-user 173 Mar  7 13:18 inventory.ini
-$
+$ ls -l
+total 12
+drwxr-xr-x. 2 ec2-user ec2-user 111 May  7 01:27 answer
+drwxrwxr-x. 2 ec2-user ec2-user  23 May  7 06:42 copy_directory
+-rw-r--r--. 1 ec2-user ec2-user 332 May  7 07:06 copy_module_sample.yml
+drw-r--r--. 2 ec2-user root       6 May  7 07:17 file_directory
+-rw-r--r--. 1 ec2-user ec2-user 268 May  7 05:57 file_module_sample.yml
+-rw-r--r--. 1 ec2-user root       0 May  7 07:14 handson.txt
+-rw-r--r--. 1 ec2-user ec2-user 173 May  7 01:27 inventory.ini
 ```
 
 <br>
