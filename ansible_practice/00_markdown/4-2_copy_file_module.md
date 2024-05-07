@@ -165,7 +165,14 @@ $ poetry shell
 # Spawning shell within /home/ec2-user/ansible_on_vyos/.venv
 ```
 
-#### 3.playbookの内容を確認
+#### 3.ファイル確認(事前確認)
+
+```shell
+$ cat handson.txt
+
+```
+
+#### 4.playbookの内容を確認
 
 ```yaml
 $ cat copy_module_sample.yml 
@@ -178,15 +185,15 @@ $ cat copy_module_sample.yml
     sample_handson: テスト文です
 
   tasks:
-    - name: Sample copy module
+    - name: Write text
       ansible.builtin.copy:
         content: "{{ sample_handson }}"
         dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/handson.txt
         mode: "0644"
 ```
 
-#### 4.playbookを実行
-- TASK [Sample copy module]でhandson.txtに変数「sample_handson」で定義した文字列を記述している。changed: [localhost]であることを確認
+#### 5.playbookを実行
+- TASK [Write text]でhandson.txtに変数「sample_handson」で定義した文字列を記述している。changed: [localhost]であることを確認
 ```shell
 $ ansible-navigator run copy_module_sample.yml 
 [WARNING]: No inventory was parsed, only implicit localhost is available
@@ -194,7 +201,7 @@ $ ansible-navigator run copy_module_sample.yml
 
 PLAY [Sample_copy] ***************************************************************************************************************************************
 
-TASK [Sample copy module] ********************************************************************************************************************************
+TASK [Write text] ********************************************************************************************************************************
 changed: [localhost]
 
 PLAY RECAP ***********************************************************************************************************************************************
@@ -202,7 +209,7 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 
 ```
 
-#### 5.ファイル確認(事後確認)
+#### 6.ファイル確認(事後確認)
 
 ```shell
 $ cat handson.txt 
