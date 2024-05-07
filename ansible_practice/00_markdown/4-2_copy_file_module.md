@@ -70,22 +70,22 @@
 
 #### パラメータ「src/dest/mode」の使用例
 
-- 以下は、localhostのsample.txtというファイルを、copy_sample.txtというファイルにコピーし、権限を644に設定している。
+- 以下は、sample.txtというファイルを、copy_sample.txtというファイルにコピーし、権限を644に設定している。
 - コピー先にファイルが無ければ新規作成される。
 - 同名のファイルが存在する場合は上書きされる。
 
 ```yaml
 ---
-- name: sample_copy_1
+- name: Sample_copy_1
   hosts: localhost
   gather_facts: false
-  
+
   tasks:
-  - name: copy file and change mode
-    ansible.builtin.copy:
-      src: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file_modules/sample.txt
-      dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file_modules/copy_sample.txt
-      mode: 0644
+    - name: Text copy and change mode
+      ansible.builtin.copy:
+        src: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/sample.txt
+        dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/copy_sample.txt
+        mode: "0644"
 ```
 
 #### パラメータ「content」の使用例
@@ -94,16 +94,16 @@
 
 ```yaml
 ---
-- name: sample_copy_1
+- name: Sample_copy_2
   hosts: localhost
   gather_facts: false
-  
+
   tasks:
-  - name: write message
-    ansible.builtin.copy:
-      content: contentのテストです
-      dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file_modules/sample.txt
-      mode: 0644
+    - name: Write message
+      ansible.builtin.copy:
+        content: contentのテストです
+        dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/sample.txt
+        mode: "0644"
 ```
 
 ```shell
@@ -124,15 +124,16 @@ contentのテストです
 - 以下は、localhostのsample.txtを削除する
 
 ```yaml
-- name: sample_file_1
+---
+- name: Sample_file_1
   hosts: localhost
   gather_facts: false
 
-tasks:
-  - name: delete file
-    ansible.builtin.file:
-      path: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file_modules/sample.txt
-      state: absent
+  tasks:
+    - name: Delete file
+      ansible.builtin.file:
+        path: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file_modules/sample.txt
+        state: absent
 ```
 
 <br>
