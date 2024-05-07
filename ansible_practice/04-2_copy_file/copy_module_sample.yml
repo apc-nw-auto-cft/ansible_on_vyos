@@ -7,7 +7,7 @@
     sample_handson: テスト文です
 
   tasks:
-    - name: Sample copy module
+    - name: Write text
       ansible.builtin.copy:
         content: "{{ sample_handson }}"
         dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/handson.txt
