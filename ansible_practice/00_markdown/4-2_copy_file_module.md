@@ -363,7 +363,7 @@ drw-r--r--. 2 ec2-user root       6 May  7 07:17 file_directory
 ### Q2 以下の条件のplaybookを作成して、実行してください
 
 - playbook作成先ディレクトリ：「/home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file」配下
-- playbook名：「vyos_module_exam_2.yml」で作成
+- playbook名：「copy_file_module_exam_2.yml」で作成
 - 実行対象ノード：localhost
 - 処理内容：
   - playbook作成先ディレクトリ配下に「copy_file_exam2.txt」を作成(権限は644)
@@ -379,7 +379,7 @@ drw-r--r--. 2 ec2-user root       6 May  7 07:17 file_directory
 
 - 使用インベントリファイル：「/home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file」配下のinventory.ini
 - playbook作成先ディレクトリ：「/home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file」配下
-- playbook名：「vyos_module_exam_3.yml」で作成
+- playbook名：「copy_file_module_exam_3.yml」で作成
 - 実行対象ノード：vyos01
 - 処理内容：
   - 「show interfaces」「show ip route」を実行
