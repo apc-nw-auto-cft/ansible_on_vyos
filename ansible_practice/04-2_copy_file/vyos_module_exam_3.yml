@@ -1,0 +1,21 @@
+---
+- name: Exam3
+  hosts: vyos01
+  gather_facts: false
+  
+  tasks:
+    - name: show informations
+      vyos.vyos.vyos_command:
+        commands:
+          -  show interfaces
+          -  show ip route
+      register: vyos_info
+    - name: output vyos informations
+      ansible.builtin.copy:
+        content: "{{ vyos_info.stdout[1] }}"
+        dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/vyos01_show_ip_route.log
+#    - name: copu file
+#      ansible.builtin.copy:
+#        src: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/copy_file_exam2.txt
+#        dest: /home/ec2-user/ansible_on_vyos/ansible_practice/04-2_copy_file/copy_directory/copy_file_exam2.txt
+#        mode: "0755"
