@@ -1,0 +1,31 @@
+---
+- name: Exam3
+  hosts: vyos02
+  gather_facts: false
+
+  tasks:
+    - name: Show interfaces
+      vyos.vyos.vyos_command:
+        commands:
+          - show interfaces
+      register: show_interfaces
+
+    - name: Debug show interfaces
+      ansible.builtin.debug:
+        var: show_interfaces.stdout_lines
+
+    - name: Set description
+      vyos.vyos.vyos_config:
+        lines:
+          - set interfaces ethernet eth1 description debug_exam
+        save: true
+
+    - name: Show interfaces again
+      vyos.vyos.vyos_command:
+        commands:
+          - show interfaces
+      register: show_interfaces_again
+
+    - name: Debug show interfaces again
+      ansible.builtin.debug:
+        var: show_interfaces_again.stdout_lines
