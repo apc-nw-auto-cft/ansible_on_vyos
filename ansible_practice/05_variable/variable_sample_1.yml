@@ -8,5 +8,5 @@
 
   tasks:
     - name: sample1 debug vars
-      debug:
+      ansible.builtin.debug:
         var: test

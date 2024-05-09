@@ -4,9 +4,9 @@
 
   tasks:
     - name: debug ansible_facts
-      debug:
+      ansible.builtin.debug:
         var: ansible_facts
 
     - name: debug ansible_facts.net_hostname
-      debug:
+      ansible.builtin.debug:
         var: ansible_facts.net_hostname
