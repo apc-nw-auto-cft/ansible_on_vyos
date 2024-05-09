@@ -1,0 +1,16 @@
+---
+- name: Exam3
+  hosts: vyos02
+  gather_facts: false
+
+  tasks:
+    - name: Before show interfaces
+      vyos.vyos.vyos_command:
+        commands:
+          - show interfaces
+      register: Before show interfaces
+
+    - name: Debug before interfaces
+      ansible.builtin.debug:
+        var: before_show_interfaces.stdout_lines
+
