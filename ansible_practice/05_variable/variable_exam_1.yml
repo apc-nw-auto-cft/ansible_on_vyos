@@ -5,9 +5,9 @@
 
   tasks:
     - name: set_fact
-      set_fact:
+      ansible.builtin.set_fact:
         HelIo: "Hello Ansible!"
 
     - name: debug
-      debug:
+      ansible.builtin.debug:
         var: Hello
