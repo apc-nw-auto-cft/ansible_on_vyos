@@ -485,16 +485,16 @@ $
 
 ```yaml
 ---
-- name: variable_exam_1
+- name: Exam1
   hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: set_fact
+    - name: Setting set_fact
       ansible.builtin.set_fact:
         HelIo: "Hello Ansible!"
 
-    - name: debug
+    - name: Debug set_fact
       ansible.builtin.debug:
         var: Hello
 ```
@@ -503,22 +503,21 @@ $
 
 ```shell
 $ ansible-navigator run 05_variable/variable_exam_1.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
-does not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [variable_exam_1] *********************************************************************************
+PLAY [Exam1] **********************************************************************************************************************************************
 
-TASK [set_fact] ****************************************************************************************
+TASK [Setting set_fact] ***********************************************************************************************************************************
 ok: [localhost]
 
-TASK [debug] *******************************************************************************************
+TASK [Debug set_fact] *************************************************************************************************************************************
 ok: [localhost] => {
     "Hello": ■■■■
 }
 
-PLAY RECAP *********************************************************************************************
-localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-
+PLAY RECAP ************************************************************************************************************************************************
+localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
 $
 ```
 
@@ -539,16 +538,16 @@ $
 
 ```yaml
 ---
-- name: exam2
+- name: Exam2
   hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: set_fact
+    - name: Setting set_fact
       ansible.builtin.set_fact:
         ansible_play_name: "Hello Ansible!"
 
-    - name: debug
+    - name: Debug variable
       ansible.builtin.debug:
         var: ansible_play_name
 ```
@@ -557,29 +556,28 @@ $
 
 ```shell
 $ ansible-navigator run 05_variable/variable_exam_2.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
-does not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [exam2] *******************************************************************************************
+PLAY [Exam2] **********************************************************************************************************************************************
 
-TASK [set_fact] ****************************************************************************************
+TASK [Setting set_fact] ***********************************************************************************************************************************
 ok: [localhost]
 
-TASK [debug] *******************************************************************************************
+TASK [Debug variable] *************************************************************************************************************************************
 ok: [localhost] => {
     "ansible_play_name": ■■■■
 }
 
-PLAY RECAP *********************************************************************************************
-localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-
+PLAY RECAP ************************************************************************************************************************************************
+localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 $ 
 ```
 
 1. Hello Ansible!
 2. "Hello Ansible!"
 3. "variable_exam_2"
-4. "exam2"
+4. "Exam2"
 
 <br>
 <br>
@@ -608,22 +606,21 @@ $
 
 ```shell
 $ ansible-navigator run variable_exam_1.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
-does not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [exam1] *******************************************************************************************
+PLAY [Exam1] **********************************************************************************************************************************************
 
-TASK [set_fact] ****************************************************************************************
+TASK [Setting set_fact] ***********************************************************************************************************************************
 ok: [localhost]
 
-TASK [debug] *******************************************************************************************
+TASK [Debug set_fact] *************************************************************************************************************************************
 ok: [localhost] => {
     "Hello": "VARIABLE IS NOT DEFINED!"
 }
 
-PLAY RECAP *********************************************************************************************
+PLAY RECAP ************************************************************************************************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-
 $ 
 ```
 
@@ -638,33 +635,32 @@ $
 
 ---
 
-### A2 正解：「4.exam2」
+### A2 正解：「4.Exam2」
 
 - 以下、正しい実行結果
 
 ```shell
 $ ansible-navigator run variable_exam_2.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
-does not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [exam2] *******************************************************************************************
+PLAY [Exam2] **********************************************************************************************************************************************
 
-TASK [set_fact] ****************************************************************************************
+TASK [Setting set_fact] ***********************************************************************************************************************************
 ok: [localhost]
 
-TASK [debug] *******************************************************************************************
+TASK [Debug variable] *************************************************************************************************************************************
 ok: [localhost] => {
-    "ansible_play_name": "exam2"
+    "ansible_play_name": "Exam2"
 }
 
-PLAY RECAP *********************************************************************************************
-localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-
+PLAY RECAP ************************************************************************************************************************************************
+localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
 $ 
 ```
 
 - `set_fact`で定義した`ansible_play_name`という変数はマジック変数であり、現在実行されているplaybookの名前を変数の中に格納する。
-- 今回`set_fact`で「Hello Ansible!」という文字列を定義したが、それよりもマジック変数が優先されるため、出力結果は`exam2`となる。
+- 今回`set_fact`で「Hello Ansible!」という文字列を定義したが、それよりもマジック変数が優先されるため、出力結果は`Exam2`となる。
 
 <br>
 <br>
@@ -678,16 +674,16 @@ $
 
 ```yaml
 ---
-- name: exam3
+- name: Exam3
   hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: set_fact
+    - name: Setting set_fact
       ansible.builtin.set_fact:
         test_hostname: "vyos01"
 
-    - name: debug test_hostname
+    - name: Debug test_hostname
       ansible.builtin.debug:
         var: test_hostname
 ```
@@ -696,21 +692,20 @@ $
 
 ```shell
 $ ansible-navigator run variable_exam_3.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
-does not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [exam3] *******************************************************************************************
+PLAY [Exam3] **********************************************************************************************************************************************
 
-TASK [set_fact] ****************************************************************************************
+TASK [Setting set_fact] ***********************************************************************************************************************************
 ok: [localhost]
 
-TASK [debug test_hostname] *****************************************************************************
+TASK [Debug test_hostname] ********************************************************************************************************************************
 ok: [localhost] => {
     "test_hostname": "vyos01"
 }
 
-PLAY RECAP *********************************************************************************************
-localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-
+PLAY RECAP ************************************************************************************************************************************************
+localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
 $ 
 ```
