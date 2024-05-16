@@ -69,15 +69,15 @@ $ python3
 
 ```yaml
 ---
-- name: vars_sample
+- name: Sample_vars
   hosts: vyos01
   gather_facts: false
-  
+
   vars:
     sample: "Hello!!"
-    
+
   tasks:
-    - name: debug sample
+    - name: Test debug vars
       ansible.builtin.debug:
         var: sample
 ```
@@ -90,12 +90,12 @@ $ python3
 
 ```yaml
 ---
-- name: set_fact_sample
+- name: Sample_set_fact
   hosts: vyos01
   gather_facts: false
-  
+
   tasks:
-    - name: test
+    - name: Test setting variable set_fact
       ansible.builtin.set_fact:
         test: "Hello!!"
 ```
@@ -169,40 +169,40 @@ ansible_password=vyos
 
 ```yaml
 ---
-- name: variable_sample
+- name: Sample_register
   hosts: vyos01
   gather_facts: false
-  
+
   tasks:
-    - name: get show version
+    - name: Get show version
       vyos.vyos.vyos_command:
         commands: 
           - show version
       register: result
 
-    - name: debug result
+    - name: Debug result
       ansible.builtin.debug:
-        var: result.stdout_lines[0]           
+        var: result.stdout_lines[0]         
 ```
 
 - 前ページのplaybook実行例を以下に記載。
 
 ```shell
-PLAY [variable_sample] ************************************************************************************************************
+PLAY [Sample_register] ************************************************************************************************************************************
 
-TASK [get show version] ************************************************************************************************************
+TASK [Get show version] ***********************************************************************************************************************************
 ok: [vyos01]
 
-TASK [debug result] ****************************************************************************************************************
+TASK [Debug result] ***************************************************************************************************************************************
 ok: [vyos01] => {
-    "msg": [
-        "Version:          VyOS 1.4-rolling-202108071508",      
-        "Release Train:    sagitta",
+    "result.stdout_lines[0]": [
+        "Version:          VyOS 1.3-rolling-202303060135",
+        "Release train:    equuleus",
         "",
-        "Built by:         vyos_bld@ae1b2315b0ae",
-        "Built on:         Sat 07 Aug 2021 15:08 UTC",
-        "Build UUID:       e7077035-649b-47d4-8eb2-cd6f1fc399cc",
-        "Build Commit ID:  4f6c9346247bd6",
+        "Built by:         vyos_bld@bb8a87a5ede0",
+        "Built on:         Mon 06 Mar 2023 01:35 UTC",
+        "Build UUID:       7bb0f480-2516-4689-b0a3-12967c6c54a9",
+        "Build commit ID:  3ffe9a2689632b",
         "",
         "Architecture:     x86_64",
         "Boot via:         installed image",
@@ -210,15 +210,15 @@ ok: [vyos01] => {
         "",
         "Hardware vendor:  Xen",
         "Hardware model:   HVM domU",
-        "Hardware S/N:     ec248bf0-f7a1-3f1a-e76d-4dc0168b8dc4",
-        "Hardware UUID:    ec248bf0-f7a1-3f1a-e76d-4dc0168b8dc4",
+        "Hardware S/N:     ec246115-cfc8-cb39-f53e-9a00ef3fc5d7",
+        "Hardware UUID:    ec246115-cfc8-cb39-f53e-9a00ef3fc5d7",
         "",
         "Copyright:        VyOS maintainers and contributors"
     ]
 }
 
-PLAY RECAP *************************************************************************************************************************
-vyos01                     : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+PLAY RECAP ************************************************************************************************************************************************
+vyos01                     : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
 
 <br>
@@ -275,7 +275,7 @@ ansible_password=vyos
 
 ```yaml
 ---
-- name: sample1
+- name: Sample1_vars
   hosts: localhost
   gather_facts: false
 
@@ -283,7 +283,7 @@ ansible_password=vyos
     test: "Hello Ansible!"
 
   tasks:
-    - name: sample1 debug vars
+    - name: Setting vars debug
       ansible.builtin.debug:
         var: test
 ```
@@ -292,19 +292,18 @@ ansible_password=vyos
 
 ```shell
 $ ansible-navigator run variable_sample_1.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
-does not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [sample1] ********************************************************************************************
+PLAY [Sample1_vars] ***************************************************************************************************************************************
 
-TASK [sample1 debug vars] *********************************************************************************
+TASK [Setting vars debug] *********************************************************************************************************************************
 ok: [localhost] => {
     "test": "Hello Ansible!"
 }
 
-PLAY RECAP ************************************************************************************************
-localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-
+PLAY RECAP ************************************************************************************************************************************************
+localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
 $ 
 ```
 
@@ -317,16 +316,16 @@ $
 
 ```yaml
 ---
-- name: sample2
+- name: Sample2_set_fact
   hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: sample2 set_fact
+    - name: Setting set_fact
       ansible.builtin.set_fact:
         test: "Hello Ansible!"
 
-    - name: sample2 debug set_fact 
+    - name: Setting set_fact debug
       ansible.builtin.debug:
         var: test
 ```
@@ -335,22 +334,21 @@ $
 
 ```shell
 $ ansible-navigator run variable_sample_2.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
-does not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [sample2] ********************************************************************************************
+PLAY [Sample2_set_fact] ***********************************************************************************************************************************
 
-TASK [sample2 set_fact] ***********************************************************************************
+TASK [Setting set_fact] ***********************************************************************************************************************************
 ok: [localhost]
 
-TASK [sample2 debug set_fact] *****************************************************************************
+TASK [Setting set_fact debug] *****************************************************************************************************************************
 ok: [localhost] => {
     "test": "Hello Ansible!"
 }
 
-PLAY RECAP ************************************************************************************************
-localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-
+PLAY RECAP ************************************************************************************************************************************************
+localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
 $ 
 ```
 
@@ -362,12 +360,12 @@ $
 
 ```yaml
 ---
-- name: sample3
+- name: Sample3_magic_variable
   hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: sample3 magic debug
+    - name: Magic_variable debug
       ansible.builtin.debug:
         var: ansible_play_name
 ```
@@ -378,19 +376,18 @@ $
 
 ```shell
 $ ansible-navigator run variable_sample_3.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
-does not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [sample3] ********************************************************************************************
+PLAY [Sample3_magic_variable] *****************************************************************************************************************************
 
-TASK [sample3 magic debug] ********************************************************************************
+TASK [Magic_variable debug] *******************************************************************************************************************************
 ok: [localhost] => {
-    "ansible_play_name": "sample3"
+    "ansible_play_name": "Sample3_magic_variable"
 }
 
-PLAY RECAP ************************************************************************************************
-localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-
+PLAY RECAP ************************************************************************************************************************************************
+localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 $ 
 ```
 
@@ -402,198 +399,56 @@ $
 
 ```yaml
 ---
-- name: sample4
+- name: Sample4_ansible_facs
   hosts: vyos01
 
   tasks:
-    - name: debug ansible_facts
+    - name: Debug ansible_facts
       ansible.builtin.debug:
         var: ansible_facts
 
-    - name: debug ansible_facts.net_hostname
+    - name: Debug ansible_facts.net_hostname
       ansible.builtin.debug:
         var: ansible_facts.net_hostname
 ```
 
 ### 5.playbookを実行
 
-- 「ansible_facts」の中身全てを出力すると量が多すぎる
 - 「ansible_facts」に格納されているディクショナリの中の値(value)を取り出すことができる
 
 ```shell
 $ ansible-navigator run variable_sample_4.yml -i inventory.ini
 
-PLAY [sample4] ********************************************************************************************
+PLAY [Sample4_ansible_facs] *******************************************************************************************************************************
 
-TASK [Gathering Facts] ************************************************************************************
-[WARNING]: Ignoring timeout(10) for vyos_facts
-[WARNING]: default value for `gather_subset` will be changed to `min` from `!config` v2.11 onwards
-[WARNING]: Platform linux on host vyos01 is using the discovered Python interpreter at /usr/bin/python,
-but future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+TASK [Gathering Facts] ************************************************************************************************************************************
 ok: [vyos01]
 
-TASK [debug ansible_facts] **********************************************************************************************
+TASK [Debug ansible_facts] ********************************************************************************************************************************
 ok: [vyos01] => {
     "ansible_facts": {
-        "discovered_interpreter_python": "/usr/bin/python",
         "net_api": "cliconf",
-        "net_commits": [
-            {
-                "by": "root",
-                "comment": null,
-                "datetime": "2023-03-16 09:55:22 ",
-                "revision": "0",
-                "via": "vyos-boot-config-loader"
-            },
-            {
-                "by": "vyos",
-                "comment": "configured by vyos_config",
-                "datetime": "2023-03-15 08:55:14 ",
-                "revision": "1",
-                "via": "cli"
-            },
-            {
-                "by": "vyos",
-                "comment": "configured by vyos_config",
-                "datetime": "2023-03-15 07:03:46 ",
-                "revision": "2",
-                "via": "cli"
-            },
-            {
-                "by": "vyos",
-                "comment": "configured by vyos_config",
-                "datetime": "2023-03-15 06:34:27 ",
-                "revision": "3",
-                "via": "cli"
-            },
-            {
-                "by": "vyos",
-                "comment": "configured by vyos_config",
-                "datetime": "2023-03-14 08:40:23 ",
-                "revision": "4",
-                "via": "cli"
-            },
-            {
-                "by": "vyos",
-                "comment": "configured by vyos_config",
-                "datetime": "2023-03-14 08:27:32 ",
-                "revision": "5",
-                "via": "cli"
-            },
-            {
-                "by": "vyos",
-                "comment": null,
-                "datetime": "2023-03-14 08:21:09 ",
-                "revision": "6",
-                "via": "cli"
-            },
-            {
-                "by": "root",
-                "comment": null,
-                "datetime": "2023-03-14 08:20:14 ",
-                "revision": "7",
-                "via": "vyos-boot-config-loader"
-            },
-            {
-                "by": "vyos",
-                "comment": null,
-                "datetime": "2023-03-14 08:18:18 ",
-                "revision": "8",
-                "via": "cli"
-            },
-            {
-                "by": "vyos",
-                "comment": null,
-                "datetime": "2023-03-14 08:16:12 ",
-                "revision": "9",
-                "via": "cli"
-            },
-            {
-                "by": "vyos",
-                "comment": null,
-                "datetime": "2023-03-14 08:03:19 ",
-                "revision": "10",
-                "via": "cli"
-            },
-            {
-                "by": "vyos",
-                "comment": null,
-                "datetime": "2023-03-14 02:09:46 ",
-                "revision": "11",
-                "via": "cli"
-            },
-            {
-                "by": "root",
-                "comment": null,
-                "datetime": "2023-03-14 02:07:39 ",
-                "revision": "12",
-                "via": "vyos-boot-config-loader"
-            },
-            {
-                "by": "vyos",
-                "comment": null,
-                "datetime": "2023-03-14 02:06:03 ",
-                "revision": "13",
-                "via": "cli"
-            },
-            {
-                "by": "vyos",
-                "comment": null,
-                "datetime": "2023-03-09 11:20:43 ",
-                "revision": "14",
-                "via": "cli"
-            },
-            {
-                "by": "vyos",
-                "comment": null,
-                "datetime": "2023-03-09 02:55:06 ",
-                "revision": "15",
-                "via": "cli"
-            },
-            {
-                "by": "vyos",
-                "comment": "configured by vyos_config",
-                "datetime": "2023-03-07 11:05:26 ",
-                "revision": "16",
-                "via": "cli"
-            },
-            {
-                "by": "root",
-                "comment": null,
-                "datetime": "2023-03-07 11:01:16 ",
-                "revision": "17",
-                "via": "vyos-boot-config-loader"
-            }
-        ],
-        "net_config": [
-            "set high-availability vrrp group service_nw01 interface 'eth1'\nset high-availability vrrp group service_nw01 priority '150'\nset high-availability vrrp group service_nw01 virtual-address 192.168.1.254/24\nset high-availability vrrp group service_nw01 vrid '10'\nset high-availability vrrp group service_nw02 interface 'eth2'\nset high-availability vrrp group service_nw02 priority '150'\nset high-availability vrrp group service_nw02 virtual-address 192.168.2.254/24\nset high-availability vrrp group service_nw02 vrid '20'\nset high-availability vrrp sync-group MAIN member 'service_nw01'\nset high-availability vrrp sync-group MAIN member 'service_nw02'\nset interfaces ethernet eth1 address '192.168.1.252/24'\nset interfaces ethernet eth1 description 'vyos_config-test1'\nset interfaces ethernet eth1 ipv6 address no-default-link-local\nset interfaces ethernet eth2 address '192.168.2.252/24'\nset interfaces ethernet eth2 description 'vyos_config-test2'\nset interfaces ethernet eth2 ipv6 address no-default-link-local\nset service ssh\nset system config-management commit-revisions '100'\nset system conntrack modules ftp\nset system conntrack modules h323\nset system conntrack modules nfs\nset system conntrack modules pptp\nset system conntrack modules sip\nset system conntrack modules sqlnet\nset system conntrack modules tftp\nset system console device ttyS0 speed '115200'\nset system host-name 'vyos01'\nset system login user vyos authentication encrypted-password '$6$QxPS.uk6mfo$9QBSo8u1FkH16gMyAVhus6fU3LOzvLR9Z9.82m3tiHFAxTtIkhaZSWssSgzt4v4dGAL8rhVQxTg0oAG9/q11h/'\nset system login user vyos authentication plaintext-password ''\nset system ntp server time1.vyos.net\nset system ntp server time2.vyos.net\nset system ntp server time3.vyos.net\nset system syslog global facility all level 'info'\nset system syslog global facility protocols level 'debug'",
-            "0   2023-03-16 09:55:22 by root via vyos-boot-config-loader\n1   2023-03-15 08:55:14 by vyos via cli\n    configured by vyos_config\n2   2023-03-15 07:03:46 by vyos via cli\n    configured by vyos_config\n3   2023-03-15 06:34:27 by vyos via cli\n    configured by vyos_config\n4   2023-03-14 08:40:23 by vyos via cli\n    configured by vyos_config\n5   2023-03-14 08:27:32 by vyos via cli\n    configured by vyos_config\n6   2023-03-14 08:21:09 by vyos via cli\n7   2023-03-14 08:20:14 by root via vyos-boot-config-loader\n8   2023-03-14 08:18:18 by vyos via cli\n9   2023-03-14 08:16:12 by vyos via cli\n10  2023-03-14 08:03:19 by vyos via cli\n11  2023-03-14 02:09:46 by vyos via cli\n12  2023-03-14 02:07:39 by root via vyos-boot-config-loader\n13  2023-03-14 02:06:03 by vyos via cli\n14  2023-03-09 11:20:43 by vyos via cli\n15  2023-03-09 02:55:06 by vyos via cli\n16  2023-03-07 11:05:26 by vyos via cli\n    configured by vyos_config\n17  2023-03-07 11:01:16 by root via vyos-boot-config-loader\n18  2023-03-07 11:00:47 by root via init"
-        ],
         "net_gather_network_resources": [],
         "net_gather_subset": [
-            "neighbors",
-            "default",
-            "config"
+            "default"
         ],
-        "net_hostname": "vyos01",
-        "net_neighbors": {},
-        "net_python_version": "2.7.18",
-        "net_serialnum": null,
+        "net_hostname": "vyos",
+        "net_model": "HVM",
+        "net_python_version": "3.9.16",
+        "net_serialnum": "ec246115-cfc8-cb39-f53e-9a00ef3fc5d7",
         "net_system": "vyos",
         "net_version": "VyOS 1.3-rolling-202303060135",
         "network_resources": {}
     }
 }
 
-TASK [debug ansible_facts.net_hostname] **********************************************************************************************
+TASK [Debug ansible_facts.net_hostname] *******************************************************************************************************************
 ok: [vyos01] => {
-    "ansible_facts.net_hostname": "vyos01"
+    "ansible_facts.net_hostname": "vyos"
 }
 
-PLAY RECAP ************************************************************************************************
-vyos01                     : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-
+PLAY RECAP ************************************************************************************************************************************************
+vyos01                     : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
 $ 
 ```
 
@@ -630,16 +485,16 @@ $
 
 ```yaml
 ---
-- name: variable_exam_1
+- name: Exam1
   hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: set_fact
+    - name: Setting set_fact
       ansible.builtin.set_fact:
         HelIo: "Hello Ansible!"
 
-    - name: debug
+    - name: Debug set_fact
       ansible.builtin.debug:
         var: Hello
 ```
@@ -648,22 +503,21 @@ $
 
 ```shell
 $ ansible-navigator run 05_variable/variable_exam_1.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
-does not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [variable_exam_1] *********************************************************************************
+PLAY [Exam1] **********************************************************************************************************************************************
 
-TASK [set_fact] ****************************************************************************************
+TASK [Setting set_fact] ***********************************************************************************************************************************
 ok: [localhost]
 
-TASK [debug] *******************************************************************************************
+TASK [Debug set_fact] *************************************************************************************************************************************
 ok: [localhost] => {
     "Hello": ■■■■
 }
 
-PLAY RECAP *********************************************************************************************
-localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-
+PLAY RECAP ************************************************************************************************************************************************
+localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
 $
 ```
 
@@ -684,16 +538,16 @@ $
 
 ```yaml
 ---
-- name: exam2
+- name: Exam2
   hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: set_fact
+    - name: Setting set_fact
       ansible.builtin.set_fact:
         ansible_play_name: "Hello Ansible!"
 
-    - name: debug
+    - name: Debug variable
       ansible.builtin.debug:
         var: ansible_play_name
 ```
@@ -702,29 +556,28 @@ $
 
 ```shell
 $ ansible-navigator run 05_variable/variable_exam_2.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
-does not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [exam2] *******************************************************************************************
+PLAY [Exam2] **********************************************************************************************************************************************
 
-TASK [set_fact] ****************************************************************************************
+TASK [Setting set_fact] ***********************************************************************************************************************************
 ok: [localhost]
 
-TASK [debug] *******************************************************************************************
+TASK [Debug variable] *************************************************************************************************************************************
 ok: [localhost] => {
     "ansible_play_name": ■■■■
 }
 
-PLAY RECAP *********************************************************************************************
-localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-
+PLAY RECAP ************************************************************************************************************************************************
+localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 $ 
 ```
 
 1. Hello Ansible!
 2. "Hello Ansible!"
 3. "variable_exam_2"
-4. "exam2"
+4. "Exam2"
 
 <br>
 <br>
@@ -753,22 +606,21 @@ $
 
 ```shell
 $ ansible-navigator run variable_exam_1.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
-does not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [exam1] *******************************************************************************************
+PLAY [Exam1] **********************************************************************************************************************************************
 
-TASK [set_fact] ****************************************************************************************
+TASK [Setting set_fact] ***********************************************************************************************************************************
 ok: [localhost]
 
-TASK [debug] *******************************************************************************************
+TASK [Debug set_fact] *************************************************************************************************************************************
 ok: [localhost] => {
     "Hello": "VARIABLE IS NOT DEFINED!"
 }
 
-PLAY RECAP *********************************************************************************************
+PLAY RECAP ************************************************************************************************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-
 $ 
 ```
 
@@ -783,33 +635,32 @@ $
 
 ---
 
-### A2 正解：「4.exam2」
+### A2 正解：「4.Exam2」
 
 - 以下、正しい実行結果
 
 ```shell
 $ ansible-navigator run variable_exam_2.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
-does not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [exam2] *******************************************************************************************
+PLAY [Exam2] **********************************************************************************************************************************************
 
-TASK [set_fact] ****************************************************************************************
+TASK [Setting set_fact] ***********************************************************************************************************************************
 ok: [localhost]
 
-TASK [debug] *******************************************************************************************
+TASK [Debug variable] *************************************************************************************************************************************
 ok: [localhost] => {
-    "ansible_play_name": "exam2"
+    "ansible_play_name": "Exam2"
 }
 
-PLAY RECAP *********************************************************************************************
-localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-
+PLAY RECAP ************************************************************************************************************************************************
+localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
 $ 
 ```
 
 - `set_fact`で定義した`ansible_play_name`という変数はマジック変数であり、現在実行されているplaybookの名前を変数の中に格納する。
-- 今回`set_fact`で「Hello Ansible!」という文字列を定義したが、それよりもマジック変数が優先されるため、出力結果は`exam2`となる。
+- 今回`set_fact`で「Hello Ansible!」という文字列を定義したが、それよりもマジック変数が優先されるため、出力結果は`Exam2`となる。
 
 <br>
 <br>
@@ -823,16 +674,16 @@ $
 
 ```yaml
 ---
-- name: exam3
+- name: Exam3
   hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: set_fact
+    - name: Setting set_fact
       ansible.builtin.set_fact:
         test_hostname: "vyos01"
 
-    - name: debug test_hostname
+    - name: Debug test_hostname
       ansible.builtin.debug:
         var: test_hostname
 ```
@@ -841,21 +692,20 @@ $
 
 ```shell
 $ ansible-navigator run variable_exam_3.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
-does not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [exam3] *******************************************************************************************
+PLAY [Exam3] **********************************************************************************************************************************************
 
-TASK [set_fact] ****************************************************************************************
+TASK [Setting set_fact] ***********************************************************************************************************************************
 ok: [localhost]
 
-TASK [debug test_hostname] *****************************************************************************
+TASK [Debug test_hostname] ********************************************************************************************************************************
 ok: [localhost] => {
     "test_hostname": "vyos01"
 }
 
-PLAY RECAP *********************************************************************************************
-localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-
+PLAY RECAP ************************************************************************************************************************************************
+localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
 $ 
 ```
