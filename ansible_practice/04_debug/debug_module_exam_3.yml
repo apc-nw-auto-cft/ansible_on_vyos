@@ -4,13 +4,28 @@
   gather_facts: false
 
   tasks:
-    - name: Before show interfaces
+    - name: show interfaces before changes
       vyos.vyos.vyos_command:
         commands:
           - show interfaces
-      register: Before show interfaces
+      register: output_before
 
-    - name: Debug before interfaces
+    - name: Output interfaces before change
       ansible.builtin.debug:
-        var: before_show_interfaces.stdout_lines
+        var: output_before
 
+    - name: Set description for eth1
+      vyos.vyos.vyos_config:
+        lines:
+          - set interface ethernet eth1 description 'debug_exam'
+        save: true
+
+    - name: Show interfaces after change
+      vyos.vyos.vyos_command:
+        commands:
+          - show interfaces
+      register: output_after      
+    
+    - name: Output interface after change
+      ansible.builtin.debug:
+        var: output_after
