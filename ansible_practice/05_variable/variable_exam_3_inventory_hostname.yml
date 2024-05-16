@@ -1,0 +1,9 @@
+---
+- name: Exam3-2
+  hosts: vyos01 
+  gather_facts: false
+
+  tasks:
+    - name: debug
+      ansible.builtin.debug:
+        var: inventory_hostname

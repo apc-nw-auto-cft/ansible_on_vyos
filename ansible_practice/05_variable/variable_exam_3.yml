@@ -1,0 +1,13 @@
+---
+- name: Exam3
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Setting vyos for variable
+      ansible.builtin.set_fact:
+        the_var: "vyos01"
+
+    - name: debug
+      ansible.builtin.debug:
+        var: the_var
