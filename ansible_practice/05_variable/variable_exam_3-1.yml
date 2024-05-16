@@ -1,0 +1,13 @@
+---
+- name: exam3-1
+  hosts: vyos01
+  gather_facts: false
+
+  tasks:
+    - name: debug
+      debug:
+        var: ansible_network_os	
+
+    #- name: debug
+    #  debug:
+    #    var: hosts

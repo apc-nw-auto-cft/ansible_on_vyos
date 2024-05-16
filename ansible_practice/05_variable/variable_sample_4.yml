@@ -2,6 +2,7 @@
 - name: sample4
   hosts: vyos01
 
+
   tasks:
     - name: debug ansible_facts
       debug:

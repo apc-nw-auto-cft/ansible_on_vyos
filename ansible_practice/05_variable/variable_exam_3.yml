@@ -1,0 +1,12 @@
+---
+- name: exam3
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    vyos: "vyos01"
+
+  tasks:
+    - name: debug
+      debug:
+        var: vyos
