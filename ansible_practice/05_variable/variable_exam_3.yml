@@ -1,0 +1,20 @@
+---
+- name: exam3
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    var1: Ansible
+
+  tasks:
+    - name: debug variable first
+      ansible.builtin.debug:
+        var: var1 
+
+    - name: set variable
+      ansible.builtin.set_fact:
+        var1: Galaxy
+
+    - name: debug variable second
+      ansible.builtin.debug:
+        var: var1 
