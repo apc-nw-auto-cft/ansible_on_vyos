@@ -10,6 +10,7 @@
           - show interfaces
           - show ip route
       register: vyos01_show_commands
+      
 
     - name: Touch vyos01_show_ip_route.log 
       ansible.builtin.file:

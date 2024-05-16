@@ -1,0 +1,14 @@
+---
+- name: variable_exam_3.yml
+  hosts: vyos01
+  gather_facts: false
+
+
+  tasks:
+    - name: Test setting variable set_fact
+      ansible.builtin.set_fact:
+        test: "vyos01"
+       
+    - name: Setting set_fact debug
+      ansible.builtin.debug:
+        var: test

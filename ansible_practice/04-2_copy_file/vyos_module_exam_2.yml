@@ -2,7 +2,6 @@
 - name: Exam2
   hosts: localhost
   gather_facts: false
-  become: false
 
   tasks:
     - name: Create file
