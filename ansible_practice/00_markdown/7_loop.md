@@ -166,7 +166,7 @@ $ poetry shell
 
 ```yaml
 ---
-- name: sample1
+- name: Sample1
   hosts: localhost
   gather_facts: false
 
@@ -176,10 +176,11 @@ $ poetry shell
       - loop_dir2
 
   tasks:
-    - name: make directory
+    - name: Make directory
       ansible.builtin.file:
-        path: /home/ec2-user/{{ item }}
+        path: /home/ec2-user/ansible_on_vyos/ansible_practice/07_loop/{{ item }}
         state: directory
+        mode: "0644"
       loop: "{{ dir_names }}"
 ```
 
@@ -187,17 +188,17 @@ $ poetry shell
 
 ```shell
 $ ansible-navigator run loop_sample_1.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit
-localhost does not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [sample1] **************************************************************************************
+PLAY [Sample1] ********************************************************************************************************************
 
-TASK [Create files] *********************************************************************************
+TASK [Make directory] *************************************************************************************************************
 changed: [localhost] => (item=loop_dir1)
 changed: [localhost] => (item=loop_dir2)
 
-PLAY RECAP ******************************************************************************************
-localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+PLAY RECAP ************************************************************************************************************************
+localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
 $ 
 ```
@@ -205,12 +206,9 @@ $
 ### 5.事後確認
 
 ```shell
-$ ls -l /home/ec2-user/
-total 0
-drwxrwxr-x 2 ec2-user ec2-user  6 Apr 20 06:21 loop_dir1
-drwxrwxr-x 2 ec2-user ec2-user  6 Apr 20 06:21 loop_dir2
-drwxr-xr-x 5 ec2-user ec2-user 77 Mar  3 10:52 venv
-drwxrwxr-x 5 ec2-user ec2-user 63 Mar 15 11:58 ansible_on_vyos
+$ ls -l /home/ec2-user/ansible_on_vyos/ansible_practice/07_loop | grep loop_dir
+drwxr-xr-x. 2 ec2-user root       6 May 18 12:16 loop_dir1
+drwxr-xr-x. 2 ec2-user root       6 May 18 12:16 loop_dir2
 $ 
 ```
 
