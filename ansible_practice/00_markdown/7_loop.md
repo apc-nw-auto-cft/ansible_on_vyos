@@ -185,6 +185,10 @@ $ poetry shell
 
 ### 4.playbookを実行
 
+- TASK [make directory] でディレクトリを作成している。  
+changed: [localhost] => (item=loop_dir1)および、  
+changed: [localhost] => (item=loop_dir2)であることを確認
+
 ```shell
 $ ansible-navigator run loop_sample_1.yml 
 [WARNING]: No inventory was parsed, only implicit localhost is available
