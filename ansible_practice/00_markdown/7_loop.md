@@ -206,8 +206,8 @@ $
 
 ```shell
 $ ls -l /home/ec2-user/ansible_on_vyos/ansible_practice/07_loop | grep loop_dir
-drwxr-xr-x. 2 ec2-user root       6 May 18 12:16 loop_dir1
-drwxr-xr-x. 2 ec2-user root       6 May 18 12:16 loop_dir2
+drwxr-xr-x. 2 ec2-user root       6 Mth d HH:MM loop_dir1
+drwxr-xr-x. 2 ec2-user root       6 Mth d HH:MM loop_dir2
 $ 
 ```
 
@@ -494,10 +494,10 @@ $ docker exec -it host01 /bin/bash
 # ここからコンテナ(host01)を操作
 [root@host01 /]# ls -l /tmp/
 total 0
-drwx------ 2 root root 37 Apr 13 04:54 ansible_yum_payload_Vc17Y3
--rw-r--r-- 1 root root  0 Apr 20 04:55 loop_test1.txt
--rw-r--r-- 1 root root  0 Apr 20 04:55 loop_test2.txt
--rw-r--r-- 1 root root  0 Apr 13 09:16 test_exam4.txt
+drwx------ 2 root root 37 Mth d HH:MM ansible_yum_payload_Vc17Y3
+-rw-r--r-- 1 root root  0 Mth d HH:MM loop_test1.txt
+-rw-r--r-- 1 root root  0 Mth d HH:MM loop_test2.txt
+-rw-r--r-- 1 root root  0 Mth d HH:MM test_exam4.txt
 [root@host01 /]# 
 [root@host01 /]# exit
 exit
@@ -507,9 +507,9 @@ $ docker exec -it host02 /bin/bash
 # ここからコンテナ(host02)を操作
 [root@host02 /]# ls -l /tmp/
 total 0
-drwx------ 2 root root 37 Apr 13 04:54 ansible_yum_payload_FWE23G
--rw-r--r-- 1 root root  0 Apr 20 04:55 loop_test1.txt
--rw-r--r-- 1 root root  0 Apr 20 04:55 loop_test2.txt
+drwx------ 2 root root 37 Mth d HH:MM ansible_yum_payload_FWE23G
+-rw-r--r-- 1 root root  0 Mth d HH:MM loop_test1.txt
+-rw-r--r-- 1 root root  0 Mth d HH:MM loop_test2.txt
 [root@host02 /]# 
 [root@host02 /]# exit
 exit
@@ -568,7 +568,7 @@ $
 ```shell
 $ ansible-navigator run loop_exam_4.yml -i inventory.ini
 
-PLAY [exam4] **********************************************************************************************************************
+PLAY [Exam4] **********************************************************************************************************************
 
 TASK [Check before interface description] *****************************************************************************************
 ok: [vyos01]
@@ -605,6 +605,8 @@ ok: [vyos02] => {
 }
 
 TASK [Set descriptions] ***********************************************************************************************************
+[WARNING]: To ensure idempotency and correct diff the input configuration lines should be similar to how they appear if present in
+the running configuration on device
 changed: [vyos01] => (item={'ethernet': 'eth1', 'description': 'loop_test1'})
 changed: [vyos02] => (item={'ethernet': 'eth1', 'description': 'loop_test1'})
 changed: [vyos01] => (item={'ethernet': 'eth2', 'description': 'loop_test2'})
