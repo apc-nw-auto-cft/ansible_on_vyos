@@ -40,7 +40,6 @@
 - 以下は、loopで「Apple」「Banana」「Peach」を定義し、debug moduleを使用してmsgを出力させているplaybookである。
 - loopで繰り返すリストを定義することができる。
 - loopで定義した内容は、変数「item」に格納されるようになっている。
--
 
 ```yaml
 ---
@@ -66,9 +65,9 @@ $ ansible-navigator run playbook.yaml
 [WARNING]: No inventory was parsed, only implicit localhost is available
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [sample] *********************************************************************************************************************
+PLAY [Sample] *********************************************************************************************************************
 
-TASK [debug fruits] ***************************************************************************************************************
+TASK [Debug fruits] ***************************************************************************************************************
 ok: [localhost] => (item=Apple) => {
     "msg": "Apple"
 }
@@ -88,7 +87,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 - 以下は、loopで「fruits: 'Apple', color: 'Red'」「fruits: 'Banana', color: 'Yellow'」「fruits: 'Peach', color: 'Pink'」を定義し、  
 debug moduleを使用してmsgを出力させているplaybookである。
 - loopを辞書型(Dict型)で定義することができる。
-- loopを辞書型(Dict型)で定義したとき、変数「item.fruits('xxxx')「item.color」('yyyy')に格納されるようになっている。
+- loopを辞書型(Dict型)で定義したとき、変数「item.fruits」および「item.color」に各値が格納されるようになっている。
 
 ```yaml
 ---
