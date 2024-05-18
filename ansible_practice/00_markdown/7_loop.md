@@ -180,7 +180,6 @@ $ poetry shell
       ansible.builtin.file:
         path: /home/ec2-user/ansible_on_vyos/ansible_practice/07_loop/{{ item }}
         state: directory
-        mode: "0644"
       loop: "{{ dir_names }}"
 ```
 
