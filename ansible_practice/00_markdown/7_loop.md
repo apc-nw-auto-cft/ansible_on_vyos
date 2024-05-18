@@ -44,18 +44,18 @@
 
 ```yaml
 ---
-- name: sample
+- name: Sample
   hosts: localhost
   gather_facts: false
 
   tasks:
-  - name: debug fruits 
-    ansible.builtin.debug:
-      msg: "{{ item }}"
-    loop:
-      - Apple
-      - Banana
-      - Peach
+    - name: Debug fruits
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop:
+        - Apple
+        - Banana
+        - Peach
 ```
 
 - このplaybookを実行すると、以下のような実行結果となる。
@@ -63,10 +63,12 @@
 
 ```shell
 $ ansible-navigator run playbook.yaml
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [sample] ******************************************************************
+PLAY [sample] *********************************************************************************************************************
 
-TASK [debug fruits] *************************************************************
+TASK [debug fruits] ***************************************************************************************************************
 ok: [localhost] => (item=Apple) => {
     "msg": "Apple"
 }
@@ -77,8 +79,8 @@ ok: [localhost] => (item=Peach) => {
     "msg": "Peach"
 }
 
-PLAY RECAP *********************************************************************
-localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+PLAY RECAP ************************************************************************************************************************
+localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
 ### 複数のloop
@@ -86,31 +88,35 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 - 以下は、loopで「fruits: 'Apple', color: 'Red'」「fruits: 'Banana', color: 'Yellow'」「fruits: 'Peach', color: 'Pink'」を定義し、  
 debug moduleを使用してmsgを出力させているplaybookである。
 - loopを辞書型(Dict型)で定義することができる。
-- loopを辞書型(Dict型)で定義したとき、変数「item.key」(fruits: 'xxxx')「item.value」(color: 'yyyy')に格納されるようになっている。
+- loopを辞書型(Dict型)で定義したとき、変数「item.fruits('xxxx')「item.color」('yyyy')に格納されるようになっている。
 
 ```yaml
 ---
-- name: sample
+- name: Sample
   hosts: localhost
   gather_facts: false
 
   tasks:
-  - name: debug fruits 
-    ansible.builtin.debug:
-      msg: "The {{ item.key }} is {{ item.value }}"
-    loop:
-      - { fruits: 'Apple', color: 'Red' }
-      - { fruits: 'Banana', color: 'Yellow' }
-      - { fruits: 'Peach', color: 'Pink' }
+    - name: Debug fruits
+      ansible.builtin.debug:
+        msg: "The {{ item.fruits }} is {{ item.color }}"
+      loop:
+        - { fruits: 'Apple', color: 'Red' }
+        - { fruits: 'Banana', color: 'Yellow' }
+        - { fruits: 'Peach', color: 'Pink' }
 ```
 
 - このplaybookを実行すると、以下のような実行結果となる。
 - loopで定義した辞書型(Dict型)が1つずつ代入され、要素を順番に処理することができる。
 
 ```shell
-PLAY [Sample] ******************************************************************
+$ ansible-navigator run playbook.yaml
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-TASK [Debug fruits] *************************************************************
+PLAY [Sample] *********************************************************************************************************************
+
+TASK [Debug fruits] ***************************************************************************************************************
 ok: [localhost] => (item={'fruits': 'Apple', 'color': 'Red'}) => {
     "msg": "The Apple is Red"
 }
@@ -121,8 +127,8 @@ ok: [localhost] => (item={'fruits': 'Peach', 'color': 'Pink'}) => {
     "msg": "The Peach is Pink"
 }
 
-PLAY RECAP **********************************************************************
-localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+PLAY RECAP ************************************************************************************************************************
+localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
 <br>
