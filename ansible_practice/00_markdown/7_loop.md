@@ -243,7 +243,7 @@ $
 
 ```yaml
 ---
-- name: exam1
+- name: Exam1
   hosts: localhost
   gather_facts: false
 
@@ -254,7 +254,7 @@ $
       - Peach
 
   tasks:
-    - name: debug fruits
+    - name: Debug fruits
       ansible.builtin.debug:
         msg: "{{ ■■■ }}"
       loop: "{{ ■■■ }}"
@@ -263,13 +263,13 @@ $
 - 実行結果
 
 ```shell
-$ ansible-navigator run loop_exam_1.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
-does not match 'all'
+$ ansible-navigator run loop_exam_1.yml
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [exam1] **********************************************************************************************
+PLAY [Exam1] **********************************************************************************************************************
 
-TASK [debug fruits] ***************************************************************************************
+TASK [Debug fruits] ***************************************************************************************************************
 ok: [localhost] => (item=Apple) => {
     "msg": "Apple"
 }
@@ -280,8 +280,8 @@ ok: [localhost] => (item=Peach) => {
     "msg": "Peach"
 }
 
-PLAY RECAP ************************************************************************************************
-localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+PLAY RECAP ************************************************************************************************************************
+localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
 $ 
 ```
@@ -298,13 +298,13 @@ $
 
 ```yaml
 ---
-- name: exam2
+- name: Exam2
   hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: when/loop
-      ansible.builtin.debug: 
+    - name: When/loop
+      ansible.builtin.debug:
         var: item
       loop:
         - 3
@@ -360,7 +360,7 @@ $
 
 ```yaml
 ---
-- name: exam1
+- name: Exam1
   hosts: localhost
   gather_facts: false
 
@@ -371,7 +371,7 @@ $
       - Peach
 
   tasks:
-    - name: debug fruits
+    - name: Debug fruits
       ansible.builtin.debug:
         msg: "{{ item }}" #解答
       loop: "{{ fruits }}" #解答
@@ -391,13 +391,13 @@ $
 
 ```yaml
 ---
-- name: exam2
+- name: Exam2
   hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: when/loop
-      ansible.builtin.debug: 
+    - name: When/loop
+      ansible.builtin.debug:
         var: item
       loop:
         - 3
@@ -413,12 +413,12 @@ $
 
 ```shell
 $ ansible-navigator run answer/loop_exam_2.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit
-localhost does not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [exam2] ****************************************************************************************
+PLAY [Exam2] **********************************************************************************************************************
 
-TASK [when/loop] ************************************************************************************
+TASK [When/loop] ******************************************************************************************************************
 ok: [localhost] => (item=3) => {
     "ansible_loop_var": "item",
     "item": 3
@@ -435,8 +435,8 @@ skipping: [localhost] => (item=140)
 skipping: [localhost] => (item=233) 
 skipping: [localhost] => (item=350) 
 
-PLAY RECAP ******************************************************************************************
-localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+PLAY RECAP ************************************************************************************************************************
+localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
 $ 
 ```
@@ -453,12 +453,12 @@ $
 
 ```yaml
 ---
-- name: exam3
+- name: Exam3
   hosts: centos7
   gather_facts: false
 
   tasks:
-    - name: make file
+    - name: Make file
       ansible.builtin.file:
         path: /tmp/{{ item }}
         state: touch
@@ -472,17 +472,17 @@ $
 ```shell
 $ ansible-navigator run loop_exam_3.yml -i inventory.ini
 
-PLAY [exam3] ****************************************************************************************
+PLAY [Exam3] **********************************************************************************************************************
 
-TASK [make file] ************************************************************************************
+TASK [Make file] ******************************************************************************************************************
 changed: [host01] => (item=loop_test1.txt)
 changed: [host02] => (item=loop_test1.txt)
-changed: [host02] => (item=loop_test2.txt)
 changed: [host01] => (item=loop_test2.txt)
+changed: [host02] => (item=loop_test2.txt)
 
-PLAY RECAP ******************************************************************************************
+PLAY RECAP ************************************************************************************************************************
 host01                     : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-host02                     : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+host02                     : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
 $ 
 ```
@@ -530,36 +530,36 @@ $
 
 ```yaml
 ---
-- name: exam4
+- name: Exam4
   hosts: vyos
   gather_facts: false
 
   tasks:
-    - name: check before interface description #任意の実施
+    - name: Check before interface description #任意の実施
       vyos.vyos.vyos_command:
         commands:
           - show interfaces
       register: result
 
-    - name: check before interface description debug #任意の実施
+    - name: Check before interface description debug #任意の実施
       ansible.builtin.debug:
         var: result.stdout_lines
 
-    - name: set descriptions
+    - name: Set descriptions
       vyos.vyos.vyos_config:
         lines:
           - set interfaces ethernet {{ item.ethernet }} description {{ item.description }}
-      loop: 
+      loop:
         - { ethernet: 'eth1', description: 'loop_test1' }
         - { ethernet: 'eth2', description: 'loop_test2' }
 
-    - name: check after interface description #任意の実施
+    - name: Check after interface description #任意の実施
       vyos.vyos.vyos_command:
         commands:
           - show interfaces
       register: result
 
-    - name: check after interface description debug #任意の実施
+    - name: Check after interface description debug #任意の実施
       ansible.builtin.debug:
         var: result.stdout_lines
 ```
@@ -569,21 +569,13 @@ $
 ```shell
 $ ansible-navigator run loop_exam_4.yml -i inventory.ini
 
-PLAY [exam4] ****************************************************************************************
+PLAY [exam4] **********************************************************************************************************************
 
-TASK [check before interface description] ***********************************************************
-[WARNING]: Platform linux on host vyos01 is using the discovered Python interpreter at
-/usr/bin/python, but future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
-information.
+TASK [Check before interface description] *****************************************************************************************
 ok: [vyos01]
-[WARNING]: Platform linux on host vyos02 is using the discovered Python interpreter at
-/usr/bin/python, but future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
-information.
 ok: [vyos02]
 
-TASK [check before interface description debug] *****************************************************
+TASK [Check before interface description debug] ***********************************************************************************
 ok: [vyos01] => {
     "result.stdout_lines": [
         [
@@ -613,17 +605,17 @@ ok: [vyos02] => {
     ]
 }
 
-TASK [set descriptions] *****************************************************************************
+TASK [Set descriptions] ***********************************************************************************************************
 changed: [vyos01] => (item={'ethernet': 'eth1', 'description': 'loop_test1'})
 changed: [vyos02] => (item={'ethernet': 'eth1', 'description': 'loop_test1'})
 changed: [vyos01] => (item={'ethernet': 'eth2', 'description': 'loop_test2'})
 changed: [vyos02] => (item={'ethernet': 'eth2', 'description': 'loop_test2'})
 
-TASK [check after interface description] ************************************************************
+TASK [Check after interface description] ******************************************************************************************
 ok: [vyos02]
 ok: [vyos01]
 
-TASK [check after interface description debug] ******************************************************
+TASK [Check after interface description debug] ************************************************************************************
 ok: [vyos01] => {
     "result.stdout_lines": [
         [
@@ -653,9 +645,9 @@ ok: [vyos02] => {
     ]
 }
 
-PLAY RECAP ******************************************************************************************
+PLAY RECAP ************************************************************************************************************************
 vyos01                     : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-vyos02                     : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+vyos02                     : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
 $
 ```
