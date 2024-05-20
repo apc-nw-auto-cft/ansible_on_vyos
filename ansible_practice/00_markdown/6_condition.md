@@ -51,7 +51,7 @@
     - name: Install apache2
       ansible.builtin.apt:
         name: apache2
-        state: latest
+        state: present
       when: inventory_hostname == 'host01'
 ```
 
@@ -77,7 +77,7 @@
     - name: Install apache2
       ansible.builtin.apt:
         name: apache2
-        state: latest
+        state: present
       when: inventory_hostname == 'host01' or inventory_hostname == 'host02'
 ```
 
@@ -100,6 +100,7 @@
     - name: Install apache2
       ansible.builtin.apt:
         name: apache2
+        state: present
 ```
 
 ### is演算子でのwhenディレクティブの使用例
@@ -123,7 +124,7 @@ apache2インストールが失敗した場合「apt apache2 error!!」という
     - name: Install apache2
       ansible.builtin.apt:
         name: apache2
-        state: latest
+        state: present
       register: result
       ignore_errors: true
       
