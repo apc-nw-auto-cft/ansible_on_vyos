@@ -43,7 +43,7 @@
 
 ```yaml
 ---
-- name: Sample
+- name: Sample for comparison-operator
   hosts: host01
   gather_facts: false
 
@@ -53,9 +53,10 @@
         name: apache2
         state: present
       when: inventory_hostname == 'host01'
+
 ```
 
-- yumモジュール・・・パッケージの管理（インストール、更新、削除など）をする
+- aptモジュール・・・パッケージの管理（インストール、更新、削除など）をする
 
 ### 論理演算子でのwhenディレクティブの使用例
 
@@ -69,7 +70,7 @@
 
 ```yaml
 ---
-- name: Sample
+- name: Sample for logical-operator
   hosts: host01
   gather_facts: false
 
@@ -79,6 +80,7 @@
         name: apache2
         state: present
       when: inventory_hostname == 'host01' or inventory_hostname == 'host02'
+
 ```
 
 ### in演算子でのwhenディレクティブの使用例
@@ -92,7 +94,7 @@
 
 ```yaml
 ---
-- name: Sample
+- name: Sample for in-operator
   hosts: host01
   gather_facts: false
 
@@ -101,6 +103,8 @@
       ansible.builtin.apt:
         name: apache2
         state: present
+      when: inventory_hostname in ['host01', 'host02']
+
 ```
 
 ### is演算子でのwhenディレクティブの使用例
@@ -116,8 +120,8 @@ apache2インストールが失敗した場合「apt apache2 error!!」という
 
 ```yaml
 ---
-- name: Sample
-  hosts: host
+- name: Sample for is-operator
+  hosts: host01
   gather_facts: false
 
   tasks:
@@ -127,7 +131,7 @@ apache2インストールが失敗した場合「apt apache2 error!!」という
         state: present
       register: result
       ignore_errors: true
-      
+
     - name: Apt apache2 success msg
       ansible.builtin.debug:
         msg: "apt apache2 succeess!!"
@@ -137,6 +141,7 @@ apache2インストールが失敗した場合「apt apache2 error!!」という
       ansible.builtin.debug:
         msg: "apt apache2 error!!"
       when: result is not succeeded
+
 ```
 
 <br>
@@ -221,7 +226,7 @@ ansible_password=test_password
 ### 5.playbookを実行
 
 - 実行対象ノード「vyos01」のみ「show ip route」「show interface」を実行
-- 実行対象ノード「vyos02」は「show ip route」「show interface」を実行していないので、  
+- 実行対象ノード「vyos02」は「show ip route」「show interface」を実行していない(”stdout_lines”というキーを持っていない)ので、  
 実行結果をdebugしようとするとエラー出力される。
 
 ```shell
@@ -367,7 +372,7 @@ $
 - playbook名：「when_exam_4.yml」で作成
 - 実行対象ノード： hosts: all とすること。
 - 処理内容：
-  - host01の「/tmp」配下に「test_exam4.txt」を作成
+  - host01の「/tmp」配下に「test_exam4.txt」を作成(権限は644)
   - 「test_exam4.txt」の作成に成功したら、「make success text!」というメッセージを出力させる。
 
 <br>
