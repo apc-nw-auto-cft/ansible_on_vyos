@@ -226,7 +226,7 @@ ansible_password=test_password
 ### 5.playbookを実行
 
 - 実行対象ノード「vyos01」のみ「show ip route」「show interface」を実行
-- 実行対象ノード「vyos02」は「show ip route」「show interface」を実行していない(”stdout_lines”というキーを持っていない)ので、  
+- 実行対象ノード「vyos02」は「show ip route」「show interface」を実行していない(”stdout_lines”というキーがない)ので、  
 実行結果をdebugしようとするとエラー出力される。
 
 ```shell
