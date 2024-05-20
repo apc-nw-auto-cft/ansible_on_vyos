@@ -39,7 +39,7 @@
 | X > Y | X の値が Y の値より大きいとき |
 | X >= Y | X の値が Y の値より大きいか等しいとき |
 
-- 以下は、実行対象ノードが「host01」だった場合、httpdをインストールするplaybookである。
+- 以下は、実行対象ノードが「host01」だった場合、apache2をインストールするplaybookである。
 
 ```yaml
 ---
@@ -48,9 +48,9 @@
   gather_facts: false
 
   tasks:
-    - name: Sample1
-      ansible.builtin.yum: 
-        name: Httpd
+    - name: Install apache2
+      ansible.builtin.apt:
+        name: apache2
         state: latest
       when: inventory_hostname == 'host01'
 ```
@@ -65,7 +65,7 @@
 | 条件X and 条件Y | 条件X と条件Y がともに True のとき |
 | 条件X or 条件Y | 条件X か条件Y のどちらかが True のとき |
 
-- 以下は、実行対象ノードが「host01」か「host02」だった場合、httpdをインストールするplaybookである。
+- 以下は、実行対象ノードが「host01」か「host02」だった場合、apache2をインストールするplaybookである。
 
 ```yaml
 ---
@@ -74,9 +74,9 @@
   gather_facts: false
 
   tasks:
-    - name: Sample2
-      ansible.builtin.yum: 
-        name: Httpd
+    - name: Install apache2
+      ansible.builtin.apt:
+        name: apache2
         state: latest
       when: inventory_hostname == 'host01' or inventory_hostname == 'host02'
 ```
@@ -88,7 +88,7 @@
 | A in [X, Y, Z] | A と同じ値が X, Y, Z の中にあるとき |
 | A not in [X, Y, Z] | A と同じ値が X, Y, Z の中にないとき |
 
-- 以下は、実行対象ノードがリストに存在する「host01」か「host02」だった場合、httpdをインストールするplaybookである。
+- 以下は、実行対象ノードがリストに存在する「host01」か「host02」だった場合、apache2をインストールするplaybookである。
 
 ```yaml
 ---
@@ -97,11 +97,9 @@
   gather_facts: false
 
   tasks:
-    - name: Sample3
-      ansible.builtin.yum: 
-        name: Httpd
-        state: latest
-      when: inventory_hostname in ['host01','host02']
+    - name: Install apache2
+      ansible.builtin.apt:
+        name: apache2
 ```
 
 ### is演算子でのwhenディレクティブの使用例
@@ -111,9 +109,9 @@
 | A is B | AがBの状態であるとき |
 | A is not B | AがBの状態でないとき |
 
-- 以下は、hostにhttpdインストールを実施し、httpdインストールが成功した場合「yum httpd succeess!!」、  
-httpdインストールが失敗した場合「yum httpd error!!」というメッセージを出力するplaybookである
-- httpdインストールが失敗してもplaybookが続行されるように「ignore_errors: true」を記述
+- 以下は、host01にapache2インストールを実施し、apache2インストールが成功した場合「apt apache2 succeess!!」、  
+apache2インストールが失敗した場合「apt apache2 error!!」というメッセージを出力するplaybookである
+- apache2インストールが失敗してもplaybookが続行されるように「ignore_errors: true」を記述
 
 ```yaml
 ---
@@ -122,21 +120,21 @@ httpdインストールが失敗した場合「yum httpd error!!」というメ�
   gather_facts: false
 
   tasks:
-    - name: Sample4
-      ansible.builtin.yum: 
-        name: Httpd
+    - name: Install apache2
+      ansible.builtin.apt:
+        name: apache2
         state: latest
       register: result
       ignore_errors: true
       
-    - name: Yum httpd success msg
+    - name: Apt apache2 success msg
       ansible.builtin.debug:
-        msg: "yum httpd succeess!!"
+        msg: "apt apache2 succeess!!"
       when: result is succeeded
 
-    - name: Yum httpd error msg
+    - name: Apt apache2 error msg
       ansible.builtin.debug:
-        msg: "yum httpd error!!"
+        msg: "apt apache2 error!!"
       when: result is not succeeded
 ```
 
