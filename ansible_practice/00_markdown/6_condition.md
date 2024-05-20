@@ -335,7 +335,7 @@ $
     - name: Exam2 playbook
       ansible.builtin.debug:
         msg: "exam2 playbook test!!"
-      when: "'RedHat' in ansible_distribution or 'CentOS' in ansible_distribution"
+      when: "'RedHat' in ansible_distribution or 'Ubuntu' in ansible_distribution"
 ```
 
 <br>
@@ -401,7 +401,7 @@ $
 
 ---
 
-### A2. 正解：「実行対象ノードのOSがRedHatかCentOSだった場合、「exam2 playbook test!!」というメッセージを出力させる。」
+### A2. 正解：「実行対象ノードのOSがRedHatかUbuntuだった場合、「exam2 playbook test!!」というメッセージを出力させる。」
 
 - ansible_distribution（ファクト変数） には、実行対象ノードのOS情報が格納されている
 
