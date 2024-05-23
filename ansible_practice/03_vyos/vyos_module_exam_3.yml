@@ -1,10 +1,11 @@
 ---
-- name: Exam1
+- name: Exam3
   hosts: vyos
   gather_facts: false
 
   tasks:
-    - name: Check interface
+    - name: Check vyos info
       vyos.vyos.vyos_command:
         commands:
-          - show interfaces
+          - show version
+          - show ip route

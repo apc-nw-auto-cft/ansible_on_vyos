@@ -1,0 +1,17 @@
+---
+- name: Exam3
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Exec / show ip route
+      vyos.vyos.vyos_command:
+        commands:
+          - show ip route
+      register: r
+      when: inventory_hostname in ['vyos01', 'vyos02']
+
+    - name: Debug / show ip route
+      ansible.builtin.debug:
+        var: r
+      when: inventory_hostname in ['vyos01', 'vyos02']

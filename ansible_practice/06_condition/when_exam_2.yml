@@ -1,6 +1,6 @@
 ---
 - name: Exam2
-  hosts: all
+  hosts: ubuntu
 
   tasks:
     - name: Exam2 playbook

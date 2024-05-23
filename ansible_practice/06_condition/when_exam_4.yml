@@ -1,0 +1,20 @@
+---
+- name: Exam4
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Create file
+      ansible.builtin.file:
+        path: /tmp/test_exam4.txt
+        mode: 644
+        state: touch
+      register: r
+      when: inventory_hostname == 'host01'
+
+    - name: Show create file result
+      ansible.builtin.debug:
+        msg: "make success test!"
+      when: 
+        - r is succeeded # 上のタスク成功していて、
+        - r is not skipped # スキップしていないなら実行する (And)
