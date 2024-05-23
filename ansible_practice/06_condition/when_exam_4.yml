@@ -1,0 +1,15 @@
+---
+- name: exam2
+  hosts: all
+
+  tasks:
+    - name: exam2 playbook
+      debug:
+        msg: "exam2 playbook test!!"
+      when: inventory_hostname == 'host01'
+
+    tasks:
+    - name: success msg
+      debug:
+        msg: "make success text!"
+      when: inventory_hostname == 'host01' and result is succeeded
