@@ -1,0 +1,17 @@
+---
+- name: Exam4
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Make test file
+      ansible.builtin.file:
+        path: /home/ec2-user/ansible_on_vyos/ansible_practice/06_condition/host01/test_exam4.txt
+        state: touch
+        mode: "0644"
+  
+  tasks:
+    - name: message output
+      ansible.builtin.debug:
+        msg: "make success text!"
+      when: "test_exam4.txt"
