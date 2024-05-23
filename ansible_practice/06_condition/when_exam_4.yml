@@ -1,0 +1,17 @@
+---
+- name: Exam4
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Exam4 playbook
+      ansible.builtin.file:
+        path: /tmp/test_exam4.txt
+        mode: 0644
+        state: touch
+      when: inventory_hostname == "host01"
+      register: task_result
+    - name: 成功通知
+      ansible.builtin.debug:
+        msg: make success text!
+      when: inventory_hostname == "host01" and task_result.failed == false

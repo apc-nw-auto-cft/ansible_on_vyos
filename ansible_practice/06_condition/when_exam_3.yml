@@ -1,0 +1,10 @@
+---
+- name: Exam3
+  hosts: all
+
+  tasks:
+    - name: Exam3 playbook
+      vyos.vyos.vyos_command:
+        commands:
+          - show ip route
+      when: inventory_hostname in ["vyos01", "vyos02"]

@@ -1,0 +1,5 @@
+{
+	"ansible.ansibleNavigator.path": "/home/ec2-user/ansible_on_vyos/.venv/bin/ansible-navigator",
+	"ansible.ansible.path": "/home/ec2-user/ansible_on_vyos/.venv/bin/ansible",
+	"ansible.validation.lint.path": "/home/ec2-user/ansible_on_vyos/.venv/bin/ansible-lint",
+}
