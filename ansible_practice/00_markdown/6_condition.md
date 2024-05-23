@@ -39,23 +39,24 @@
 | X > Y | X の値が Y の値より大きいとき |
 | X >= Y | X の値が Y の値より大きいか等しいとき |
 
-- 以下は、実行対象ノードが「host01」だった場合、httpdをインストールするplaybookである。
+- 以下は、実行対象ノードが「host01」だった場合、apache2をインストールするplaybookである。
 
 ```yaml
 ---
-- name: Sample
+- name: Sample for comparison-operator
   hosts: host01
   gather_facts: false
 
   tasks:
-    - name: Sample1
-      ansible.builtin.yum: 
-        name: Httpd
-        state: latest
+    - name: Install apache2
+      ansible.builtin.apt:
+        name: apache2
+        state: present
       when: inventory_hostname == 'host01'
+
 ```
 
-- yumモジュール・・・パッケージの管理（インストール、更新、削除など）をする
+- aptモジュール・・・パッケージの管理（インストール、更新、削除など）をする
 
 ### 論理演算子でのwhenディレクティブの使用例
 
@@ -65,20 +66,21 @@
 | 条件X and 条件Y | 条件X と条件Y がともに True のとき |
 | 条件X or 条件Y | 条件X か条件Y のどちらかが True のとき |
 
-- 以下は、実行対象ノードが「host01」か「host02」だった場合、httpdをインストールするplaybookである。
+- 以下は、実行対象ノードが「host01」か「host02」だった場合、apache2をインストールするplaybookである。
 
 ```yaml
 ---
-- name: Sample
+- name: Sample for logical-operator
   hosts: host01
   gather_facts: false
 
   tasks:
-    - name: Sample2
-      ansible.builtin.yum: 
-        name: Httpd
-        state: latest
+    - name: Install apache2
+      ansible.builtin.apt:
+        name: apache2
+        state: present
       when: inventory_hostname == 'host01' or inventory_hostname == 'host02'
+
 ```
 
 ### in演算子でのwhenディレクティブの使用例
@@ -88,20 +90,21 @@
 | A in [X, Y, Z] | A と同じ値が X, Y, Z の中にあるとき |
 | A not in [X, Y, Z] | A と同じ値が X, Y, Z の中にないとき |
 
-- 以下は、実行対象ノードがリストに存在する「host01」か「host02」だった場合、httpdをインストールするplaybookである。
+- 以下は、実行対象ノードがリストに存在する「host01」か「host02」だった場合、apache2をインストールするplaybookである。
 
 ```yaml
 ---
-- name: Sample
+- name: Sample for in-operator
   hosts: host01
   gather_facts: false
 
   tasks:
-    - name: Sample3
-      ansible.builtin.yum: 
-        name: Httpd
-        state: latest
-      when: inventory_hostname in ['host01','host02']
+    - name: Install apache2
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+      when: inventory_hostname in ['host01', 'host02']
+
 ```
 
 ### is演算子でのwhenディレクティブの使用例
@@ -111,33 +114,34 @@
 | A is B | AがBの状態であるとき |
 | A is not B | AがBの状態でないとき |
 
-- 以下は、hostにhttpdインストールを実施し、httpdインストールが成功した場合「yum httpd succeess!!」、  
-httpdインストールが失敗した場合「yum httpd error!!」というメッセージを出力するplaybookである
-- httpdインストールが失敗してもplaybookが続行されるように「ignore_errors: true」を記述
+- 以下は、host01にapache2インストールを実施し、apache2インストールが成功した場合「apt apache2 succeess!!」、  
+apache2インストールが失敗した場合「apt apache2 error!!」というメッセージを出力するplaybookである
+- apache2インストールが失敗してもplaybookが続行されるように「ignore_errors: true」を記述
 
 ```yaml
 ---
-- name: Sample
-  hosts: host
+- name: Sample for is-operator
+  hosts: host01
   gather_facts: false
 
   tasks:
-    - name: Sample4
-      ansible.builtin.yum: 
-        name: Httpd
-        state: latest
+    - name: Install apache2
+      ansible.builtin.apt:
+        name: apache2
+        state: present
       register: result
       ignore_errors: true
-      
-    - name: Yum httpd success msg
+
+    - name: Apt apache2 success msg
       ansible.builtin.debug:
-        msg: "yum httpd succeess!!"
+        msg: "apt apache2 succeess!!"
       when: result is succeeded
 
-    - name: Yum httpd error msg
+    - name: Apt apache2 error msg
       ansible.builtin.debug:
-        msg: "yum httpd error!!"
+        msg: "apt apache2 error!!"
       when: result is not succeeded
+
 ```
 
 <br>
@@ -222,7 +226,7 @@ ansible_password=test_password
 ### 5.playbookを実行
 
 - 実行対象ノード「vyos01」のみ「show ip route」「show interface」を実行
-- 実行対象ノード「vyos02」は「show ip route」「show interface」を実行していないので、  
+- 実行対象ノード「vyos02」は「show ip route」「show interface」を実行していない(”stdout_lines”というキーがない)ので、  
 実行結果をdebugしようとするとエラー出力される。
 
 ```shell
@@ -284,7 +288,7 @@ $
 ## condition(条件分岐)についてのまとめ
 
 - 条件分岐をさせるときは、whenディレクティブを使用する。
-- 比較演算子、論理演算子、in演算子、is演算子などの条件式を用いて、whenディレクティブが使用されている。
+- whenディレクティブに条件を指定するときは、比較演算子、論理演算子、in演算子、is演算子などの条件式を用いる。
 
 <br>
 <br>
@@ -336,7 +340,7 @@ $
     - name: Exam2 playbook
       ansible.builtin.debug:
         msg: "exam2 playbook test!!"
-      when: "'RedHat' in ansible_distribution or 'CentOS' in ansible_distribution"
+      when: "'RedHat' in ansible_distribution or 'Ubuntu' in ansible_distribution"
 ```
 
 <br>
@@ -368,7 +372,7 @@ $
 - playbook名：「when_exam_4.yml」で作成
 - 実行対象ノード： hosts: all とすること。
 - 処理内容：
-  - host01の「/tmp」配下に「test_exam4.txt」を作成
+  - host01の「/tmp」配下に「test_exam4.txt」を作成(権限は644)
   - 「test_exam4.txt」の作成に成功したら、「make success text!」というメッセージを出力させる。
 
 <br>
@@ -402,7 +406,7 @@ $
 
 ---
 
-### A2. 正解：「実行対象ノードのOSがRedHatかCentOSだった場合、「exam2 playbook test!!」というメッセージを出力させる。」
+### A2. 正解：「実行対象ノードのOSがRedHatかUbuntuだった場合、「exam2 playbook test!!」というメッセージを出力させる。」
 
 - ansible_distribution（ファクト変数） には、実行対象ノードのOS情報が格納されている
 
