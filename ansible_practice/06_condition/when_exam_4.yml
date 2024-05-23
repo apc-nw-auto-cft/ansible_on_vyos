@@ -6,6 +6,14 @@
   tasks:
     - name: Make textfile
       ansible.builtin.file:
-      path: /home/ec2-user/ansible_on_vyos/ansible_practice/06_condition/when_exam_4.yml
-
+        path: /tmp/test_exam4.txt
+        state: touch
+        mode: '0644'
+      register: result
+      when: inventory_hostname == 'host01' 
+    
+    - name: Debug Success messages
+      ansible.builtin.debug:
+        msg: "make success text!"
+      when: inventory_hostname == 'host01' and result is succeeded
 
