@@ -1,0 +1,19 @@
+---
+- name: loop exam3
+  hosts: all
+  gather_facts: false
+
+  vars:
+    file_names:
+      - loop_test1.txt
+      - loop_test2.txt
+
+  tasks:
+    - name: make file loop exam3
+      ansible.builtin.file:
+        path: /tmp/{{ item }}
+        state: touch
+        mode: '0644'
+      register: result
+      when: inventory_hostname in ['host01','host02']
+      loop: "{{ file_names }}"

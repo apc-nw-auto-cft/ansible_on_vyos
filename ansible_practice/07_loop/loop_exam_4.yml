@@ -1,0 +1,26 @@
+---
+- name: loop exam3
+  hosts: all
+  gather_facts: false
+
+  vars:
+    description_names:
+      - loop_test1
+      - loop_test2
+
+  vars:
+    interface_names:
+      - eth1
+      - eth2
+
+  tasks:
+    - name: loop exam4
+          vyos.vyos.vyos_command:
+        commands:
+          - show interfaces
+      
+    - name: set interfaces description
+      vyos.vyos.vyos_config:
+        lines:
+          - set interfaces ethernet {{interface_names}} description {{description_names}}
+        save: true
