@@ -1,11 +1,11 @@
 ---
-- name: exam2
+- name: Exam2
   hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: when/loop
-      debug: 
+    - name: When/loop
+      ansible.builtin.debug:
         var: item
       loop:
         - 3

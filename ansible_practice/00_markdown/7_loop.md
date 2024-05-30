@@ -5,7 +5,7 @@
 
 - 目次
   - 1.loopディレクティブとは？
-  - 2.loopディレクティブの使用例
+  - 2.loopディレクティブの説明
   - 3.loopディレクティブの実習(ハンズオン)
   - loopディレクティブのまとめ
   - 4.loopディレクティブの演習問題
@@ -29,7 +29,7 @@
 
 ---
 
-## 2.loop ディレクティブの説明
+## 2.loopディレクティブの説明
 
 - 以下の2つの種類に分けてloopの説明を実施する
   - 標準loop
@@ -40,22 +40,21 @@
 - 以下は、loopで「Apple」「Banana」「Peach」を定義し、debug moduleを使用してmsgを出力させているplaybookである。
 - loopで繰り返すリストを定義することができる。
 - loopで定義した内容は、変数「item」に格納されるようになっている。
--
 
 ```yaml
 ---
-- name: sample
+- name: Sample
   hosts: localhost
   gather_facts: false
 
   tasks:
-  - name: debug fruits 
-    ansible.builtin.debug:
-      msg: "{{ item }}"
-    loop:
-      - Apple
-      - Banana
-      - Peach
+    - name: Debug fruits
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop:
+        - Apple
+        - Banana
+        - Peach
 ```
 
 - このplaybookを実行すると、以下のような実行結果となる。
@@ -63,10 +62,12 @@
 
 ```shell
 $ ansible-navigator run playbook.yaml
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [sample] ******************************************************************
+PLAY [Sample] *********************************************************************************************************************
 
-TASK [debug fruits] *************************************************************
+TASK [Debug fruits] ***************************************************************************************************************
 ok: [localhost] => (item=Apple) => {
     "msg": "Apple"
 }
@@ -77,8 +78,8 @@ ok: [localhost] => (item=Peach) => {
     "msg": "Peach"
 }
 
-PLAY RECAP *********************************************************************
-localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+PLAY RECAP ************************************************************************************************************************
+localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
 ### 複数のloop
@@ -86,31 +87,35 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 - 以下は、loopで「fruits: 'Apple', color: 'Red'」「fruits: 'Banana', color: 'Yellow'」「fruits: 'Peach', color: 'Pink'」を定義し、  
 debug moduleを使用してmsgを出力させているplaybookである。
 - loopを辞書型(Dict型)で定義することができる。
-- loopを辞書型(Dict型)で定義したとき、変数「item.key」(fruits: 'xxxx')「item.value」(color: 'yyyy')に格納されるようになっている。
+- loopを辞書型(Dict型)で定義したとき、変数「item.fruits」および「item.color」に各値が格納されるようになっている。
 
 ```yaml
 ---
-- name: sample
+- name: Sample
   hosts: localhost
   gather_facts: false
 
   tasks:
-  - name: debug fruits 
-    ansible.builtin.debug:
-      msg: "The {{ item.key }} is {{ item.value }}"
-    loop:
-      - { fruits: 'Apple', color: 'Red' }
-      - { fruits: 'Banana', color: 'Yellow' }
-      - { fruits: 'Peach', color: 'Pink' }
+    - name: Debug fruits
+      ansible.builtin.debug:
+        msg: "The {{ item.fruits }} is {{ item.color }}"
+      loop:
+        - { fruits: 'Apple', color: 'Red' }
+        - { fruits: 'Banana', color: 'Yellow' }
+        - { fruits: 'Peach', color: 'Pink' }
 ```
 
 - このplaybookを実行すると、以下のような実行結果となる。
 - loopで定義した辞書型(Dict型)が1つずつ代入され、要素を順番に処理することができる。
 
 ```shell
-PLAY [Sample] ******************************************************************
+$ ansible-navigator run playbook.yaml
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-TASK [Debug fruits] *************************************************************
+PLAY [Sample] *********************************************************************************************************************
+
+TASK [Debug fruits] ***************************************************************************************************************
 ok: [localhost] => (item={'fruits': 'Apple', 'color': 'Red'}) => {
     "msg": "The Apple is Red"
 }
@@ -121,8 +126,8 @@ ok: [localhost] => (item={'fruits': 'Peach', 'color': 'Pink'}) => {
     "msg": "The Peach is Pink"
 }
 
-PLAY RECAP **********************************************************************
-localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+PLAY RECAP ************************************************************************************************************************
+localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
 <br>
@@ -131,7 +136,7 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0    s
 
 ---
 
-## 3.loop ディレクティブの実習
+## 3.loopディレクティブの実習
 
 ### 目的
 
@@ -161,7 +166,7 @@ $ poetry shell
 
 ```yaml
 ---
-- name: sample1
+- name: Sample1
   hosts: localhost
   gather_facts: false
 
@@ -171,28 +176,32 @@ $ poetry shell
       - loop_dir2
 
   tasks:
-    - name: make directory
+    - name: Make directory
       ansible.builtin.file:
-        path: /home/ec2-user/{{ item }}
+        path: /home/ec2-user/ansible_on_vyos/ansible_practice/07_loop/{{ item }}
         state: directory
       loop: "{{ dir_names }}"
 ```
 
 ### 4.playbookを実行
 
+- TASK [make directory] でディレクトリを作成している。  
+changed: [localhost] => (item=loop_dir1)および、  
+changed: [localhost] => (item=loop_dir2)であることを確認
+
 ```shell
 $ ansible-navigator run loop_sample_1.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit
-localhost does not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [sample1] **************************************************************************************
+PLAY [Sample1] ********************************************************************************************************************
 
-TASK [Create files] *********************************************************************************
+TASK [Make directory] *************************************************************************************************************
 changed: [localhost] => (item=loop_dir1)
 changed: [localhost] => (item=loop_dir2)
 
-PLAY RECAP ******************************************************************************************
-localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+PLAY RECAP ************************************************************************************************************************
+localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
 $ 
 ```
@@ -200,12 +209,9 @@ $
 ### 5.事後確認
 
 ```shell
-$ ls -l /home/ec2-user/
-total 0
-drwxrwxr-x 2 ec2-user ec2-user  6 Apr 20 06:21 loop_dir1
-drwxrwxr-x 2 ec2-user ec2-user  6 Apr 20 06:21 loop_dir2
-drwxr-xr-x 5 ec2-user ec2-user 77 Mar  3 10:52 venv
-drwxrwxr-x 5 ec2-user ec2-user 63 Mar 15 11:58 ansible_on_vyos
+$ ls -l /home/ec2-user/ansible_on_vyos/ansible_practice/07_loop | grep loop_dir
+drwxr-xr-x. 2 ec2-user root       6 Mth d HH:MM loop_dir1
+drwxr-xr-x. 2 ec2-user root       6 Mth d HH:MM loop_dir2
 $ 
 ```
 
@@ -215,7 +221,7 @@ $
 
 ---
 
-## loopディレクティブについてのまとめ
+## loopディレクティブのまとめ
 
 - loopディレクティブは以下のときに使用する
   - 同一のタスクを複数回実行
@@ -230,7 +236,7 @@ $
 
 ---
 
-## 4.loopディレクティブの演習
+## 4.loopディレクティブの演習問題
 
 ---
 
@@ -240,7 +246,7 @@ $
 
 ```yaml
 ---
-- name: exam1
+- name: Exam1
   hosts: localhost
   gather_facts: false
 
@@ -251,7 +257,7 @@ $
       - Peach
 
   tasks:
-    - name: debug fruits
+    - name: Debug fruits
       ansible.builtin.debug:
         msg: "{{ ■■■ }}"
       loop: "{{ ■■■ }}"
@@ -260,13 +266,13 @@ $
 - 実行結果
 
 ```shell
-$ ansible-navigator run loop_exam_1.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
-does not match 'all'
+$ ansible-navigator run loop_exam_1.yml
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [exam1] **********************************************************************************************
+PLAY [Exam1] **********************************************************************************************************************
 
-TASK [debug fruits] ***************************************************************************************
+TASK [Debug fruits] ***************************************************************************************************************
 ok: [localhost] => (item=Apple) => {
     "msg": "Apple"
 }
@@ -277,8 +283,8 @@ ok: [localhost] => (item=Peach) => {
     "msg": "Peach"
 }
 
-PLAY RECAP ************************************************************************************************
-localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+PLAY RECAP ************************************************************************************************************************
+localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
 $ 
 ```
@@ -295,13 +301,13 @@ $
 
 ```yaml
 ---
-- name: exam2
+- name: Exam2
   hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: when/loop
-      ansible.builtin.debug: 
+    - name: When/loop
+      ansible.builtin.debug:
         var: item
       loop:
         - 3
@@ -357,7 +363,7 @@ $
 
 ```yaml
 ---
-- name: exam1
+- name: Exam1
   hosts: localhost
   gather_facts: false
 
@@ -368,7 +374,7 @@ $
       - Peach
 
   tasks:
-    - name: debug fruits
+    - name: Debug fruits
       ansible.builtin.debug:
         msg: "{{ item }}" #解答
       loop: "{{ fruits }}" #解答
@@ -388,13 +394,13 @@ $
 
 ```yaml
 ---
-- name: exam2
+- name: Exam2
   hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: when/loop
-      ansible.builtin.debug: 
+    - name: When/loop
+      ansible.builtin.debug:
         var: item
       loop:
         - 3
@@ -410,12 +416,12 @@ $
 
 ```shell
 $ ansible-navigator run answer/loop_exam_2.yml 
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit
-localhost does not match 'all'
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-PLAY [exam2] ****************************************************************************************
+PLAY [Exam2] **********************************************************************************************************************
 
-TASK [when/loop] ************************************************************************************
+TASK [When/loop] ******************************************************************************************************************
 ok: [localhost] => (item=3) => {
     "ansible_loop_var": "item",
     "item": 3
@@ -432,8 +438,8 @@ skipping: [localhost] => (item=140)
 skipping: [localhost] => (item=233) 
 skipping: [localhost] => (item=350) 
 
-PLAY RECAP ******************************************************************************************
-localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+PLAY RECAP ************************************************************************************************************************
+localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
 $ 
 ```
@@ -450,12 +456,12 @@ $
 
 ```yaml
 ---
-- name: exam3
-  hosts: centos7
+- name: Exam3
+  hosts: ubuntu
   gather_facts: false
 
   tasks:
-    - name: make file
+    - name: Make file
       ansible.builtin.file:
         path: /tmp/{{ item }}
         state: touch
@@ -469,17 +475,17 @@ $
 ```shell
 $ ansible-navigator run loop_exam_3.yml -i inventory.ini
 
-PLAY [exam3] ****************************************************************************************
+PLAY [Exam3] **********************************************************************************************************************
 
-TASK [make file] ************************************************************************************
+TASK [Make file] ******************************************************************************************************************
 changed: [host01] => (item=loop_test1.txt)
 changed: [host02] => (item=loop_test1.txt)
-changed: [host02] => (item=loop_test2.txt)
 changed: [host01] => (item=loop_test2.txt)
+changed: [host02] => (item=loop_test2.txt)
 
-PLAY RECAP ******************************************************************************************
+PLAY RECAP ************************************************************************************************************************
 host01                     : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-host02                     : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+host02                     : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
 $ 
 ```
@@ -492,10 +498,10 @@ $ docker exec -it host01 /bin/bash
 # ここからコンテナ(host01)を操作
 [root@host01 /]# ls -l /tmp/
 total 0
-drwx------ 2 root root 37 Apr 13 04:54 ansible_yum_payload_Vc17Y3
--rw-r--r-- 1 root root  0 Apr 20 04:55 loop_test1.txt
--rw-r--r-- 1 root root  0 Apr 20 04:55 loop_test2.txt
--rw-r--r-- 1 root root  0 Apr 13 09:16 test_exam4.txt
+drwx------ 2 root root 37 Mth d HH:MM ansible_yum_payload_Vc17Y3
+-rw-r--r-- 1 root root  0 Mth d HH:MM loop_test1.txt
+-rw-r--r-- 1 root root  0 Mth d HH:MM loop_test2.txt
+-rw-r--r-- 1 root root  0 Mth d HH:MM test_exam4.txt
 [root@host01 /]# 
 [root@host01 /]# exit
 exit
@@ -505,9 +511,9 @@ $ docker exec -it host02 /bin/bash
 # ここからコンテナ(host02)を操作
 [root@host02 /]# ls -l /tmp/
 total 0
-drwx------ 2 root root 37 Apr 13 04:54 ansible_yum_payload_FWE23G
--rw-r--r-- 1 root root  0 Apr 20 04:55 loop_test1.txt
--rw-r--r-- 1 root root  0 Apr 20 04:55 loop_test2.txt
+drwx------ 2 root root 37 Mth d HH:MM ansible_yum_payload_FWE23G
+-rw-r--r-- 1 root root  0 Mth d HH:MM loop_test1.txt
+-rw-r--r-- 1 root root  0 Mth d HH:MM loop_test2.txt
 [root@host02 /]# 
 [root@host02 /]# exit
 exit
@@ -527,36 +533,36 @@ $
 
 ```yaml
 ---
-- name: exam4
+- name: Exam4
   hosts: vyos
   gather_facts: false
 
   tasks:
-    - name: check before interface description #任意の実施
+    - name: Check before interface description #任意の実施
       vyos.vyos.vyos_command:
         commands:
           - show interfaces
       register: result
 
-    - name: check before interface description debug #任意の実施
+    - name: Check before interface description debug #任意の実施
       ansible.builtin.debug:
         var: result.stdout_lines
 
-    - name: set descriptions
+    - name: Set descriptions
       vyos.vyos.vyos_config:
         lines:
           - set interfaces ethernet {{ item.ethernet }} description {{ item.description }}
-      loop: 
+      loop:
         - { ethernet: 'eth1', description: 'loop_test1' }
         - { ethernet: 'eth2', description: 'loop_test2' }
 
-    - name: check after interface description #任意の実施
+    - name: Check after interface description #任意の実施
       vyos.vyos.vyos_command:
         commands:
           - show interfaces
       register: result
 
-    - name: check after interface description debug #任意の実施
+    - name: Check after interface description debug #任意の実施
       ansible.builtin.debug:
         var: result.stdout_lines
 ```
@@ -566,21 +572,13 @@ $
 ```shell
 $ ansible-navigator run loop_exam_4.yml -i inventory.ini
 
-PLAY [exam4] ****************************************************************************************
+PLAY [Exam4] **********************************************************************************************************************
 
-TASK [check before interface description] ***********************************************************
-[WARNING]: Platform linux on host vyos01 is using the discovered Python interpreter at
-/usr/bin/python, but future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
-information.
+TASK [Check before interface description] *****************************************************************************************
 ok: [vyos01]
-[WARNING]: Platform linux on host vyos02 is using the discovered Python interpreter at
-/usr/bin/python, but future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
-information.
 ok: [vyos02]
 
-TASK [check before interface description debug] *****************************************************
+TASK [Check before interface description debug] ***********************************************************************************
 ok: [vyos01] => {
     "result.stdout_lines": [
         [
@@ -610,17 +608,19 @@ ok: [vyos02] => {
     ]
 }
 
-TASK [set descriptions] *****************************************************************************
+TASK [Set descriptions] ***********************************************************************************************************
+[WARNING]: To ensure idempotency and correct diff the input configuration lines should be similar to how they appear if present in
+the running configuration on device
 changed: [vyos01] => (item={'ethernet': 'eth1', 'description': 'loop_test1'})
 changed: [vyos02] => (item={'ethernet': 'eth1', 'description': 'loop_test1'})
 changed: [vyos01] => (item={'ethernet': 'eth2', 'description': 'loop_test2'})
 changed: [vyos02] => (item={'ethernet': 'eth2', 'description': 'loop_test2'})
 
-TASK [check after interface description] ************************************************************
+TASK [Check after interface description] ******************************************************************************************
 ok: [vyos02]
 ok: [vyos01]
 
-TASK [check after interface description debug] ******************************************************
+TASK [Check after interface description debug] ************************************************************************************
 ok: [vyos01] => {
     "result.stdout_lines": [
         [
@@ -650,9 +650,9 @@ ok: [vyos02] => {
     ]
 }
 
-PLAY RECAP ******************************************************************************************
+PLAY RECAP ************************************************************************************************************************
 vyos01                     : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-vyos02                     : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+vyos02                     : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
 $
 ```
