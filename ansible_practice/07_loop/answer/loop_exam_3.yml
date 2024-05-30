@@ -1,11 +1,11 @@
 ---
-- name: exam3
-  hosts: centos7
+- name: Exam3
+  hosts: ubuntu
   gather_facts: false
 
   tasks:
-    - name: make file
-      file:
+    - name: Make file
+      ansible.builtin.file:
         path: /tmp/{{ item }}
         state: touch
       loop:
