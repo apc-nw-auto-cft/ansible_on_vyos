@@ -4,13 +4,9 @@
   gather_facts: false
 
   tasks:
-    - name: 
-      vyos_command:
+    - name: vyos show ip route
+      vyos.vyos.vyos_command:
         commands:
           - show ip route
-#        register: result
-      when: inventory_hostname == 'vyos01' or inventory_hostname == 'vyos02'
 
-#    - name: Vyos debug show commands
-#      ansible.builtin.debug: 
-#        var: result.stdout_lines
+      when: inventory_hostname == 'vyos01' or inventory_hostname == 'vyos02'
