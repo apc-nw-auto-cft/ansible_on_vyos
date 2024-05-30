@@ -14,4 +14,5 @@
 
     - name: Vyos debug show commands
       ansible.builtin.debug:
-        var: result.stdout_lines
+#        var: result.stdout_lines
+        var: result.skip_reason
