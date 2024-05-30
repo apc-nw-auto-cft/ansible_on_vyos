@@ -457,7 +457,7 @@ $
 ```yaml
 ---
 - name: Exam3
-  hosts: centos7
+  hosts: ubuntu
   gather_facts: false
 
   tasks:
