@@ -14,4 +14,6 @@
         - 140
         - 233
         - 350
-      when: ■■■
+      loop_control:
+        extended: true
+      when: ansible_loop.index0 < 3
