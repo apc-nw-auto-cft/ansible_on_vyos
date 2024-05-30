@@ -1,5 +1,5 @@
 ---
-- name: exam1
+- name: Exam1
   hosts: localhost
   gather_facts: false
 
@@ -10,7 +10,7 @@
       - Peach
 
   tasks:
-    - name: debug fruits
-      debug:
+    - name: Debug fruits
+      ansible.builtin.debug:
         msg: "{{ item }}"
       loop: "{{ fruits }}"
