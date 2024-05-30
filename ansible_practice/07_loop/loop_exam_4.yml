@@ -1,0 +1,13 @@
+---
+- name: exam4
+  hosts: vyos
+  gather_facts: false
+
+  tasks:
+    - name: Set descriptions
+      vyos.vyos.vyos_config:
+        lines:
+          - set interfaces ethernet {{ item.ethernet }} description {{ item.description }}
+      loop:
+        - { ethernet: 'eth1', description: 'loop_test1' }
+        - { ethernet: 'eth2', description: 'loop_test2' }

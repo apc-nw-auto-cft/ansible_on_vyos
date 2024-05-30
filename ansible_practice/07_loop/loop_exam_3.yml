@@ -1,0 +1,16 @@
+---
+- name: exam3
+  hosts: ubuntu
+  gather_facts: false
+
+  vars:
+    file_names:
+      - loop_test1.txt
+      - loop_test2.txt
+
+  tasks:
+    - name: Make files
+      ansible.builtin.file:
+        path: /tmp/{{ item }}
+        state: touch
+      loop: "{{ file_names }}"
