@@ -1,7 +1,8 @@
 
 # day8 総合演習
 
-- [構成図]()を見て、以下の問いに答えなさい
+- 以下の構成図を見て、各問いに答えてください。
+![image](https://github.com/apc-nw-auto-cft/ansible_on_vyos/blob/main/others/general-practice1.png)
 
 ## 問題
 
