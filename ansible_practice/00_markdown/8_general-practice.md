@@ -11,14 +11,6 @@
 - 使用インベントリファイル：「/home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice」配下のinventory.ini
 - playbook作成先ディレクトリ：「/home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice」配下
 - playbook名：自由
-- 注意事項：
-  - Dockerコンテナを停止(またはEC2インスタンスを停止)する度に一部設定が消える(原因・解決方法調査中)  
-  よって本実習時はdockerコンテナを起動後、playbook (**container_setting.yml**) を実行すること。
-
-```shell
-# 改行せず入力してください
-ansible-navigator run -i /home/ec2-user/ansible_on_vyos/init_settings/inventory.ini /home/ec2-user/ansible_on_vyos/init_settings/container_setting.yml
-```
 
 ### 目的
 
@@ -74,15 +66,12 @@ ansible-navigator run -i /home/ec2-user/ansible_on_vyos/init_settings/inventory.
 
 - すべて講座で習った範囲で上記のplaybookを作成することができます
 - 講座で習っていない内容をplaybookに組み込むことも可能です
-- ブログもよいですが、最終的には同様の内容が書かれている  
-公式のAnsibleドキュメントと照らし合わせながら調べることをお勧めします。
-- 不明点などはslack or 質問管理表に記述いただければ助かります。
+- ブログもよいですが、最終的には同様の内容が書かれている公式のAnsibleドキュメントと照らし合わせながら調べることをお勧めします。
+- 不明点などはslackでご連絡いただければ助かります。
 
 <br>
 
 ### 総合演習の解説日とそれまでについて
 
-- 解説日：日程を改めてslackで調整させていただきます。  
-当日は発表(playbookの紹介)もしていただきたいと考えています
-- 解説日まで：演習を進めていただければと思います。日にちがいつもより空く予定なので、  
-進捗確認を適宜行わせていただきますのでその際は解答お願いいたします。
+- 解説日：6月20日(木) 当日は発表(playbookの紹介)もしていただきたいと考えています
+- 解説日まで：演習を進めていただければと思います。日にちがいつもより開くので、進捗確認を適宜行わせていただきますのでその際は解答お願いいたします。
