@@ -1,0 +1,113 @@
+---
+#- name: Exam2
+#  hosts: localhost
+#  gather_facts: false
+#  tasks:
+#  - name: 事前にログ保存用のディレクトリを作る
+#    ansible.builtin.file:
+#      path: /home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice{{ item }}
+#      state: directory 
+#      recurse: true 
+#      mode: "0755"
+#    loop:
+#    - /before/vyos01
+#    - /before/vyos02
+#    - /after/vyos01
+#    - /after/vyos02
+#
+# VRRPのプライオリティ変更
+- name: Exam2
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: 事前にログ保存用のディレクトリを作る
+    delegate_to: localhost
+    ansible.builtin.file:
+      path: /home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice{{ item }}
+      state: directory 
+      recurse: true 
+      mode: "0755"
+    loop:
+    - /before/{{ inventory_hostname  }}
+    - /after/{{ inventory_hostname }}
+    when: inventory_hostname in groups['vyos']
+  ##############################
+  # 事前動作確認
+  ##############################
+  # 事前のVRRPチェック
+  - name: 事前 vrrpの設定確認
+    vyos.vyos.vyos_command:
+      commands: 
+        - show vrrp
+    register: before_show_vrrp
+    when: inventory_hostname in groups['vyos']
+  - name: 事前 vrrpの設定出力
+    ansible.builtin.debug:
+      var: before_show_vrrp.stdout_lines
+    when: inventory_hostname in groups['vyos']
+  - name: 事前設定確認のエビデンス出力
+    ansible.builtin.copy:
+      content: "{{ before_show_vrrp.stdout }}"
+      dest: /home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice/before/{{ inventory_hostname }}/show_vrrp.log
+    delegate_to: 'localhost'
+    when: inventory_hostname in groups['vyos']
+  # 事前のトレースルートチェック
+  - name: 事前トレースルートの実行
+    ansible.builtin.shell:
+      cmd: traceroute 192.168.2.2
+    register: before_traceroute
+    when: inventory_hostname == 'host01'
+  - name: 事前トレースルートの出力
+    ansible.builtin.debug:
+      var: before_traceroute.stdout_lines
+    when: inventory_hostname == 'host01'
+  ##############################
+  # VRRP設定変更　
+  ##############################
+  - name: priotyの値設定
+    ansible.builtin.set_fact:
+      vrrp_priority: 50
+    when: inventory_hostname == 'vyos01' 
+  #- name: priotyの値設定バリデーションチェック
+  #  ansible.builtin.debug:
+  #    var: vrrp_priority
+  #  failed_when: vrrp_priority <= 0 or vrrp_priority >= 255
+  #  when: inventory_hostname == 'vyos01' 
+  - name: vrrpの設定確認
+    vyos.vyos.vyos_config:
+      lines:
+        - set high-availability vrrp group service_nw01 priority {{ vrrp_priority }}
+        - set high-availability vrrp group service_nw02 priority {{ vrrp_priority }}
+    when: inventory_hostname == 'vyos01' 
+    failed_when: vrrp_priority <= 0 or vrrp_priority >= 255
+    register: result_change_vrrp
+    ignore_errors: true
+  - name: vrrpの実行結果確認
+    ansible.builtin.debug:
+      msg: "{% if result_change_vrrp is succeeded %} succeeded {% else %} failed {% endif %}"
+    when: inventory_hostname == 'vyos01' 
+
+  ##############################
+  # 事後動作確認
+  ##############################
+  # 事後のVRRPチェック
+  - name: 事後 vrrpの設定確認
+    vyos.vyos.vyos_command:
+      commands: 
+        - show vrrp
+    register: after_show_vrrp
+    when: inventory_hostname in groups['vyos']
+  - name: 事後 vrrpの設定出力
+    ansible.builtin.debug:
+      var: after_show_vrrp.stdout_lines
+    when: inventory_hostname in groups['vyos']
+  # 事後のトレースルートチェック
+  - name: 事後トレースルートの実行
+    ansible.builtin.shell:
+      cmd: traceroute 192.168.2.2
+    register: after_traceroute
+    when: inventory_hostname == 'host01'
+  - name: 事後トレースルートの出力
+    ansible.builtin.debug:
+      var: after_traceroute.stdout_lines
+    when: inventory_hostname == 'host01'
