@@ -24,7 +24,7 @@ ansible-navigator:
     workdir: /tmp/
 
   ansible-lint:
-    config: ~/ansible-lint.yml
+    # config: ~/ansible-lint.yml
     lintables: ~/myproject/
 
   ansible-runner:
@@ -49,7 +49,7 @@ ansible-navigator:
 
   execution-environment:
     container-engine: docker
-    image: ghcr.io/apc-nw-auto-cft/ansible_on_vyos/ee:0.2
+    image: ghcr.io/apc-nw-auto-cft/ansible_on_vyos/ee:0.3
     pull:
       arguments:
         - "--tls-verify=false"
