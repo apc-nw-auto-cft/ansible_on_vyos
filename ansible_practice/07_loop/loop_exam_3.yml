@@ -1,0 +1,14 @@
+---
+- name: Exam3
+  hosts: ubuntu
+  gather_facts: false
+
+  tasks:
+    - name: Create file
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: touch
+
+      loop:
+        - /tmp/loop_test1.txt
+        - /tmp/loop_test2.txt

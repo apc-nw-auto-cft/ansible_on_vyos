@@ -1,0 +1,31 @@
+---
+- name: Exam4
+  hosts: vyos
+  gather_facts: false
+
+  tasks:
+    - name: Show interface before
+      vyos.vyos.vyos_command:
+        commands: show interfaces
+      register: output_before
+
+    - name: Debug interface before
+      ansible.builtin.debug:
+        var: output_before.stdout_lines
+
+    - name: Set descriptions
+      vyos.vyos.vyos_config:
+        lines:
+          - set interfaces ethernet {{ item.ethernet}} description {{ item.description }}
+      loop:
+        - { ethernet: 'eth1', description: 'loop_test1' }
+        - { ethernet: 'eth2', description: 'loop_test2' }
+
+    - name: Show interfaces after
+      vyos.vyos.vyos_command:
+        commands: show interfaces
+      register: output_after
+    
+    - name: Print interfaces after
+      ansible.builtin.debug:
+        var: output_after.stdout_lines
