@@ -1,0 +1,22 @@
+- name:  Exam2-1-0644-2
+  hosts: localhost
+  gather_facts: false
+  tasks:
+  - name: 事前にログ保存用のディレクトリを作る
+    ansible.builtin.file:
+      path: /home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice{{ item }}
+      state: directory 
+      mode: "0755"
+    loop:
+    - /before
+    - /after
+  - name: 事前にログ保存用のディレクトリを作る
+    ansible.builtin.file:
+      path: /home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice{{ item }}
+      state: directory 
+      mode: "0644"
+    loop:
+    - /before/vyos01
+    - /before/vyos02
+    - /after/vyos01
+    - /after/vyos02
