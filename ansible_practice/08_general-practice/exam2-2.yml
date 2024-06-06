@@ -1,0 +1,38 @@
+- name: Exam2-2
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: 事前の状態取得
+    vyos.vyos.vyos_command:
+      commands: 
+        - show interfaces
+    register: before_show
+    when: inventory_hostname in groups['vyos']
+  - name: 事前の状態保存
+    ansible.builtin.copy:
+      content: "{{ before_show.stdout }}"
+      dest: /home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice/before/{{ inventory_hostname }}/show.log
+    #delegate_to: 'localhost'
+    when: inventory_hostname in groups['vyos']
+  ############設定変更##############
+  - name: 設定変更
+    vyos.vyos.config:
+      lines:
+        - set interfaces ethernet "{{ item.ethernet }}" description "{{ item.description }}"
+    loop: 
+      - { ethernet: 'eth1', description: 'desc 1' }
+      - { ethernet: 'eth2', description: 'desc 2' }
+    when: inventory_hostname in groups['vyos']
+  ############動作確認##############
+  - name: 事後の状態取得
+    vyos.vyos.vyos_command:
+      commands: 
+        - show interfaces
+    register: after_show
+    when: inventory_hostname in groups['vyos']
+  - name: 事後の状態保存
+    ansible.builtin.copy:
+      content: "{{ after_show.stdout }}"
+      dest: /home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice/after/{{ inventory_hostname }}/show.log
+    #delegate_to: 'localhost'
+    when: inventory_hostname in groups['vyos']

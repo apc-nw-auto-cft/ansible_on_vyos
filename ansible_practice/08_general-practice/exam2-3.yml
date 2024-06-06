@@ -1,0 +1,69 @@
+---
+# VRRPのプライオリティ変更
+- name: Exam2-3
+  hosts: all
+  gather_facts: false
+  vars:
+    priority: 50
+  tasks:
+  # 事前のVRRPチェック
+  - name: 事前 vrrpの設定確認
+    vyos.vyos.vyos_command:
+      commands: 
+        - show vrrp
+    register: before_show_vrrp
+    when: inventory_hostname in groups['vyos']
+  - name: 事前 vrrpの設定出力
+    ansible.builtin.debug:
+      var: before_show_vrrp.stdout_lines
+    when: inventory_hostname in groups['vyos']
+  # 事前のトレースルートチェック
+  - name: 事前トレースルートの実行
+    ansible.builtin.shell:
+      cmd: traceroute 192.168.2.2
+    register: before_traceroute
+    when: inventory_hostname == 'host01'
+  - name: 事前トレースルートの出力
+    ansible.builtin.debug:
+      var: before_traceroute.stdout_lines
+    when: inventory_hostname == 'host01'
+  ##############################
+  # VRRP設定変更　
+  ##############################
+  - name: vrrpの設定変更
+    vyos.vyos.vyos_config:
+      lines:
+        - set high-availability vrrp group service_nw01 priority {{ priority }}
+        - set high-availability vrrp group service_nw02 priority {{ priority }}
+    when: inventory_hostname == 'vyos01' 
+    register: result_change_vrrp
+    ignore_errors: true
+  - name: vrrpの実行結果確認
+    ansible.builtin.debug:
+      msg: "{% if result_change_vrrp is succeeded %} succeeded {% else %} failed {% endif %}"
+    when: inventory_hostname == 'vyos01' 
+
+  ##############################
+  # 事後動作確認
+  ##############################
+  # 事後のVRRPチェック
+  - name: 事後 vrrpの設定確認
+    vyos.vyos.vyos_command:
+      commands: 
+        - show vrrp
+    register: after_show_vrrp
+    when: inventory_hostname in groups['vyos']
+  - name: 事後 vrrpの設定出力
+    ansible.builtin.debug:
+      var: after_show_vrrp.stdout_lines
+    when: inventory_hostname in groups['vyos']
+  # 事後のトレースルートチェック
+  - name: 事後トレースルートの実行
+    ansible.builtin.shell:
+      cmd: traceroute 192.168.2.2
+    register: after_traceroute
+    when: inventory_hostname == 'host01'
+  - name: 事後トレースルートの出力
+    ansible.builtin.debug:
+      var: after_traceroute.stdout_lines
+    when: inventory_hostname == 'host01'
