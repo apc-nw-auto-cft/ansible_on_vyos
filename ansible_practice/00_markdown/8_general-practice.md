@@ -1,7 +1,8 @@
 
 # day8 総合演習
 
-- [構成図]()を見て、以下の問いに答えなさい
+- 以下の構成図を見て、各問いに答えてください。
+![image](https://github.com/apc-nw-auto-cft/ansible_on_vyos/blob/main/others/general-practice1.png)
 
 ## 問題
 
@@ -10,14 +11,6 @@
 - 使用インベントリファイル：「/home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice」配下のinventory.ini
 - playbook作成先ディレクトリ：「/home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice」配下
 - playbook名：自由
-- 注意事項：
-  - Dockerコンテナを停止(またはEC2インスタンスを停止)する度に一部設定が消える(原因・解決方法調査中)  
-  よって本実習時はdockerコンテナを起動後、playbook (**container_setting.yml**) を実行すること。
-
-```shell
-# 改行せず入力してください
-ansible-navigator run -i /home/ec2-user/ansible_on_vyos/init_settings/inventory.ini /home/ec2-user/ansible_on_vyos/init_settings/container_setting.yml
-```
 
 ### 目的
 
@@ -44,7 +37,7 @@ ansible-navigator run -i /home/ec2-user/ansible_on_vyos/init_settings/inventory.
 - 内容：
   - １. localhostの「/home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice」配下に、  
         「/before/vyos01」 「/before/vyos02」「/after/vyos01」「/after/vyos02」のディレクトリを作成する(※loopディレクティブを使用すること)
-  - ２. パーミッションは「0644」で作成する
+  - ２. パーミッションは「0755」で作成する
   - ３. hosts: localhost で作成すること。
 
 <br>
@@ -52,9 +45,10 @@ ansible-navigator run -i /home/ec2-user/ansible_on_vyos/init_settings/inventory.
 2-2. 以下のplaybookを作成してください。
 
 - 内容：
-  - １. vyos01/vyos02でshowコマンドを実行する。(実行コマンドは何でも・何個でも可)
-  - ２. 2-2-1で確認した確認内容は実行結果に出力させる。
-  - ３. 2-2-1で確認した確認内容の実行結果を、「/before/vyos01」 「/before/vyos02」にテキストファイルで出力させる。
+  - １. vyos01/vyos02でshowコマンドを実行する。
+  - ２. 2-2-1で確認した実行結果を、「/before/vyos01」 「/before/vyos02」にそれぞれテキストファイルで出力させる。（ファイル名は自由）
+  - ３. vyos01/vyos02の設定を変更する何らかのコマンドを実行する。（実行コマンドは何でも・何個でも可。例．vrrp priority、description）
+  - ４．設定後も同様に、事後のshowコマンドを実行→「/after/vyos01」 「/after/vyos02」にそれぞれファイル出力させる。
 
 <br>
 
@@ -65,7 +59,7 @@ ansible-navigator run -i /home/ec2-user/ansible_on_vyos/init_settings/inventory.
   - ２. 2-3-1のタスクが成功したときに"succeeded"のメッセージを出力する。
   - ３. 2-3-1のタスクが失敗したときに"failed"のメッセージを出力する。
   - ４. 2-3-1のvrrp priority値が正常な場合と異常な場合に、2-3-2,2-3-3で  
-  想定通りのmessageが表示されることを確認する。なお、vrrp priorityの正常値は1-254の範囲。
+  想定通りのmessageが表示されることを確認する。なお、vrrp priorityの正常値は1-255の範囲。
 
 <br>
 
@@ -73,15 +67,12 @@ ansible-navigator run -i /home/ec2-user/ansible_on_vyos/init_settings/inventory.
 
 - すべて講座で習った範囲で上記のplaybookを作成することができます
 - 講座で習っていない内容をplaybookに組み込むことも可能です
-- ブログもよいですが、最終的には同様の内容が書かれている  
-公式のAnsibleドキュメントと照らし合わせながら調べることをお勧めします。
-- 不明点などはslack or 質問管理表に記述いただければ助かります。
+- ブログもよいですが、最終的には同様の内容が書かれている公式のAnsibleドキュメントと照らし合わせながら調べることをお勧めします。
+- 不明点などはslackでご連絡いただければ助かります。
 
 <br>
 
 ### 総合演習の解説日とそれまでについて
 
-- 解説日：日程を改めてslackで調整させていただきます。  
-当日は発表(playbookの紹介)もしていただきたいと考えています
-- 解説日まで：演習を進めていただければと思います。日にちがいつもより空く予定なので、  
-進捗確認を適宜行わせていただきますのでその際は解答お願いいたします。
+- 解説日：6月20日(木) 当日は発表(playbookの紹介)もしていただきたいと考えています
+- 解説日まで：演習を進めていただければと思います。日にちがいつもより開くので、進捗確認を適宜行わせていただきますのでその際は解答お願いいたします。
