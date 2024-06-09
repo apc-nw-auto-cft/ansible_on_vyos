@@ -4,16 +4,17 @@
   gather_facts: false
 
   tasks:
-    - name: Show interfaces description before
+    - name: Show interfaces before
       vyos.vyos.vyos_command:
         commands:
           - show interfaces
       register: result_before
 
-    - name: Write in text file in before_directory
+    - name: Output text file in before_directory
       ansible.builtin.copy:
-        content: "{{ result_before.stdout }}"
-        dest: "/home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice/before/{{ inventroy_hostname }}/show_interfaces_before.log"
+        content: "{{ result_before.stdout[0] }}"
+        dest: "/home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice/before/{{ inventory_hostname }}/\
+              show_interfaces_before.log"
         mode: '0644'
 
     - name: Set description on interfaces
@@ -22,14 +23,15 @@
           - set interfaces ethernet eth1 description general_exam_1
           - set interfaces ethernet eth2 description general_exam_2
 
-    - name: Show interfaces description after
+    - name: Show interfaces after
       vyos.vyos.vyos_command:
         commands:
           - show interfaces
       register: result_after
 
-    - name: Write in text file in after_directory
+    - name: Output text file in after_directory
       ansible.builtin.copy:
-        content: "{{ result_after.stdout }}"
-        dest: "/home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice/after/{{ inventroy_hostname }}/show_interfaces_after.log"
+        content: "{{ result_after.stdout[0] }}"
+        dest: "/home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice/after/{{ inventory_hostname }}/\
+              show_interfaces_after.log"
         mode: '0644'
