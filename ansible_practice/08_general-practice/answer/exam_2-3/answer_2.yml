@@ -1,0 +1,32 @@
+---
+- name: Answer 2 for exam 2-3
+  hosts: vyos01
+  gather_facts: false
+
+  tasks:
+    - name: Accept user input for vrrp priority
+      ansible.builtin.pause:
+        echo: true
+        prompt: "Please enter integer range 1-255 for vrrp priority."
+      register: result_accept_input
+      until: result_accept_input.user_input | int >= 1 and result_accept_input.user_input | int <= 255
+      retries: 2
+      delay: 3
+
+    - name: Change vrrp priority on vyos01
+      vyos.vyos.vyos_config:
+        lines:
+          - "set high-availability vrrp group service_nw01 priority {{ result_accept_input.user_input }}"
+          - "set high-availability vrrp group service_nw02 priority {{ result_accept_input.user_input }}"
+      register: result_change_priority
+      ignore_errors: true
+
+    - name: Debug success message
+      ansible.builtin.debug:
+        msg: "succeeded"
+      when: result_change_priority is succeeded
+
+    - name: Debug fail message
+      ansible.builtin.debug:
+        msg: "failed"
+      when: result_change_priority is failed
