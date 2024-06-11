@@ -7,3 +7,6 @@
     - name: Magic_variable debug
       ansible.builtin.debug:
         var: ansible_play_name
+#        var: inventory_hostname
+#        var: playbook_dir
+#        var: inventory_dir
