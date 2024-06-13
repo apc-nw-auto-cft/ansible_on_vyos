@@ -1,0 +1,19 @@
+---
+- name: Make directory for vyos01 and vyos02
+  hosts: localhost
+  gather_facts: false
+  
+  vars:
+    dir_names:
+      - /before/vyos01
+      - /before/vyos02
+      - /after/vyos01
+      - /after/vyos02
+
+  tasks:
+    - name: Make directory
+      ansible.builtin.file:
+        path: /home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice/{{ item }}
+        state: directory
+        mode: '0755'
+      loop: "{{ dir_names }}"
