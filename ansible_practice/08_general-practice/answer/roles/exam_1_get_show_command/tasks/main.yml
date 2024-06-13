@@ -1,0 +1,10 @@
+---
+- name: Get show commands
+  vyos.vyos.vyos_command:
+    commands:
+      - show vrrp
+  register: result
+
+- name: Debug show commands
+  ansible.builtin.debug:
+    var: result.stdout_lines[0]

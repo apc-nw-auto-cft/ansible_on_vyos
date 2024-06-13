@@ -17,8 +17,8 @@
     - name: Change priority of vrrp
       vyos.vyos.vyos_config:
         lines:
-          - "set high-availability vrrp group service_nw01 priority '50'"
-          - "set high-availability vrrp group service_nw02 priority '50'"
+          - set high-availability vrrp group service_nw01 priority 50
+          - set high-availability vrrp group service_nw02 priority 50
         save: true
       when: inventory_hostname == 'vyos01'
 
