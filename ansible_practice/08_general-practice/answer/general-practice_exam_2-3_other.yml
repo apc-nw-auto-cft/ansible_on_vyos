@@ -9,7 +9,9 @@
         echo: true
         prompt: "Please enter integer range 1-255 for vrrp priority."
       register: result_accept_input
-      until: result_accept_input.user_input | int >= 1 and result_accept_input.user_input | int <= 255
+      until:
+        - result_accept_input.user_input | int >= 1
+        - result_accept_input.user_input | int <= 255
       retries: 2
       delay: 3
 
