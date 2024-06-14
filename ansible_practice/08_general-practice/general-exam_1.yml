@@ -1,0 +1,16 @@
+- name: Exam2
+  hosts: vyos
+  gather_facts: false
+
+  tasks:
+    - name: set priority 
+      vyos.vyos.vyos_config:
+        lines:
+          - set high-availability vrrp group service_nw01 priority '150'
+        save: true
+
+    - name: get config
+      vyos.vyos.vyos_command:
+        command:
+          - show vrrp
+            
