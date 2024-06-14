@@ -1,0 +1,24 @@
+---
+- name: Exam2-2_other
+  hosts: vyos
+  gather_facts: false
+
+  tasks:
+    - name: Show commands and output text file in before_directory
+      ansible.builtin.import_role:
+        name: exam_2-2_show_and_output_config
+      vars:
+        before_or_after: "before"
+
+    - name: Set description on interfaces
+      vyos.vyos.vyos_config:
+        lines:
+          - set interfaces ethernet eth1 description general_exam_1
+          - set interfaces ethernet eth2 description general_exam_2
+        save: true
+
+    - name: Show commands and output text file in after_directory
+      ansible.builtin.import_role:
+        name: exam_2-2_show_and_output_config
+      vars:
+        before_or_after: "after"
