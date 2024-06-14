@@ -1,0 +1,16 @@
+---
+- name: Exam1
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    fruits:
+      - Apple
+      - Banana
+      - Peach
+
+  tasks:
+    - name: Debug fruits
+      ansible.builtin.debug:
+        msg: "{{ item }}" #解答
+      loop: "{{ fruits }}" #解答
