@@ -1,0 +1,16 @@
+---
+- name: Sample
+  hosts: vyos01
+  gather_facts: false
+
+  tasks:
+    - name: Get vyos_command
+      vyos.vyos.vyos_command:
+        commands:
+          - show interfaces
+          - show ip route
+      register: vyos01_show_command
+
+    - name: Debug vyos_show_command
+      ansible.builtin.debug:
+        var: vyos01_show_command

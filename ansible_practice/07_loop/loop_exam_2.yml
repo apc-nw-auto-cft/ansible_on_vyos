@@ -14,4 +14,4 @@
         - 140
         - 233
         - 350
-      when: ■■■
+      when: item == 10 or item == 25 or item == 350 

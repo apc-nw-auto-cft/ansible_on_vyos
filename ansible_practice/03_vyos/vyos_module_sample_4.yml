@@ -1,0 +1,15 @@
+---
+- name: Sample
+  hosts: vyos
+  gather_facts: false
+
+  tasks:
+    - name: Check interfaces description
+      vyos.vyos.vyos_command:
+        commands:
+          - show interfaces
+
+    - name: Setting interfaces description
+      vyos.vyos.vyos_config:
+        lines:
+          - delete interfaces ethernet eth description 
