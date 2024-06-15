@@ -1,0 +1,32 @@
+---
+- name: Exam2-3
+  hosts: vyos01
+  gather_facts: false
+
+  tasks:
+    - name: Set VRRP priority safely
+      block:
+        - name: Set priority
+          vyos.vyos.vyos_config:
+            lines:
+              - set high-availability vrrp group GROUP1 priority {{ vrrp_priority }}
+          vars:
+            vrrp_priority: 50
+      rescue:
+        - name: Handle error
+          ansible.builtin.debug:
+            msg: "failed"
+      always:
+        - name: Task completed
+          ansible.builtin.debug:
+            msg: "Priority change task completed"
+
+    - name: Verify priority change
+      vyos.vyos.vyos_command:
+        commands:
+          - show vrrp
+      register: vrrp_check
+
+    - name: Output result
+      ansible.builtin.debug:
+        msg: "{{ 'succeeded' if (vrrp_check.stdout | search('Priority: 50')) else 'failed' }}"
