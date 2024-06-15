@@ -37,7 +37,7 @@
 - 内容：
   - １. localhostの「/home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice」配下に、  
         「/before/vyos01」 「/before/vyos02」「/after/vyos01」「/after/vyos02」のディレクトリを作成する(※loopディレクティブを使用すること)
-  - ２. パーミッションは「0644」で作成する
+  - ２. パーミッションは「0755」で作成する
   - ３. hosts: localhost で作成すること。
 
 <br>
@@ -45,9 +45,10 @@
 2-2. 以下のplaybookを作成してください。
 
 - 内容：
-  - １. vyos01/vyos02でshowコマンドを実行する。(実行コマンドは何でも・何個でも可)
-  - ２. 2-2-1で確認した確認内容は実行結果に出力させる。
-  - ３. 2-2-1で確認した確認内容の実行結果を、「/before/vyos01」 「/before/vyos02」にテキストファイルで出力させる。
+  - １. vyos01/vyos02でshowコマンドを実行する。
+  - ２. 2-2-1で確認した実行結果を、「/before/vyos01」 「/before/vyos02」にそれぞれテキストファイルで出力させる。（ファイル名は自由）
+  - ３. vyos01/vyos02の設定を変更する何らかのコマンドを実行する。（実行コマンドは何でも・何個でも可。例．vrrp priority、description）
+  - ４．設定後も同様に、事後のshowコマンドを実行→「/after/vyos01」 「/after/vyos02」にそれぞれファイル出力させる。
 
 <br>
 
@@ -58,7 +59,7 @@
   - ２. 2-3-1のタスクが成功したときに"succeeded"のメッセージを出力する。
   - ３. 2-3-1のタスクが失敗したときに"failed"のメッセージを出力する。
   - ４. 2-3-1のvrrp priority値が正常な場合と異常な場合に、2-3-2,2-3-3で  
-  想定通りのmessageが表示されることを確認する。なお、vrrp priorityの正常値は1-254の範囲。
+  想定通りのmessageが表示されることを確認する。なお、vrrp priorityの正常値は1-255の範囲。
 
 <br>
 
