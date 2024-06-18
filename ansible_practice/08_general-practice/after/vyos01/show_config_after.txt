@@ -1,0 +1,1 @@
+["Name          Interface      VRID  State      Priority  Last Transition\n------------  -----------  ------  -------  ----------  -----------------\nservice_nw01  eth1             10  MASTER          100  10s\nservice_nw02  eth2             20  MASTER          100  10s"]
