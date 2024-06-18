@@ -1,0 +1,17 @@
+---
+- name: 2-1
+  hosts: localhost
+  gather_facts: false
+
+
+  tasks:
+    - name: make dir
+      ansible.builtin.file:
+        path: /home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice{{ item.dirname }}
+        state: directory
+        mode: '0755'
+      loop: 
+        - { dirname: '/before/vyos01' }
+        - { dirname: '/before/vyos02' }
+        - { dirname: '/after/vyos01' }
+        - { dirname: '/after/vyos02' }

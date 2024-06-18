@@ -1,0 +1,62 @@
+---
+- name: 2-2
+  hosts: vyos
+  #gather_facts: false
+
+  tasks:
+    - name: show config before
+      vyos_command:
+        commands:
+        - show configuration command
+      register: result_before
+
+    - name: add DNS
+      vyos_config:
+        lines:
+          - set system name-server {{ item.publicdns}}
+        register: vyos_add-publicdns
+#Quad9 Public DNS mainstream
+        loop: 
+        - { publicdns: '9.9.9.9' }
+        - { publicdns: '149.112.112.112' }
+        - { publicdns: '2620:fe::fe' }
+        - { publicdns: '2620:fe::9' }
+
+    - name: log_touch_before
+      ansible.builtin.file:
+        path: /home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice/before/{{ item.host }}/vyos01_{{ ansible_date_time.iso8601_basic_short }}.log
+        state: touch 
+        loop: 
+        - { host: 'vyos01' }
+        - { host: 'vyos02' }
+
+    - name:  log_writing_before
+      ansible.builtin.copy:
+        content: "{{ result_before.stdout[0] }}"
+        dest: /home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice/before/{{ item.host }}/vyos01_{{ ansible_date_time.iso8601_basic_short }}.log
+        loop: 
+        - { host: 'vyos01' }
+        - { host: 'vyos02' }
+
+    - name: show config after
+      vyos_command:
+        commands:
+        - show configuration command
+      register: result-after
+
+    - name: log_touch_after
+      ansible.builtin.file:
+        path: /home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice/after/{{ item.host }}/vyos01_{{ ansible_date_time.iso8601_basic_short }}.log
+        state: touch 
+        loop: 
+        - { host: 'vyos01' }
+        - { host: 'vyos02' }
+
+    - name:  log_writing_after
+      ansible.builtin.copy:
+        content: "{{ result-after.stdout[0] }}"
+        dest: /home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice/after/{{ item.host }}/vyos01_{{ ansible_date_time.iso8601_basic_short }}.log
+        loop: 
+        - { host: 'vyos01' }
+        - { host: 'vyos02' }
+
