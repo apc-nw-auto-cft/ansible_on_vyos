@@ -1,0 +1,44 @@
+---
+- name: Configure VRRP priority on vyos01
+  hosts: vyos01
+  gather_facts: false
+
+  tasks:
+    - name: Pre-check VRRP status on vyos01
+      vyos.vyos.vyos_command:
+        commands:
+          - show vrrp
+      register: vyos_show_vrrp
+    
+    - name: Debug vyos_show_vrrp_before
+      ansible.builtin.debug:
+        var: vyos_show_vrrp
+
+    - name: Set VRRP priority on vyos01
+      vyos.vyos.vyos_config:
+        lines:
+          - set high-availability vrrp group service_nw01 priority '300'
+          - set high-availability vrrp group service_nw02 priority '300' 
+        save: true
+      register: result
+      ignore_errors: true
+
+    - name: VRRP success msg
+      ansible.builtin.debug:
+        msg: "succeeded"
+      when: result is succeeded
+
+    - name: VRRP failed msg
+      ansible.builtin.debug:
+        msg: "failed"
+      when: result is not succeeded
+
+    - name: Post-check VRRP status on vyos01
+      vyos.vyos.vyos_command:
+        commands:
+          - show vrrp
+      register: vyos_show_vrrp
+    
+    - name: Debug vyos_show_vrrp_after
+      ansible.builtin.debug:
+        var: vyos_show_vrrp
