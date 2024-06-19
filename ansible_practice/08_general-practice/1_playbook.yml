@@ -1,0 +1,32 @@
+---
+- name: vrrp change priority
+  hosts: vyos
+  gather_facts: false
+
+  tasks:
+    - name: Before show vrrp  # 事前：show vrrp 出力結果を変数に格納
+      vyos.vyos.vyos_command:
+        commands:
+        - show vrrp
+      register: vyos_show_vrrp1
+
+    - name: Before vyos_show_command  # 事前：実行結果を出力
+      ansible.builtin.debug:
+        var: vyos_show_vrrp1.stdout_lines
+
+    - name: Set Change priority
+      vyos.vyos.vyos_config:
+        lines:
+          - set high-availability vrrp group service_nw01 priority '50' # vyos01のshow configuration commandsから変更部分を選択
+        save: true
+
+    - name: After show vrrp  # 事後：show vrrp 出力結果を変数に格納
+      vyos.vyos.vyos_command:
+        commands:
+        - show vrrp
+      register: vyos_show_vrrp2
+
+    - name: After vyos_show_command  # 事後：実行結果を出力
+      ansible.builtin.debug:
+        var: vyos_show_vrrp2.stdout_lines
+
