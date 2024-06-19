@@ -1,5 +1,5 @@
 ---
-- name: sample1
+- name: Sample1_vars
   hosts: localhost
   gather_facts: false
 
@@ -7,6 +7,6 @@
     test: "Hello Ansible!"
 
   tasks:
-    - name: sample1 debug vars
-      debug:
+    - name: Setting vars debug
+      ansible.builtin.debug:
         var: test

@@ -419,16 +419,16 @@ $ poetry shell
   gather_facts: false
 
   vars:
-    var_message: Hello message!
+    var1: Hello message!
 
   tasks:
     - name: Debug msg
       ansible.builtin.debug:
         msg: Hello Ansible!
 
-    - name: Debug var_message
+    - name: Debug var1
       ansible.builtin.debug:
-        var: var_message
+        var: var1
 ```
 
 ### 4.playbookを実行
@@ -448,9 +448,9 @@ ok: [localhost] => {
     "msg": "Hello Ansible!"
 }
 
-TASK [Debug var_message] **************************************************************************************
+TASK [Debug var1] **************************************************************************************
 ok: [localhost] => {
-    "var_message": "Hello message!"
+    "var1": "Hello message!"
 }
 
 PLAY RECAP ****************************************************************************************************

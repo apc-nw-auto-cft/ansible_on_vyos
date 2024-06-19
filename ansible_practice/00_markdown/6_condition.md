@@ -22,7 +22,7 @@
 - whenディレクティブを使用する例
   - 特定の条件に当てはまるタスクのみ実行したい時
   - 特定の条件に当てはまるタスクのみスキップしたい時 ...etc
-- whenディレクティブを使用するときは、比較演算子・論理演算子・in演算子・in演算子の条件式を用いる。
+- whenディレクティブを使用するときは、比較演算子・論理演算子・in演算子・is演算子の条件式を用いる。
 
 - whenディレクティブのAnsible documentは[こちら](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_conditionals.html)
 
@@ -39,23 +39,24 @@
 | X > Y | X の値が Y の値より大きいとき |
 | X >= Y | X の値が Y の値より大きいか等しいとき |
 
-- 以下は、実行対象ノードが「host01」だった場合、httpdをインストールするplaybookである。
+- 以下は、実行対象ノードが「host01」だった場合、apache2をインストールするplaybookである。
 
 ```yaml
 ---
-- name: sample
+- name: Sample for comparison-operator
   hosts: host01
   gather_facts: false
 
   tasks:
-    - name: sample1
-      ansible.builtin.yum: 
-        name: httpd
-        state: latest
+    - name: Install apache2
+      ansible.builtin.apt:
+        name: apache2
+        state: present
       when: inventory_hostname == 'host01'
+
 ```
 
-- yumモジュール・・・パッケージの管理（インストール、更新、削除など）をする
+- aptモジュール・・・パッケージの管理（インストール、更新、削除など）をする
 
 ### 論理演算子でのwhenディレクティブの使用例
 
@@ -65,20 +66,21 @@
 | 条件X and 条件Y | 条件X と条件Y がともに True のとき |
 | 条件X or 条件Y | 条件X か条件Y のどちらかが True のとき |
 
-- 以下は、実行対象ノードが「host01」か「host02」だった場合、httpdをインストールするplaybookである。
+- 以下は、実行対象ノードが「host01」か「host02」だった場合、apache2をインストールするplaybookである。
 
 ```yaml
 ---
-- name: sample
+- name: Sample for logical-operator
   hosts: host01
   gather_facts: false
 
   tasks:
-    - name: sample2
-      ansible.builtin.yum: 
-        name: httpd
-        state: latest
+    - name: Install apache2
+      ansible.builtin.apt:
+        name: apache2
+        state: present
       when: inventory_hostname == 'host01' or inventory_hostname == 'host02'
+
 ```
 
 ### in演算子でのwhenディレクティブの使用例
@@ -88,20 +90,21 @@
 | A in [X, Y, Z] | A と同じ値が X, Y, Z の中にあるとき |
 | A not in [X, Y, Z] | A と同じ値が X, Y, Z の中にないとき |
 
-- 以下は、実行対象ノードがリストに存在する「host01」か「host02」だった場合、httpdをインストールするplaybookである。
+- 以下は、実行対象ノードがリストに存在する「host01」か「host02」だった場合、apache2をインストールするplaybookである。
 
 ```yaml
 ---
-- name: sample
+- name: Sample for in-operator
   hosts: host01
   gather_facts: false
 
   tasks:
-    - name: sample3
-      ansible.builtin.yum: 
-        name: httpd
-        state: latest
-      when: inventory_hostname in ['host01','host02']
+    - name: Install apache2
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+      when: inventory_hostname in ['host01', 'host02']
+
 ```
 
 ### is演算子でのwhenディレクティブの使用例
@@ -111,33 +114,34 @@
 | A is B | AがBの状態であるとき |
 | A is not B | AがBの状態でないとき |
 
-- 以下は、hostにhttpdインストールを実施し、httpdインストールが成功した場合「yum httpd succeess!!」、  
-httpdインストールが失敗した場合「yum httpd error!!」というメッセージを出力するplaybookである
-- httpdインストールが失敗してもplaybookが続行されるように「ignore_errors: true」を記述
+- 以下は、host01にapache2インストールを実施し、apache2インストールが成功した場合「apt apache2 succeess!!」、  
+apache2インストールが失敗した場合「apt apache2 error!!」というメッセージを出力するplaybookである
+- apache2インストールが失敗してもplaybookが続行されるように「ignore_errors: true」を記述
 
 ```yaml
 ---
-- name: sample
-  hosts: host
+- name: Sample for is-operator
+  hosts: host01
   gather_facts: false
 
   tasks:
-    - name: sample4
-      ansible.builtin.yum: 
-        name: httpd
-        state: latest
+    - name: Install apache2
+      ansible.builtin.apt:
+        name: apache2
+        state: present
       register: result
       ignore_errors: true
-      
-    - name: yum httpd success msg
+
+    - name: Apt apache2 success msg
       ansible.builtin.debug:
-        msg: "yum httpd succeess!!"
+        msg: "apt apache2 succeess!!"
       when: result is succeeded
 
-    - name: yum httpd error msg
+    - name: Apt apache2 error msg
       ansible.builtin.debug:
-        msg: "yum httpd error!!"
+        msg: "apt apache2 error!!"
       when: result is not succeeded
+
 ```
 
 <br>
@@ -182,11 +186,11 @@ ansible_connection=network_cli
 ansible_user=vyos
 ansible_password=vyos
 
-[centos7]
+[ubuntu]
 host01 ansible_host=10.0.0.4
 host02 ansible_host=10.0.0.5
 
-[centos7:vars]
+[ubuntu:vars]
 ansible_user=root
 ansible_password=test_password
 ```
@@ -200,12 +204,12 @@ ansible_password=test_password
 
 ```yaml
 ---
-- name: sample1
+- name: Sample1
   hosts: vyos
   gather_facts: false
 
   tasks:
-    - name: vyos01 only show commands
+    - name: Vyos01 only show commands
       vyos.vyos.vyos_command:
         commands: 
           - show ip route
@@ -213,7 +217,7 @@ ansible_password=test_password
       register: result
       when: inventory_hostname == 'vyos01'
 
-    - name: vyos debug show commands
+    - name: Vyos debug show commands
       ansible.builtin.debug: 
         var: result.stdout_lines
 
@@ -222,22 +226,19 @@ ansible_password=test_password
 ### 5.playbookを実行
 
 - 実行対象ノード「vyos01」のみ「show ip route」「show interface」を実行
-- 実行対象ノード「vyos02」は「show ip route」「show interface」を実行していないので、  
+- 実行対象ノード「vyos02」は「show ip route」「show interface」を実行していない(”stdout_lines”というキーがない)ので、  
 実行結果をdebugしようとするとエラー出力される。
 
 ```shell
 $ ansible-navigator run when_sample_1.yml -i inventory.ini
 
-PLAY [sample1] ********************************************************************************************
+PLAY [Sample1] ********************************************************************************************
 
-TASK [vyos01 only show commands] **************************************************************************
+TASK [Vyos01 only show commands] **************************************************************************
 skipping: [vyos02]
-[WARNING]: Platform linux on host vyos01 is using the discovered Python interpreter at /usr/bin/python,
-but future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
 ok: [vyos01]
 
-TASK [vyos debug show commands] ***************************************************************************
+TASK [Vyos debug show commands] ***************************************************************************
 ok: [vyos01] => {
     "result.stdout_lines": [
         [
@@ -247,21 +248,21 @@ ok: [vyos01] => {
             "       F - PBR, f - OpenFabric,",
             "       > - selected route, * - FIB route, q - queued, r - rejected, b - backup",
             "",
-            "K>* 0.0.0.0/0 [0/0] via 10.0.0.1, eth0, 00:00:17",
-            "C>* 10.0.0.0/24 is directly connected, eth0, 00:00:17",
-            "C * 192.168.1.0/24 is directly connected, eth1, 00:00:07",
-            "C>* 192.168.1.0/24 is directly connected, eth1, 00:00:17",
-            "C * 192.168.2.0/24 is directly connected, eth2, 00:00:07",
-            "C>* 192.168.2.0/24 is directly connected, eth2, 00:00:17"
+            "K>* 0.0.0.0/0 [0/0] via 10.0.0.1, eth0, 00:00:26",
+            "C>* 10.0.0.0/24 is directly connected, eth0, 00:00:26",
+            "C * 192.168.1.0/24 is directly connected, eth1, 00:00:14",
+            "C>* 192.168.1.0/24 is directly connected, eth1, 00:00:26",
+            "C * 192.168.2.0/24 is directly connected, eth2, 00:00:14",
+            "C>* 192.168.2.0/24 is directly connected, eth2, 00:00:26"
         ],
         [
             "Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down",
             "Interface        IP Address                        S/L  Description",
             "---------        ----------                        ---  -----------",
             "eth0             10.0.0.2/24                       u/u  ",
-            "eth1             192.168.1.252/24                  u/u  vyos_config-test1",
+            "eth1             192.168.1.252/24                  u/u  ",
             "                 192.168.1.254/24                       ",
-            "eth2             192.168.2.252/24                  u/u  vyos_config-test2",
+            "eth2             192.168.2.252/24                  u/u  ",
             "                 192.168.2.254/24                       ",
             "lo               127.0.0.1/8                       u/u"
         ]
@@ -287,7 +288,7 @@ $
 ## condition(条件分岐)についてのまとめ
 
 - 条件分岐をさせるときは、whenディレクティブを使用する。
-- 比較演算子、論理演算子、in演算子、is演算子などの条件式を用いて、whenディレクティブが使用されている。
+- whenディレクティブに条件を指定するときは、比較演算子、論理演算子、in演算子、is演算子などの条件式を用いる。
 
 <br>
 <br>
@@ -308,12 +309,12 @@ $
 
 ```yaml
 ---
-- name: exam1
+- name: Exam1
   hosts: all
   gather_facts: false
 
   tasks:
-    - name: 
+    - name: Vyos show configuration
       vyos.vyos.vyos_command:
         commands:
           - show configuration
@@ -332,14 +333,14 @@ $
 
 ```yaml
 ---
-- name: exam2
+- name: Exam2
   hosts: all
 
   tasks:
-    - name: exam2 playbook
+    - name: Exam2 playbook
       ansible.builtin.debug:
         msg: "exam2 playbook test!!"
-      when: "'RedHat' in ansible_distribution or 'CentOS' in ansible_distribution"
+      when: "'RedHat' in ansible_distribution or 'Ubuntu' in ansible_distribution"
 ```
 
 <br>
@@ -371,7 +372,7 @@ $
 - playbook名：「when_exam_4.yml」で作成
 - 実行対象ノード： hosts: all とすること。
 - 処理内容：
-  - host01の「/tmp」配下に「test_exam4.txt」を作成
+  - host01の「/tmp」配下に「test_exam4.txt」を作成(権限は644)
   - 「test_exam4.txt」の作成に成功したら、「make success text!」というメッセージを出力させる。
 
 <br>
@@ -387,12 +388,12 @@ $
 
 ```yaml
 ---
-- name: exam1
+- name: Exam1
   hosts: all
   gather_facts: false
 
   tasks:
-    - name: 
+    - name: Vyos show configuration
       vyos.vyos.vyos_command:
         commands:
           - show configuration
@@ -405,7 +406,7 @@ $
 
 ---
 
-### A2. 正解：「実行対象ノードのOSがRedHatかCentOSだった場合、「exam2 playbook test!!」というメッセージを出力させる。」
+### A2. 正解：「実行対象ノードのOSがRedHatかUbuntuだった場合、「exam2 playbook test!!」というメッセージを出力させる。」
 
 - ansible_distribution（ファクト変数） には、実行対象ノードのOS情報が格納されている
 
@@ -421,12 +422,12 @@ $
 
 ```yaml
 ---
-- name: exam3
+- name: Exam3
   hosts: all
   gather_facts: false
 
   tasks:
-    - name: vyos show ip route
+    - name: Vyos show ip route
       vyos.vyos.vyos_command:
         commands:
           - show ip route
@@ -438,18 +439,12 @@ $
 ```shell
 $ ansible-navigator run answer/when_exam_3.yml -i inventory.ini
 
-PLAY [exam3] **********************************************************************************************
+PLAY [Exam3] **********************************************************************************************
 
-TASK [vyos show ip route] *********************************************************************************
-skipping: [host02]
+TASK [Vyos show ip route] *********************************************************************************
 skipping: [host01]
-[WARNING]: Platform linux on host vyos02 is using the discovered Python interpreter at /usr/bin/python,
-but future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+skipping: [host02]
 ok: [vyos02]
-[WARNING]: Platform linux on host vyos01 is using the discovered Python interpreter at /usr/bin/python,
-but future installation of another Python interpreter could change this. See
-https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
 ok: [vyos01]
 
 PLAY RECAP ************************************************************************************************
@@ -473,19 +468,20 @@ $
 
 ```yaml
 ---
-- name: exam4
+- name: Exam4
   hosts: all
   gather_facts: false
 
   tasks:
-    - name: make text file
+    - name: Make text file
       ansible.builtin.file:
         path: /tmp/test_exam4.txt
         state: touch
+        mode: '0644'
       register: result
       when: inventory_hostname == 'host01'
 
-    - name: debug success msg
+    - name: Debug success msg
       ansible.builtin.debug:
         msg: "make success text!"
       when: inventory_hostname == 'host01' and result is succeeded
@@ -496,20 +492,20 @@ $
 ```shell
 $ ansible-navigator run answer/when_exam_4.yml -i inventory.ini
 
-PLAY [exam4] **********************************************************************************************
+PLAY [Exam4] **********************************************************************************************
 
-TASK [make text file] *************************************************************************************
-skipping: [vyos02]
+TASK [Make text file] *************************************************************************************
 skipping: [vyos01]
+skipping: [vyos02]
 skipping: [host02]
 changed: [host01]
 
-TASK [debug success msg] **********************************************************************************
+TASK [Debug success msg] **********************************************************************************
+skipping: [vyos01]
 skipping: [vyos02]
 ok: [host01] => {
     "msg": "make success text!"
 }
-skipping: [vyos01]
 skipping: [host02]
 
 PLAY RECAP ************************************************************************************************
