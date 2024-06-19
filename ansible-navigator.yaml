@@ -38,8 +38,8 @@ ansible-navigator:
   collection-doc-cache-path: /tmp/cache.db
 
   color:
-    enable: False
-    osc4: False
+    enable: true
+    osc4: true
 
   # editor:
   #   command: vim_from_setting
