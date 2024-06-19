@@ -1,0 +1,15 @@
+---
+- name: 08_general-practice
+  hosts: vyos
+  gather_facts: false
+  tasks:
+    # ルート変更
+    - include_tasks: general-practice_exam_1_other2.yml
+    # パスを掘る
+    - include_tasks: general-practice_exam_2-1_other2.yml
+    # ログ取得
+    - include_tasks: general-practice_exam_2-2_other2.yml
+    # メッセージ確認
+    - include_tasks: general-practice_exam_2-3_other2.yml
+    # ロールバック
+    - include_tasks: rollback_routing.yml
