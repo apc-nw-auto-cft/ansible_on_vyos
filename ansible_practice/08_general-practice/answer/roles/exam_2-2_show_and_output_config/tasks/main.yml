@@ -1,0 +1,13 @@
+---
+- name: Show commands
+  vyos.vyos.vyos_command:
+    commands:
+      - show interfaces
+  register: result
+
+- name: Output text file in directory
+  ansible.builtin.copy:
+    content: "{{ result.stdout[0] }}"
+    dest: "/home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice/{{ before_or_after }}/{{ inventory_hostname }}\
+          /show_interfaces_{{ before_or_after }}_{{ now(false, '%Y%m%d%H%M%S') }}.log"
+    mode: '0644'
