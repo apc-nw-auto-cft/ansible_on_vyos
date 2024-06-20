@@ -15,12 +15,12 @@
         var: vyos_show_vrrp
 
     - name: Set VRRP priority on vyos01 to 50
-      when: inventory_hostname == "vyos01"
       vyos.vyos.vyos_config:
         lines:
-          - set high-availability vrrp group service_nw01 priority '50'
-          - set high-availability vrrp group service_nw02 priority '50' 
+          - set high-availability vrrp group service_nw01 priority 50
+          - set high-availability vrrp group service_nw02 priority 50
         save: true
+      when: inventory_hostname == "vyos01"
 
     - name: Post-check VRRP status on vyos01 and vyos02
       vyos.vyos.vyos_command:

@@ -1,1 +1,1 @@
-["Name          Interface      VRID  State      Priority  Last Transition\n------------  -----------  ------  -------  ----------  -----------------\nservice_nw01  eth1             10  BACKUP          100  6m55s\nservice_nw02  eth2             20  BACKUP          100  6m55s"]
+["Name          Interface      VRID  State      Priority  Last Transition\n------------  -----------  ------  -------  ----------  -----------------\nservice_nw01  eth1             10  BACKUP           50  11m3s\nservice_nw02  eth2             20  BACKUP           50  11m3s"]
