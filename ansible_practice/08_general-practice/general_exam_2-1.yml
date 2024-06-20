@@ -6,11 +6,11 @@
   tasks:
     - name: Make directories
       ansible.builtin.file:
-        path: "/home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice/{{ item.parent }}/{{ item.host }}"
+        path: "/home/ec2-user/ansible_on_vyos/ansible_practice/08_general-practice/{{ item }}"
         state: directory
         mode: '0755'
-      with_items:
-        - { parent: 'before', host: 'vyos01' }
-        - { parent: 'before', host: 'vyos02' }
-        - { parent: 'after', host: 'vyos01' }
-        - { parent: 'after', host: 'vyos02' }
+      loop:
+        - before/vyos01
+        - before/vyos02
+        - after/vyos01
+        - after/vyos02
