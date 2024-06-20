@@ -1,0 +1,40 @@
+---
+# VRRPのプライオリティ変更
+- name: Exam2-3
+  hosts: all
+  gather_facts: false
+  vars:
+    priority: 50
+
+  tasks:
+  - name: 
+    vyos.vyos.vyos_command:
+      commands: show vrrp
+        - show vrrp detail | grep "Total priority"
+    register: before_show_vrrp
+    when: inventory_hostname in ['vyos01','vyos02']
+
+  - name:
+    ansible.builtin.debug:
+      var: before_show_vrrp.stdout_lines
+    when: inventory_hostname in ['vyos01','vyos02']
+
+  - name: 
+      vyos_config:
+        lines:
+          - set high-availability vrrp group {{item.service_name}} priority {{item.vrrp_priority}}
+      when: inventory_hostname in ['vyos01']
+      loop: 
+        - { service_name: 'service_nw01', vrrp_priority: '50' }
+        - { service_name: 'service_nw02', vrrp_priority: '50' }
+      ignore_error = true
+
+    - name: priority debug1
+      ansible.builtin.debug:
+        msg: "{{ succeeded }}"
+      when: result is succeeded
+
+    - name: priority debug2
+      ansible.builtin.debug:
+        msg: "{{ failed }}"
+      when: result is not succeeded

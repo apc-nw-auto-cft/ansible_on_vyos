@@ -1,5 +1,15 @@
-- hosts: localhost
+- hosts: vyos01
   tasks:
-      - debug: var=ansible_date_time
+      #- debug: var=ansible_date_time
 
-      - debug: msg="{{ ansible_date_time.iso8601_basic_short }}"
+      #- debug: msg="{{ ansible_date_time.iso8601_basic_short }}"
+
+      - name: show config before
+        vyos.vyos.vyos_command:
+          commands:
+          - show configuration command
+        register: result_before
+
+      - name: before_priority_chk
+        debug:
+          var: result_before.stdout_lines
