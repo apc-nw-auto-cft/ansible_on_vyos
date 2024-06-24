@@ -1,0 +1,34 @@
+---
+- name: default
+  hosts: vyos01
+  gather_facts: false
+
+  tasks:
+  
+    - name: before show vrf
+      vyos_command:
+        commands: "show vrf {{ item.vrf | default(omit) }}"
+      register: result
+
+    - name: debug result
+      debug:
+        var: result.stdout_lines
+
+    - name: config
+      vyos_config:
+        lines:
+          - set vrf name test1
+          - set vrf name test1 table 100
+
+    - name: after show vrf
+      vyos_command:
+        commands: "show vrf {{ item.vrf | default(omit) }}"
+      vars:
+        vrf_name:
+          - vrf: "test1"
+      register: result
+
+    - name: debug result
+      debug:
+        var: result.stdout_lines
+        ##omitだとできなかった。
