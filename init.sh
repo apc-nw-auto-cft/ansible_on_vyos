@@ -11,6 +11,9 @@ poetry config virtualenvs.in-project true
 # install python pkgs by poetry
 poetry install --no-root -C ~/ansible_on_vyos/
 
+# poetry shellが使用できるようにする
+poetry self add poetry-plugin-shell
+
 # https://qiita.com/DQNEO/items/da5df074c48b012152ee
 
 # dockerグループがなければ作る
